@@ -111,7 +111,6 @@
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="CubeTransform.cpp" />
     <ClCompile Include="geometry.cpp" />
-    <ClCompile Include="LoadSituation.cpp" />
     <ClCompile Include="matrix4x4f.cpp" />
     <ClCompile Include="RubikCube.cpp" />
     <ClCompile Include="Rules.cpp" />
@@ -130,9 +129,6 @@
       <FileType>CppClass</FileType>
     </ClInclude>
     <ClInclude Include="glut.h" />
-    <ClInclude Include="LoadSituation.h">
-      <FileType>CppClass</FileType>
-    </ClInclude>
     <ClInclude Include="matrix4x4f.h">
       <FileType>CppClass</FileType>
     </ClInclude>
@@ -164,11 +160,6 @@
       <DependentUpon>geometry.h</DependentUpon>
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RubikCube.geometry.resources</LogicalName>
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RubikCube.geometry.resources</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LoadSituation.resX">
-      <DependentUpon>LoadSituation.h</DependentUpon>
-      <LogicalName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RubikCube.LoadSituation.resources</LogicalName>
-      <LogicalName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RubikCube.LoadSituation.resources</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="matrix4x4f.resX">
       <DependentUpon>matrix4x4f.h</DependentUpon>

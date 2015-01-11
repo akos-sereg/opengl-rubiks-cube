@@ -1,5 +1,3 @@
-//#include "RubikCube.h"
-
 #define STRICT
 #define WIN32_LEAN_AND_MEAN
 
@@ -47,9 +45,6 @@ int step=0;
 #include "CubeTransform.h"
 #include "Rules.h"
 #include "Strategia.h"
-#include "LoadSituation.h"
-
-//struct cubeColorType oldCubeColors[7][10];
 
 int closeToPlanet;
 POINT  g_ptLastMousePosit;
@@ -110,10 +105,6 @@ double g_dLastTime;
 
 double g_fSpeedmodifier = 0.0001f;
 
-
-
-
-
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, 
 				   LPSTR lpCmdLine, int nCmdShow);
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -161,9 +152,6 @@ int WINAPI WinMain( HINSTANCE hInstance,
 		return E_FAIL;
 	}
 
-	/*if( !RegisterClassEx(&winClass) )
-		return E_FAIL;*/
-	
 	g_hWnd = CreateWindowEx( NULL, "MY_WINDOWS_CLASS", 
 		"Rubik's cube",
 		WS_OVERLAPPEDWINDOW | WS_VISIBLE,
@@ -172,8 +160,6 @@ int WINAPI WinMain( HINSTANCE hInstance,
 	if( g_hWnd == NULL )
 		return E_FAIL;
 
-
-	//gEData();
 
 	ShowWindow( g_hWnd, nCmdShow );
 	UpdateWindow( g_hWnd );
@@ -243,14 +229,11 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				showRotating=0;
 				break;
 			case '2': 
-				// elokeszites
 				saveCubeColors();
 				step=0;
 				rotatingStep=0;
 				showRotating=0;
-				// futtatas
-
-
+				
 				if(run())
 				{
 					if(!test)
@@ -259,13 +242,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 						loadCubeColors();
 					} else step=0;
 					rotatingStep=-1;
-				} else sprintf(msginfo, "HIBA: nem tudtam kirakni");
-				break;
-			case '3': 
-
-				//rotatingStep++;
-				//rotated=1;
-				LoadSituation();
+				} else sprintf(msginfo, "Error: unable to solve cube");
 				break;
 			case '9':
 				rotSpeed=10.0;
@@ -284,12 +261,9 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 
 				if(findPattern(MINTA_FAZIS3) == -1)
 				{
-					sprintf(msginfo, "Nincs harmadik fazisban!");
+					sprintf(msginfo, "Phase 3 validation failed");
 					break;
 				}
-				//int h;
-				//h=0;
-				//while(findPattern(MINTA_FAZIS4) == -1)
 				if(1)
 				{
 					find = findPattern(NAGYT_KIST);
@@ -303,7 +277,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 						{
 							h++;
 							cTransform("6j");
-							if(h>4) {	// nincs mit tenni.
+							if(h>4) {
 								applySolution(find, 0);
 								h=0;
 							}
@@ -312,12 +286,6 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 					}
 					else 
 					{
-						/*h++;
-						if(h==5)
-						{
-						h=0;
-						applySolution(find, 0);
-						}*/
 						cTransform("6j");
 					}
 				}
@@ -327,46 +295,29 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				int find2;
 				if(findPattern(MINTA_FAZIS2) == -1) 
 				{
-					sprintf(msginfo, "Nincs kesz a masodik fazis!");
+					sprintf(msginfo, "Phase 2 validation failed");
 					break;
 				}
-				// 3. fazis
-
-				if(1)
+				
+				
+				for(old=0; old!=4; old++)
 				{
-					for(old=0; old!=4; old++)
+					find2 = findPattern(SAROKFEHER_LE);
+					if(find2!=-1)
+						applySolution(find2, 0);
+
+					for(j=0; j!=5; j++)
 					{
-						find2 = findPattern(SAROKFEHER_LE);
-						if(find2!=-1)
-							applySolution(find2, 0);
+						find = findPattern(FEHER_LENT_POZICIOBAN);
+						if(find != -1) 
+							applySolution(find, 0);
 
-
-						// nem negyet fordulunk hanem otot, hogy a kulso
-						// for ciklusra is maradjon iteracionkent egy 
-						// elforgatas. neki is kell, mert van olyan sarokfeher_le
-						// amit csak akkor tud megoldani, ha jo helyre van forgatva
-						for(j=0; j!=5; j++)
-						{
-							find = findPattern(FEHER_LENT_POZICIOBAN);
-							if(find != -1) 
-								applySolution(find, 0);
-
-							cTransform("6j");
-						}
+						cTransform("6j");
 					}
 				}
 				break;
 
-
 			case 'X':
-
-
-				//while(!checkPattern(26))
-				//{
-
-				//sprintf(warning, "Nincs 2. fazisban");
-				//break;
-				//while(fazis2_alul());
 
 				for(j=0; j!=4; j++)
 				{
@@ -392,11 +343,9 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				for(i=0; i!=rulesLen(); i++)
 				{
 					if(rules[i].group == MINTA_FAZIS2) 
-						if(!checkPattern(i)) sprintf(warning, "HIBA: hibas szabalyrendszer a 2. fazis kirakasa kozben!");
+						if(!checkPattern(i)) sprintf(warning, "Broken rule found while running phase 2");
 				}
-				//}
-				//if(!checkPattern(26)) sprintf(warning, "nincs 2. fazisban");
-				//else sprintf(warning, "Masodik fazisban van");
+				
 				break;
 
 			case 'Q': cTransformN(0); break;
@@ -417,8 +366,6 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			case 'H': cTransformN(15); break;
 			case 'J': cTransformN(16); break;
 			case 'K': cTransformN(17); break;
-				//case 'J': cTransformN(16); break;
-				//case 'B': DefaultColors(); step=0; break;
 			case 'B':
 				int s;
 				s = findPattern(ALSO1);
@@ -433,18 +380,15 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				break;
 
 			case VK_SPACE:
-				//g_bOrbitOn = !g_bOrbitOn;
 				speed = 0;
 				break;
 
 			case VK_F1:
-				//g_fSpeedmodifier += 0.00000001f;
 				g_fSpeedmodifier += 0.0001;
 				break;
 
 			case VK_F2:
 				g_fSpeedmodifier -= 0.0001;
-				//g_fSpeedmodifier -= 0.00000001f;
 				break;
 			}
 		}
@@ -458,9 +402,6 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 
 			glMatrixMode( GL_PROJECTION );
 			glLoadIdentity();
-			//screen_w = (float)nWidth;
-			//screen_h = (float)nWidth;
-			//gluPerspective( 45.0, (GLdouble)nWidth / (GLdouble)nHeight, 0.1, 100.0);
 			gluPerspective( 45.0f, (float) (800 / 600), 3.0f, 100.0f);
 
 		}
@@ -519,22 +460,9 @@ void init( void )
 	SetPixelFormat( g_hDC, PixelFormat, &pfd);
 	g_hRC = wglCreateContext( g_hDC );
 	wglMakeCurrent( g_hDC, g_hRC );
-
 	glClearColor(0.2, 0.4, 0.1, 0.0);
-
 	glMatrixMode( GL_PROJECTION );
-
-
-	//glDepthMask(GL_TRUE);  
-	//	glEnable(GL_BLEND);
-
-	//           glBlendFunc(GL_SRC_ALPHA,GL_ONE);
-
-
-
-
 	glLoadIdentity();
-	//gluPerspective( 45.0f, (GLdouble)screen_w / (GLdouble)screen_h, 0.0001f, 5000.0f);
 	gluPerspective( 45.0f, 800.0f / 600.0f, 3.0f, 100.0f);
 
 }
@@ -586,19 +514,8 @@ void updateViewMatrix( void )
 	view.m[10] = -g_vView.z;
 	view.m[11] =  0.0f;
 
-	//vector3f tmp(g_vEye.x, g_vEye.y, g_vEye.z);
 	float f = 1.3;
-	/*if(lookModX > f) lookModX -= 0.1;
-	else if(lookModX < f) lookModX += 0.1;
-	if(lookModY > f) lookModY -= 0.1;
-	else if(lookModY < f) lookModY += 0.1;
-	if(lookModZ > f) lookModZ -= 0.1;
-	else if(lookModZ < f) lookModZ += 0.1;*/
-
-
-	/*tmp.x -= g_vView.x * lookModX;
-	tmp.y -= g_vView.y * lookModY;
-	tmp.z -= g_vView.z * lookModZ;*/
+	
 	view.m[12] = -dotProduct(g_vRight, g_vEye);
 	view.m[13] = -dotProduct(g_vUp, g_vEye);
 	view.m[14] =  dotProduct(g_vView, g_vEye);
@@ -614,10 +531,7 @@ void updateViewMatrix( void )
 //-----------------------------------------------------------------------------
 void getRealTimeUserInput( void )
 {
-	//
-	// Get mouse input...
-	//
-
+	// Mouse input
 	POINT mousePosit;
 	GetCursorPos( &mousePosit );
 	ScreenToClient( g_hWnd, &mousePosit );
@@ -650,10 +564,8 @@ void getRealTimeUserInput( void )
 	g_ptLastMousePosit.x = g_ptCurrentMousePosit.x;
 	g_ptLastMousePosit.y = g_ptCurrentMousePosit.y;
 
-	//
 	// Get keyboard input...
-	//
-
+	
 	unsigned char keys[256];
 	GetKeyboardState( keys );
 
@@ -663,31 +575,26 @@ void getRealTimeUserInput( void )
 	vector3f tmpEye = g_vEye;
 	vector3f tmpView = g_vView;
 
-
-
 	if(speed > 0)
 	{
-		//speed -= 0.0002;
 		g_vEye -= tmpLook*-(g_fMoveSpeed_Travel*speed)*g_fElpasedTime;
 	} else if(speed < 0)
 	{
-		//speed += 0.0002;
 		g_vEye += (tmpLook*-(g_fMoveSpeed_Travel* (float)abs(speed)))*g_fElpasedTime;
 	}
 
 
 	if(keys[45] & 0x80) speed = 0;
 
-	// ELORE
+	// Move forward
 	if( keys[VK_F3] & 0x80 )
 	{
-		//speed += 0.1;
 		speed += 0.1;
 		g_vEye -= tmpView*-(g_fMoveSpeed_Travel*speed)*g_fElpasedTime;
 		g_vLook = g_vView;
 	}
 
-	// HATRA
+	// Move backwards
 	if( keys[VK_F4] & 0x80 )
 	{
 		speed -= 0.1;
@@ -696,16 +603,15 @@ void getRealTimeUserInput( void )
 	}
 
 	/* -------------------------------------------------------- */ 
-	// ELORE picit 
+	// Move forward (slowly)
 	if( keys[VK_F5] & 0x80 )
 	{
-		//speed += 0.05;
 		speed += 0.001;
 		g_vEye -= tmpView*-(g_fMoveSpeed_Travel_small*speed)*g_fElpasedTime;
 		g_vLook = g_vView;
 	}
 
-	// HATRA picit
+	// Move backwards (slowly)
 	if( keys[VK_F6] & 0x80 )
 	{
 		speed -= 0.001;
@@ -717,28 +623,24 @@ void getRealTimeUserInput( void )
 	// Up Arrow Key - View moves forward
 	if( keys[VK_UP] & 0x80 )
 	{
-		//if(lookModZ < lookModMAX) lookModZ += 0.1;
 		g_vView -= tmpUp*-g_fMoveSpeed_turn*g_fElpasedTime;
 	}
 
 	// Down Arrow Key - View moves backward
 	if( keys[VK_DOWN] & 0x80 )
 	{
-		//if(lookModZ < lookModMAX)lookModZ -= 0.1;
 		g_vView += (tmpUp*-g_fMoveSpeed_turn)*g_fElpasedTime;
 	}
 
 	// Left Arrow Key - View side-steps or strafes to the left
 	if( keys[VK_LEFT] & 0x80 )
 	{
-		//if(lookModZ < lookModMAX)lookModX += 0.1;
 		g_vView -= (tmpRight*g_fMoveSpeed_turn)*g_fElpasedTime;
 	}
 
 	// Right Arrow Key - View side-steps or strafes to the right
 	if( keys[VK_RIGHT] & 0x80 )
 	{
-		//if(lookModZ < lookModMAX)lookModX -= 0.1;
 		g_vView += (tmpRight*g_fMoveSpeed_turn)*g_fElpasedTime;
 	}
 
@@ -773,8 +675,6 @@ void shutDown( void )
 	}
 }
 
-
-
 void render( void )
 {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
@@ -783,8 +683,7 @@ void render( void )
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity();
 	updateViewMatrix();
-	//glColor3f( 0.4f, 0.4f, 0.4f );
-
+	
 	glDisable( GL_BLEND);
 	glEnable( GL_DEPTH_TEST );
 
@@ -836,8 +735,7 @@ void render( void )
 			if(sideRotate[snum].deg != 0.0)
 			{
 				glRotatef(sideRotate[snum].rot[0], sideRotate[snum].rot[1], sideRotate[snum].rot[2], sideRotate[snum].rot[3]);
-				// 1.lap
-				//glTranslatef(1.5, 1.5 , 2.75);
+				
 				glTranslatef(sideRotate[snum].dist[0]*arany, sideRotate[snum].dist[1]*arany, sideRotate[snum].dist[2]*arany);
 				glRotatef(sideRotate[snum].deg, 0.0, 0.0, 1.0);
 				renderSide(sideRotate[snum].colors);
@@ -854,9 +752,6 @@ void render( void )
 					stillRotate = 1;
 					rotating = snum;
 				}
-
-				//else rotating = snum;
-
 			}
 		}
 	}
@@ -868,26 +763,21 @@ void render( void )
 
 	int h;
 	glColor3f(1.0, 1.0, 1.0);
-	sprintf(warning, "LEPESEK (Nem optimalizalt): %d / %d", rotatingStep+1, step);
+	sprintf(warning, "Steps (not optimized): %d / %d", rotatingStep+1, step);
 	renderTextFull(10.0, 12.0, warning);
 
-
-	if(1)
+	if(rotatingStep == step-1) showRotating=0;
+	if(rotating==-1 && showRotating)
 	{
-
-		if(rotatingStep == step-1) showRotating=0;
-		if(rotating==-1 && showRotating)
+		rotated = 1;
+		rotatingStep++;
+		if(rotated)
 		{
-			rotated = 1;
-			rotatingStep++;
-			if(rotated)
-			{
-				cTransform(history[rotatingStep].step);
-				rotated=0;
-			}
+			cTransform(history[rotatingStep].step);
+			rotated=0;
 		}
 	}
-
+	
 	i=0;
 	glColor3f(1.0, 1.0, 1.0);
 	while(strlen(info[i].line))
@@ -935,11 +825,9 @@ void refreshCube()
 		else if(i==5 && g_vEye.y < 2.5) continue;
 		else if(i==6 && g_vEye.y > 0) continue;
 
-
 		for(j=1; j!=10; j++)
 		{
 			l=1;
-			// ellenorzes, hogy a lapot kirajzolhatjuk -e:
 			if(rotating != -1)
 			{
 				int s = rotating + (rotating-1)+1;
@@ -949,6 +837,7 @@ void refreshCube()
 						l=0;
 				if(!l) continue;
 			}
+
 			setColorGrid(i, j, cube.GetCellColor(i, j).Red, cube.GetCellColor(i, j).Green, cube.GetCellColor(i, j).Blue);
 		}
 	}
