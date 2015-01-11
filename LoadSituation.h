@@ -3,7 +3,9 @@ double getColorDimension(char c, char *dim);
 
 void LoadSituation()
 {
-	char c;
+	// TODO
+
+	/*char c;
 	int index=1;
 	int side=1;
 	char *str;
@@ -18,7 +20,6 @@ void LoadSituation()
 		else if(c=='\n')
 		{
 			side++;
-			//c=fgetc(fd);
 			if(side==7) 
 			{
 				fclose(fd);
@@ -29,10 +30,6 @@ void LoadSituation()
 			
 		} else
 		{
-			/*cct[side][index].r = getColorDimension(c, "red");
-			cct[side][index].g = getColorDimension(c, "green");
-			cct[side][index].b = getColorDimension(c, "blue");*/
-
 			cubeColor[side][index].r = getColorDimension(c, "red");
 			cubeColor[side][index].g = getColorDimension(c, "green");
 			cubeColor[side][index].b = getColorDimension(c, "blue");
@@ -40,7 +37,7 @@ void LoadSituation()
 		}
 	}
 	
-	fclose(fd);
+	fclose(fd);*/
 }
 
 double getColorDimension(char c, char *dim)

@@ -37,20 +37,19 @@ int step=0;
 #include <mmsystem.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-//#include <Gl/glut.h>
 #include "glut.h"
 #include "geometry.h"
 #include "RubikCube.h"
 #include "matrix4x4f.h"
 #include "vector3f.h"
+#include "CubeModel.h"
 #include "CubeGeometry.h"
-#include "cube.h"
 #include "CubeTransform.h"
 #include "Rules.h"
 #include "Strategia.h"
 #include "LoadSituation.h"
 
-struct cubeColorType oldCubeColors[7][10];
+//struct cubeColorType oldCubeColors[7][10];
 
 int closeToPlanet;
 POINT  g_ptLastMousePosit;
@@ -826,7 +825,7 @@ void render( void )
 
 		if(!changed) 
 		{
-			DefaultColors();
+			cube.DefaultColors();
 			changed = 1;
 		}
 
@@ -950,20 +949,19 @@ void refreshCube()
 						l=0;
 				if(!l) continue;
 			}
-			setColorGrid(i, j, cubeColor[i][j].r, cubeColor[i][j].g, cubeColor[i][j].b);
+			setColorGrid(i, j, cube.GetCellColor(i, j).Red, cube.GetCellColor(i, j).Green, cube.GetCellColor(i, j).Blue);
 		}
 	}
 }
 
-
-
-
 void saveCubeColors()
 {
 	int a,b;
-	for(a=1; a!=7; a++)
-		for(b=1; b!=10; b++)
-			oldCubeColors[a][b] = cubeColor[a][b];
+	for(a=1; a!=7; a++) {
+		for(b=1; b!=10; b++) {
+			oldCube.SetCellColor(a, b, cube.GetCellColor(a, b));
+		}
+	}
 	return;
 
 }
@@ -971,11 +969,17 @@ void saveCubeColors()
 void loadCubeColors()
 {
 	int a,b;
-	for(a=1; a!=7; a++)
-		for(b=1; b!=10; b++)
-			cubeColor[a][b] = oldCubeColors[a][b];
-	return;
+	for(a=1; a!=7; a++) 
+	{
+		for(b=1; b!=10; b++) {
+			cube.SetCellColor(a, b, oldCube.GetCellColor(a, b));
+		}
+	}
+	
 
+	int c = 2;
+
+	return;
 }
 
 

@@ -1,3 +1,4 @@
+
 void cTransformN(int n);
 void cTransform(char *id);
 void rotateColorSide(int num);
@@ -301,6 +302,11 @@ struct cubeTransform
 
 };
 
+
+
+CubeModel cube; // = new CubeModel();
+CubeModel oldCube;// = new CubeModel();
+
 void cTransformN(int n)
 {
 	char retval[6];
@@ -330,15 +336,13 @@ void cTransformN(int n)
 	cTransform(retval);
 }
 
-
-
 void cTransform(char *id)
 {
 	if(!showRotating) cAddQueue(id);
 
-	//sprintf(history[step].step, "%s", id);
-	
-	struct cubeColorType oldCubeColor[7][10];
+	//struct cubeColorType oldCubeColor[7][10];
+	CubeModel tempCube;
+
 	int transid=-1;
 	if(strcmp(id, "1j") == 0) transid = 0;
 	else if(strcmp(id, "1b") == 0) transid = 1;
@@ -365,10 +369,12 @@ void cTransform(char *id)
 		rotateColorSide(transid);
 	}
 	
-	int a, b;
-	for(a=1; a!=7; a++)
-		for(b=1; b!=10; b++)
-			oldCubeColor[a][b] = cubeColor[a][b];
+	int side, cellId;
+	for(side=1; side!=7; side++) {
+		for(cellId=1; cellId!=10; cellId++) {
+			tempCube.SetCellColor(side, cellId, cube.GetCellColor(side, cellId));
+		}
+	}
 
 	int i=0;
 	int tside, tplace, sside, splace;
@@ -381,9 +387,11 @@ void cTransform(char *id)
 			sside = cubeTransform[transid].steps[i].source_side;
 			splace = cubeTransform[transid].steps[i].source_place;
 
-			cubeColor[tside][tplace].r = oldCubeColor[sside][splace].r;
+			cube.SetCellColor(tside, tplace, tempCube.GetCellColor(sside, splace));
+
+			/*cubeColor[tside][tplace].r = oldCubeColor[sside][splace].r;
 			cubeColor[tside][tplace].g = oldCubeColor[sside][splace].g;
-			cubeColor[tside][tplace].b = oldCubeColor[sside][splace].b;
+			cubeColor[tside][tplace].b = oldCubeColor[sside][splace].b;*/
 			
 		
 		}
@@ -401,9 +409,16 @@ void rotateColorSide(int num)
 
 	for(i=0; i!=21; i++)
 	{
+		/*
 		sideRotate[n].colors[i].red = cubeColor[lapSzinek[num].e[i].side][lapSzinek[num].e[i].place].r;
 		sideRotate[n].colors[i].green = cubeColor[lapSzinek[num].e[i].side][lapSzinek[num].e[i].place].g;
-		sideRotate[n].colors[i].blue = cubeColor[lapSzinek[num].e[i].side][lapSzinek[num].e[i].place].b;
+		sideRotate[n].colors[i].blue = cubeColor[lapSzinek[num].e[i].side][lapSzinek[num].e[i].place].b;*/
+
+		CubeModel::CubeColor color = cube.GetCellColor(lapSzinek[num].e[i].side, lapSzinek[num].e[i].place);
+
+		sideRotate[n].colors[i].red = color.Red;
+		sideRotate[n].colors[i].green = color.Green;
+		sideRotate[n].colors[i].blue = color.Blue;
 	}
 	if((num%2) != 0) sideRotate[n].deg=-90;
 	else sideRotate[n].deg=90;

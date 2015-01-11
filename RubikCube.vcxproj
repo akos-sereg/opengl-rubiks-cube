@@ -107,8 +107,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cube.cpp" />
     <ClCompile Include="CubeGeometry.cpp" />
+    <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="CubeTransform.cpp" />
     <ClCompile Include="geometry.cpp" />
     <ClCompile Include="LoadSituation.cpp" />
@@ -119,10 +119,10 @@
     <ClCompile Include="vector3f.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cube.h" />
     <ClInclude Include="CubeGeometry.h">
       <FileType>CppClass</FileType>
     </ClInclude>
+    <ClInclude Include="CubeModel.h" />
     <ClInclude Include="CubeTransform.h">
       <FileType>CppClass</FileType>
     </ClInclude>

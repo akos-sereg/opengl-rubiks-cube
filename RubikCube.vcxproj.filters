@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CubeGeometry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -45,11 +42,11 @@
     <ClCompile Include="vector3f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CubeModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CubeGeometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -78,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="glut.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

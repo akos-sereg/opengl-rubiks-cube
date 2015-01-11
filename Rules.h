@@ -658,9 +658,9 @@ int checkPattern(int n)
 		if(rules[n].patt[i].side == OLDAL) checkOldal = Oldal;
 		else checkOldal = rules[n].patt[i].side;
 
-		if((cubeColor[/*rules[n].patt[i].side*/checkOldal][rules[n].patt[i].place].r == rules[n].patt[i].r) &&
-			(cubeColor[checkOldal][rules[n].patt[i].place].g == rules[n].patt[i].g) &&
-			(cubeColor[checkOldal][rules[n].patt[i].place].b == rules[n].patt[i].b))
+		if((cube.GetCellColor(checkOldal, rules[n].patt[i].place).Red == rules[n].patt[i].r) &&
+			(cube.GetCellColor(checkOldal, rules[n].patt[i].place).Green == rules[n].patt[i].g) &&
+			(cube.GetCellColor(checkOldal, rules[n].patt[i].place).Blue == rules[n].patt[i].b))
 		{
 			
 		} else 
@@ -691,23 +691,23 @@ int checkPattern(int n)
 					// mert akkor return 0;
 					for(k=0; k!=pseudoC; k++)
 					{
-						if((pseudoColor[k][0] == cubeColor[checkOldal][rules[n].patt[i].place].r) &&
-							(pseudoColor[k][1] == cubeColor[checkOldal][rules[n].patt[i].place].g) &&
-							(pseudoColor[k][2] == cubeColor[checkOldal][rules[n].patt[i].place].b))
+						if((pseudoColor[k][0] == cube.GetCellColor(checkOldal, rules[n].patt[i].place).Red) &&
+							(pseudoColor[k][1] == cube.GetCellColor(checkOldal, rules[n].patt[i].place).Green) &&
+							(pseudoColor[k][2] == cube.GetCellColor(checkOldal, rules[n].patt[i].place).Blue))
 						{ return 0; }
 
 
 					}
-					pseudoColor[pseudoC][0] = cubeColor[checkOldal][rules[n].patt[i].place].r;
-					pseudoColor[pseudoC][1] = cubeColor[checkOldal][rules[n].patt[i].place].g;
-					pseudoColor[pseudoC][2] = cubeColor[checkOldal][rules[n].patt[i].place].b;
+					pseudoColor[pseudoC][0] = cube.GetCellColor(checkOldal, rules[n].patt[i].place).Red;
+					pseudoColor[pseudoC][1] = cube.GetCellColor(checkOldal, rules[n].patt[i].place).Green;
+					pseudoColor[pseudoC][2] = cube.GetCellColor(checkOldal, rules[n].patt[i].place).Blue;
 					pseudoColor[pseudoC][3] = rules[n].patt[i].r;
 					pseudoC++;
 				} else
 				{
-					if((cubeColor[checkOldal][rules[n].patt[i].place].r == pseudoColor[index][0]) &&
-						(cubeColor[checkOldal][rules[n].patt[i].place].g == pseudoColor[index][1]) &&
-						(cubeColor[checkOldal][rules[n].patt[i].place].b == pseudoColor[index][2]))
+					if((cube.GetCellColor(checkOldal, rules[n].patt[i].place).Red == pseudoColor[index][0]) &&
+						(cube.GetCellColor(checkOldal, rules[n].patt[i].place).Green == pseudoColor[index][1]) &&
+						(cube.GetCellColor(checkOldal, rules[n].patt[i].place).Blue == pseudoColor[index][2]))
 					{
 					
 					} else return 0;
@@ -735,7 +735,6 @@ void applySolution(int n, int rotnum)
 		
 			sprintf(cmd, "%d%s", rules[n].sol[i].side, rules[n].sol[i].rotate);
 			
-
 			cTransform(cmd);			
 			//cAddQueue(cmd);	
 			//while(grr != 30) {render();grr++; }
