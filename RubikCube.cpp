@@ -3,6 +3,193 @@
 
 #include "RubikCube.h"
 
+
+CubeModel cube;
+CubeModel oldCube;
+
+CubeModel* getCube() 
+{
+	return &cube;
+}
+
+CubeModel* getOldCube()
+{
+	return &oldCube;
+}
+
+char msginfo[256], warning[256];
+
+int stillRotate=0;
+
+double rotSpeed = 3.0;
+double rotSpeedCurrent = 3.0;
+int test=0;
+int Oldal;
+int rotatingStep=-1;
+int rotating=-1;
+int h;
+double arany = 1.0;
+
+double getArany()
+{
+	return arany;
+}
+
+
+int getH()
+{
+	return h;
+}
+
+void setH(int hValue)
+{
+	h = hValue;
+}
+
+void incrementH() 
+{
+	h++;
+}
+
+int getOldal() 
+{
+	return Oldal;
+}
+
+int isTest() 
+{
+	return test;
+}
+
+void setWarning(char* text)
+{
+	sprintf(warning, text);
+}
+
+void setInfo(char *text) 
+{
+	sprintf(msginfo, text);
+}
+
+struct HelpCommands
+{
+	char *line;
+} info[] = {
+	{"q,w,e,r,t,z,u,i,o,p,a,s,d,f,g,h,j,k: Rotate commands"},
+	{"m: Rotate randomly"},
+	{"2: Solve Cube (animated)"},
+	{"6,7,8,9: Speed - slower->faster"},
+	{"F3: Move towards"},
+	{"F4: Move backwards"},
+	{"Up, down, left, right: Change moving direction"},
+	{"Space: Stop"},
+	{""}
+};
+
+
+vector3f g_vEye(10.0, 5.0, 10.0);     // Eye Position
+vector3f g_vLook(-0.66, -0.28, -0.69); // Look Vector
+vector3f g_vUp(0.0f, 1.0f, 0.0f);      // Up Vector
+vector3f g_vRight(1.0f, 0.0f, 0.0f);   // Right Vector
+vector3f g_vGravity(0.0f, 0.0f, 0.0f);
+vector3f g_vView(-0.66, -0.28, -0.69);
+
+int step=0;
+struct history
+{
+	char step[16];
+} history[500];
+
+int closeToPlanet;
+POINT  g_ptLastMousePosit;
+POINT  g_ptCurrentMousePosit;
+bool   g_bMousing = false;
+float  g_fMoveSpeed = 0.6f;
+float g_fMoveSpeed_turn = 1.0f;
+float g_fMoveSpeed_Travel = 2;
+float g_fMoveSpeed_Travel_small = 1.5;
+float speed = 0.0f;
+int changed=0;
+
+HWND  g_hWnd = NULL;
+HDC   g_hDC  = NULL;
+HGLRC g_hRC  = NULL;
+
+float  g_fElpasedTime;
+double g_dCurrentTime;
+double g_dLastTime;
+
+double g_fSpeedmodifier = 0.0001f;
+
+
+Vertex g_lineVertices[] =
+{
+	{ 255,   0,   0, 255,  0.0f, 0.1f, 0.0f }, // red   = +x Axis (x)
+	{ 255,   0,   0, 255,  5.0f, 0.0f, 0.0f },
+	{   0, 255,   0, 255,  0.0f, 0.1f, 0.0f }, // green = +z Axis (y)
+	{   0, 255,   0, 255,  0.0f, 5.0f, 0.0f },
+	{   0,   0, 255, 255,  0.0f, 0.1f, 0.0f }, // blue  = +y Axis (z)
+	{   0,   0, 255, 255,  0.0f, 0.0f, 5.0f }
+};
+
+
+struct sideRotate
+{
+	double deg;
+	double rot[4];
+	double dist[3];
+	int to;
+	struct mycolor colors[21];
+
+} sideRotate[9] = { 
+	{
+		// 1. lap
+		0.0, {0, 0.0, 0.0, 0.0}, {1.5, 1.5, 2.75}, 1, 
+		{ 
+			{1.0, 1.0, 1.0}, {1.0, 1.0, 0.0}, {0.5, 0.5, 0.0}, {0.0, 1.0, 0.0},
+			{0.0, 0.0, 1.0}, {1.0, 1.0, 0.5}, {0.1, 0.5, 0.5}, {0.5, 0.5, 1.0},
+			{1.0, 1.0, 1.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0},
+			{1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0},
+			{1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0},
+			{1.0, 0.0, 0.0}
+		}
+	}, {
+		// 2. lap
+		0.0, {90.0, 0.0, 1.0, 0.0}, {-1.5, 1.5, 2.75}, 1,
+		{}
+	},{
+		// 3. lap
+		0.0, {180.0, 0.0, 1.0, 0.0}, {-1.5, 1.5, -0.375}, 1,
+		{}
+	}, {
+		// 4. lap
+		0.0, {-90.0, 0.0, 1.0, 0.0}, {1.5, 1.5, -0.225}, 1,
+		{}
+	}, {
+		// 5. lap
+		0.0, {-90.0, 1.0, 0.0, 0.0}, {1.5, -1.5, 2.725}, 1,
+		{}
+	}, {
+		// 6. lap
+		0.0, {90.0, 1.0, 0.0, 0.0}, {1.5, 1.5, -0.25}, 1,
+		{}
+	}, {
+		// 7. lap
+		0.0, {90.0, 0.0, 1.0, 0.0}, {-1.5, 1.5, 1.725}, 1,
+		{}
+	}, {
+		// 8. lap
+		0.0, {0.0, 0.0, 0.0, 0.0}, {1.5, 1.5, 1.740}, 1,
+		{}
+	}, {
+		// 9. lap
+		0.0, {90.0, 1.0, 0.0, 0.0}, {1.5, 1.5, -1.25}, 1,
+		{}
+	}
+
+};
+
+
 int SGN(float num)
 {
 	if(num == 0) return 0;
@@ -113,19 +300,19 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				saveCubeColors();
 				step=0;
 				rotatingStep=0;
-				showRotating=0;
+				stopRotating();
 				break;
 			case '2': 
 				saveCubeColors();
 				step=0;
 				rotatingStep=0;
-				showRotating=0;
+				stopRotating();
 				
 				if(run())
 				{
 					if(!test)
 					{
-						showRotating=1;
+						startRotating();
 						loadCubeColors();
 					} else step=0;
 					rotatingStep=-1;
@@ -158,15 +345,15 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 					{
 						if(rules[find].elofeltetel[0] != RESCUE) 
 						{
-							h=0;
+							setH(0);
 							applySolution(find, 0);
 						} else 
 						{
-							h++;
+							incrementH();
 							cTransform("6j");
-							if(h>4) {
+							if(getH()>4) {
 								applySolution(find, 0);
-								h=0;
+								setH(0);
 							}
 
 						}
@@ -380,10 +567,10 @@ void updateViewMatrix( void )
 
 	g_vLook.normalize();
 
-	g_vRight = crossProduct(g_vView, g_vUp);
+	g_vRight = vector3f::crossProduct(g_vView, g_vUp);
 	g_vRight.normalize();
 
-	g_vUp = crossProduct(g_vRight, g_vView);
+	g_vUp = vector3f::crossProduct(g_vRight, g_vView);
 	g_vUp.normalize();
 
 	view.m[0] =  g_vRight.x;
@@ -403,9 +590,9 @@ void updateViewMatrix( void )
 
 	float f = 1.3;
 	
-	view.m[12] = -dotProduct(g_vRight, g_vEye);
-	view.m[13] = -dotProduct(g_vUp, g_vEye);
-	view.m[14] =  dotProduct(g_vView, g_vEye);
+	view.m[12] = -vector3f::dotProduct(g_vRight, g_vEye);
+	view.m[13] = -vector3f::dotProduct(g_vUp, g_vEye);
+	view.m[14] =  vector3f::dotProduct(g_vView, g_vEye);
 	view.m[15] =  1.0f;
 
 	glMultMatrixf( view.m );
@@ -562,6 +749,48 @@ void shutDown( void )
 	}
 }
 
+
+struct showLap
+{
+	double deg;
+	double x1, y1, z1;
+	double x2, y2, z2;
+} showLap[] = 
+{
+	{
+		0.0, 0.505, 0.52, 0.6, 0.54, 0.55, 1.5
+	},
+	{
+		90.0, -2.45, 0.55, 0.55, -2.45, 0.55, 1.55
+	},
+	{
+		0.0, 0.505, 0.52, 2.45, 0.54, 0.55, 1.5
+	},
+	{
+		90.0, -2.45, 0.55, 2.40, -2.45, 0.55, 1.55
+	},
+	{	// 5. oldal
+		90.0, 0.52, 0.55, -0.55, 0.52, 0.55, -1.55
+	},
+	{	// 6. oldal
+		90.0, 0.52, 0.55, -2.45, 0.52, 0.55, -1.55
+	},
+	{	// 7. oldal (kozep 1)
+		90.0, -2.45, 0.55, 0.55, -2.45, 0.55, 2.40
+	},
+	{
+		0.0, 0.505, 0.52, 0.55, 0.54, 0.55, 2.45
+	},
+	{	
+		90.0, 0.52, 0.55, -0.55, 0.52, 0.55, -2.475
+	}
+
+
+
+
+};
+
+
 void render( void )
 {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
@@ -653,15 +882,15 @@ void render( void )
 	sprintf(warning, "Steps (not optimized): %d / %d", rotatingStep+1, step);
 	renderTextFull(10.0, 12.0, warning);
 
-	if(rotatingStep == step-1) showRotating=0;
-	if(rotating==-1 && showRotating)
+	if(rotatingStep == step-1) stopRotating();
+	if(rotating==-1 && getRotating())
 	{
-		rotated = 1;
+		setRotated(1);
 		rotatingStep++;
-		if(rotated)
+		if(getRotated())
 		{
 			cTransform(history[rotatingStep].step);
-			rotated=0;
+			setRotated(0);
 		}
 	}
 	
@@ -676,6 +905,69 @@ void render( void )
 
 	SwapBuffers( g_hDC );
 }
+
+
+struct sideCoord
+{
+	double x;
+	double y;
+	double z;
+} sideCoord[7][10] = 
+{
+	{ {0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0} },
+	{ // 1-es oldal
+		{0.0, 0.0, 0.0},
+		{0.5, 2.5, 2.975}, {1.5, 2.5, 2.975}, {2.5, 2.5, 2.975},
+		{0.5, 1.5, 2.975}, {1.5, 1.5, 2.975}, {2.5, 1.5, 2.975},
+		{0.5, 0.5, 2.975}, {1.5, 0.5, 2.975}, {2.5, 0.5, 2.975}
+	}, { // 2-es oldal
+		{0.0, 0.0, 0.0},
+		{2.92, 2.5, 2.5}, {2.92, 2.5, 1.5}, {2.92, 2.5, 0.5},
+		{2.92, 1.5, 2.5}, {2.92, 1.5, 1.5}, {2.92, 1.5, 0.5},
+		{2.92, 0.5, 2.5}, {2.92, 0.5, 1.5}, {2.92, 0.5, 0.5},
+	}, { // 3. oldal
+		{0.0, 0.0, 0.0},
+		{0.5, 2.5, 0.025}, {1.5, 2.5, 0.025}, {2.5, 2.5, 0.025},
+		{0.5, 1.5, 0.025}, {1.5, 1.5, 0.025}, {2.5, 1.5, 0.025},
+		{0.5, 0.5, 0.025}, {1.5, 0.5, 0.025}, {2.5, 0.5, 0.025},
+	}, { // 4. oldal
+		{0.0, 0.0, 0.0},
+		{0.025, 2.5, 2.5}, {0.025, 2.5, 1.5}, {0.025, 2.5, 0.5},
+		{0.025, 1.5, 2.5}, {0.025, 1.5, 1.5}, {0.025, 1.5, 0.5},
+		{0.025, 0.5, 2.5}, {0.025, 0.5, 1.5}, {0.025, 0.5, 0.5},
+	}, { // 5. oldal
+		{0.0, 0.0, 0.0},
+		{0.5, 2.975, 0.5}, {1.5, 2.975, 0.5}, {2.5, 2.975, 0.5},
+		{0.5, 2.975, 1.5}, {1.5, 2.975, 1.5}, {2.5, 2.975, 1.5},
+		{0.5, 2.975, 2.5}, {1.5, 2.975, 2.5}, {2.5, 2.975, 2.5},
+	}, { // 6. oldal
+		{0.0, 0.0, 0.0},
+		{0.5, 0.025, 0.5}, {1.5, 0.025, 0.5}, {2.5, 0.025, 0.5},
+		{0.5, 0.025, 1.5}, {1.5, 0.025, 1.5}, {2.5, 0.025, 1.5},
+		{0.5, 0.025, 2.5}, {1.5, 0.025, 2.5}, {2.5, 0.025, 2.5},
+
+	},
+
+
+};
+
+
+
+struct cubeSide
+{
+	double deg;
+	double degx;
+	double degy;
+	double degz;
+} cubeSide[7] = {
+	{0.0,  0.0, 0.0, 0.0},
+	{90.0, 1.0, 0.0, 0.0},
+	{90.0, 0.0, 0.0, 1.0},
+	{90.0, 1.0, 0.0, 0.0},
+	{90.0, 0.0, 0.0, 1.0},
+	{0.0,  0.0, 0.0, 0.0},
+	{0.0,  0.0, 0.0, 0.0}
+};
 
 void setColorGrid(int lap, int sorszam, double red, double green, double blue)
 {
@@ -697,8 +989,147 @@ void setColorGrid(int lap, int sorszam, double red, double green, double blue)
 	glPopMatrix();
 }
 
+
+struct lapSzinek
+{
+	struct elem e[21];
+} lapSzinek[]=
+{
+	{
+		{
+			{2, 7}, {2, 4}, {2, 1}, {4, 7}, {4, 4}, {4, 1}, {6, 9}, {1, 9}, 
+			{1, 6}, {1, 3}, {5, 9}, {6, 8}, {1, 8}, {1, 5}, {1, 2}, {5, 8}, 
+			{6, 7}, {1, 7}, {1, 4}, {1, 1}, {5, 7}
+		}
+	},{
+		{
+			{4, 1}, {4, 4}, {4, 7}, {2, 1}, {2, 4}, {2, 7}, {5, 7}, {1, 1}, 
+			{1, 4}, {1, 7}, {6, 7}, {5, 8}, {1, 2}, {1, 5}, {1, 8}, {6, 8}, 
+			{5, 9}, {1, 3}, {1, 6}, {1, 9}, {6, 9}
+		}
+	},{
+		{
+			{3, 9}, {3, 6}, {3, 3}, {1, 9}, {1, 6}, {1, 3}, {6, 3}, 
+			{2, 9}, {2, 6}, {2, 3}, {5, 3}, {6, 6}, {2, 8}, {2, 5}, {2, 2}, 
+			{5, 6}, {6, 9}, {2, 7}, {2, 4}, {2, 1}, {5, 9}
+		}
+	},
+	{
+		{
+			{1, 3}, {1, 6}, {1, 9}, {3, 3}, {3, 6}, {3, 9}, {5, 9}, {2, 1}, 
+			{2, 4}, {2, 7}, {6, 9}, {5, 6}, {2, 2}, {2, 5}, {2, 8}, {6, 6},
+			{5, 3}, {2, 3}, {2, 6}, {2, 9}, {6, 3}
+		}
+	},
+	{
+		{
+			{4, 9}, {4, 6}, {4, 3}, {2, 9}, {2, 6}, {2, 3}, {6, 1}, {3, 7}, 
+			{3, 4}, {3, 1}, {5, 1}, {6, 2}, {3, 8}, {3, 5}, {3, 2}, {5, 2},
+			{6, 3}, {3, 9}, {3, 6}, {3, 3}, {5, 3}
+		}
+	},
+	{
+		{
+			{2, 3}, {2, 6}, {2, 9}, {4, 3}, {4, 6}, {4, 9}, {5, 3}, {3, 3}, 
+			{3, 6}, {3, 9}, {6, 3}, {5, 2}, {3, 2}, {3, 5}, {3, 8}, {6, 2},
+			{5, 1}, {3, 1}, {3, 4}, {3, 7}, {6, 1}
+		}
+	},{
+		{
+			{1, 7}, {1, 4}, {1, 1}, {3, 7}, {3, 4}, {3, 1}, {6, 7}, {4, 7}, 
+			{4, 4}, {4, 1}, {5, 7}, {6, 4}, {4, 8}, {4, 5}, {4, 2}, {5, 4},
+			{6, 1}, {4, 9}, {4, 6}, {4, 3}, {5, 1}
+		}
+	},
+	{
+		{
+			{3, 1}, {3, 4}, {3, 7}, {1, 1}, {1, 4}, {1, 7}, {5, 1}, {4, 3}, 
+			{4, 6}, {4, 9}, {6, 1}, {5, 4}, {4, 2}, {4, 5}, {4, 8}, {6, 4},
+			{5, 7}, {4, 1}, {4, 4}, {4, 7}, {6, 7}
+		}
+	},
+	{
+		{
+			{4, 3}, {4, 2}, {4, 1}, {2, 3}, {2, 2}, {2, 1}, {3, 1}, {5, 1}, 
+			{5, 4}, {5, 7}, {1, 1}, {3, 2}, {5, 2}, {5, 5}, {5, 8}, {1, 2},
+			{3, 3}, {5, 3}, {5, 6}, {5, 9}, {1, 3}
+		}
+	},{
+		{
+			{2, 1}, {2, 2}, {2, 3}, {4, 1}, {4, 2}, {4, 3}, {1, 3}, {5, 9}, 
+			{5, 6}, {5, 3}, {3, 3}, {1, 2}, {5, 8}, {5, 5}, {5, 2}, {3, 2}, 
+			{1, 1}, {5, 7}, {5, 4}, {5, 1}, {3, 1}
+		}
+		/*{
+			{2, 1}, {2, 2}, {2, 3}, {4, 1}, {4, 2}, {4, 3}, {1, 3}, {5, 9}, 
+			{5, 7}, {5, 3}, {3, 3}, {1, 2}, {5, 8}, {5, 5}, {5, 2}, {3, 2},
+			{1, 1}, {5, 7}, {5, 4}, {5, 1}, {3, 1}
+		}*/
+	},
+	{
+		{
+			{2, 9}, {2, 8}, {2, 7}, {4, 9}, {4, 8}, {4, 7}, {3, 9}, {6, 3}, 
+			{6, 6}, {6, 9}, {1, 9}, {3, 8}, {6, 2}, {6, 5}, {6, 8}, {1, 8},
+			{3, 7}, {6, 1}, {6, 4}, {6, 7}, {1, 7}
+		}
+	},
+	{
+		{
+			{4, 7}, {4, 8}, {4, 9}, {2, 7}, {2, 8}, {2, 9}, {1, 7}, {6, 7}, 
+			{6, 4}, {6, 1}, {3, 7}, {1, 8}, {6, 8}, {6, 5}, {6, 2}, {3, 8},
+			{1, 9}, {6, 9}, {6, 6}, {6, 3}, {3, 9}
+		}
+	},
+	{
+		{
+			{3, 8}, {3, 5}, {3, 2}, {1, 8}, {1, 5}, {1, 2}, {6, 2}, {0, 0}, 
+			{0, 0}, {0, 0}, {5, 2}, {6, 5}, {0, 0}, {0, 0}, {0, 0}, {5, 5},
+			{6, 8}, {0, 0}, {0, 0}, {0, 0}, {5, 8}
+		}
+	},//0-13. -- 14.
+	{
+		{
+			{1, 2}, {1, 5}, {1, 8}, {3, 2}, {3, 5}, {3, 8}, {5, 8}, {0, 0}, 
+			{0, 0}, {0, 0}, {6, 8}, {5, 5}, {0, 0}, {0, 0}, {0, 0}, {6, 5},
+			{5, 2}, {0, 0}, {0, 0}, {0, 0}, {6, 2}
+		}
+	},
+	{
+		{
+			{4, 2}, {4, 5}, {4, 8}, {2, 2}, {2, 5}, {2, 8}, {5, 4}, {0, 0}, 
+			{0, 0}, {0, 0}, {6, 4}, {5, 5}, {0, 0}, {0, 0}, {0, 0}, {6, 5},
+			{5, 6}, {0, 0}, {0, 0}, {0, 0}, {6, 6}
+		}
+	},
+	{
+		{
+			{2, 8}, {2, 5}, {2, 2}, {4, 8}, {4, 5}, {4, 2}, {6, 6}, {0, 0}, 
+			{0, 0}, {0, 0}, {5, 6}, {6, 5}, {0, 0}, {0, 0}, {0, 0}, {5, 5},
+			{6, 4}, {0, 0}, {0, 0}, {0, 0}, {5, 4}
+		}
+	},
+	{
+		{
+			{2, 6}, {2, 5}, {2, 4}, {4, 6}, {4, 5}, {4, 4}, {3, 6}, {0, 0}, 
+			{0, 0}, {0, 0}, {1, 6}, {3, 5}, {0, 0}, {0, 0}, {0, 0}, {1, 5},
+			{3, 4}, {0, 0}, {0, 0}, {0, 0}, {1, 4}
+		}
+	},
+	{
+		{
+			{4, 4}, {4, 5}, {4, 6}, {2, 4}, {2, 5}, {2, 6}, {1, 4}, {0, 0}, 
+			{0, 0}, {0, 0}, {3, 4}, {1, 5}, {0, 0}, {0, 0}, {0, 0}, {3, 5},
+			{1, 6}, {0, 0}, {0, 0}, {0, 0}, {3, 6}
+		}
+	}
+
+
+};
+
 void refreshCube()
 {
+	CubeModel* cubeModel = getCube();
+
 	int i;
 	int j;
 	int k,l=1;
@@ -725,17 +1156,20 @@ void refreshCube()
 				if(!l) continue;
 			}
 
-			setColorGrid(i, j, cube.GetCellColor(i, j).Red, cube.GetCellColor(i, j).Green, cube.GetCellColor(i, j).Blue);
+			setColorGrid(i, j, cubeModel->GetCellColor(i, j).Red, cubeModel->GetCellColor(i, j).Green, cubeModel->GetCellColor(i, j).Blue);
 		}
 	}
 }
 
 void saveCubeColors()
 {
+	CubeModel* cubeModel = getCube();
+	CubeModel* oldCubeModel = getOldCube();
+
 	int a,b;
 	for(a=1; a!=7; a++) {
 		for(b=1; b!=10; b++) {
-			oldCube.SetCellColor(a, b, cube.GetCellColor(a, b));
+			oldCubeModel->SetCellColor(a, b, cubeModel->GetCellColor(a, b));
 		}
 	}
 	return;
@@ -744,11 +1178,14 @@ void saveCubeColors()
 
 void loadCubeColors()
 {
+	CubeModel* cubeModel = getCube();
+	CubeModel* oldCubeModel = getOldCube();
+
 	int a,b;
 	for(a=1; a!=7; a++) 
 	{
 		for(b=1; b!=10; b++) {
-			cube.SetCellColor(a, b, oldCube.GetCellColor(a, b));
+			cubeModel->SetCellColor(a, b, oldCubeModel->GetCellColor(a, b));
 		}
 	}
 	
@@ -781,4 +1218,36 @@ int noRotating()
 		}
 	}
 	return 0;
+}
+
+
+
+
+void rotateColorSide(int num)
+{
+	int i;
+	int n = num/2;
+	//int n=num;
+
+	CubeModel* cubeModel = getCube();
+	
+	for(i=0; i!=21; i++)
+	{
+		/*
+		sideRotate[n].colors[i].red = cubeColor[lapSzinek[num].e[i].side][lapSzinek[num].e[i].place].r;
+		sideRotate[n].colors[i].green = cubeColor[lapSzinek[num].e[i].side][lapSzinek[num].e[i].place].g;
+		sideRotate[n].colors[i].blue = cubeColor[lapSzinek[num].e[i].side][lapSzinek[num].e[i].place].b;*/
+
+		CubeModel::CubeColor color = cubeModel->GetCellColor(lapSzinek[num].e[i].side, lapSzinek[num].e[i].place);
+
+		sideRotate[n].colors[i].red = color.Red;
+		sideRotate[n].colors[i].green = color.Green;
+		sideRotate[n].colors[i].blue = color.Blue;
+	}
+	if((num%2) != 0) sideRotate[n].deg=-90;
+	else sideRotate[n].deg=90;
+
+	if(num==8 || num==9 || num==14 || num==15) sideRotate[n].deg = -1 * sideRotate[n].deg;
+	//if(num > 17) sideRotate[n].deg = 0;
+	
 }

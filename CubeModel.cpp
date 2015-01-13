@@ -21,7 +21,7 @@ void CubeModel::DefaultColors()
 {
 	int i;
 
-	// Reset cube
+	// Reset getCube()
 	for(i=1; i!=10; i++) { cubeColors[1][i].Red=1.0; cubeColors[1][i].Green=0.0; cubeColors[1][i].Blue=0.0; }
 	for(i=1; i!=10; i++) { cubeColors[2][i].Red=0.0; cubeColors[2][i].Green=0.0; cubeColors[2][i].Blue=1.0; }
 	for(i=1; i!=10; i++) { cubeColors[3][i].Red=1.0; cubeColors[3][i].Green=0.5; cubeColors[3][i].Blue=0.0; }
