@@ -1,7 +1,5 @@
 #include "RubikCube.h"
 
-
-
 int rulesLen()
 {
 	int i;
@@ -54,8 +52,6 @@ int checkPattern(int n)
 				if(!szerepel)
 				{
 					int k;
-					// megnezzuk hogy a szinkod hasznalt -e mar pl: 1.1-piros 1.2-piros? 
-					// mert akkor return 0;
 					for(k=0; k!=pseudoC; k++)
 					{
 						if((pseudoColor[k][0] == cube->GetCellColor(checkOldal, rules[n].patt[i].place).Red) &&
@@ -98,25 +94,13 @@ void applySolution(int n, int rotnum)
 	while(rules[n].sol[i].side != -1)
 	{
 		grr=0;
-			if(rules[n].sol[i].side == -1) return;
-		
-			sprintf(cmd, "%d%s", rules[n].sol[i].side, rules[n].sol[i].rotate);
-			
-			cTransform(cmd);			
-			//cAddQueue(cmd);	
-			//while(grr != 30) {render();grr++; }
-				
-			i++;
-			
-			
+		if(rules[n].sol[i].side == -1) return;
+		sprintf(cmd, "%d%s", rules[n].sol[i].side, rules[n].sol[i].rotate);
+		cTransform(cmd);			
+		i++;
 	}
 	return;
-
 }
-
-
-
-
 
 int findPattern(int code)
 {
@@ -131,11 +115,8 @@ int findPattern(int code)
 	return -1;
 }
 
-
 int sideval(int num)
 {
-
 	return num;
-
 }
 

@@ -36,15 +36,11 @@ double getArany();
 #include "Rules.h"
 #include "Strategia.h"
 
-#define MAXP	1000
-
 struct Vertex
 {
 	unsigned char r, g, b, a;
 	float x, y, z;
 };
-
-
 
 //-----------------------------------------------------------------------------
 // GLOBALS
@@ -52,7 +48,6 @@ struct Vertex
 
 CubeModel* getCube();
 CubeModel* getOldCube();
-
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, 
 				   LPSTR lpCmdLine, int nCmdShow);
