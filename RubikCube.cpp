@@ -279,29 +279,23 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 	{
 	case WM_KEYDOWN:
 		{
-
-
-			switch( wParam )
+			switch(wParam)
 			{
 			case 'M':
-				// random keveres
-				int r;
-				for(r=0; r!=1; r++)
-				{
-					cTransformN(rand()%16);
-				}
-
+				cTransformN(rand()%16);
 				break;
 
 			case 'N':
 				fazis1();
 				break;
+
 			case '1': 
 				saveCubeColors();
-				step=0;
-				rotatingStep=0;
+				step = 0;
+				rotatingStep = 0;
 				stopRotating();
 				break;
+
 			case '2': 
 				saveCubeColors();
 				step=0;
@@ -338,30 +332,28 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 					sprintf(msginfo, "Phase 3 validation failed");
 					break;
 				}
-				if(1)
+				
+				find = findPattern(NAGYT_KIST);
+				if(find!=-1) 
 				{
-					find = findPattern(NAGYT_KIST);
-					if(find!=-1) 
+					if(rules[find].elofeltetel[0] != RESCUE) 
 					{
-						if(rules[find].elofeltetel[0] != RESCUE) 
-						{
-							setH(0);
-							applySolution(find, 0);
-						} else 
-						{
-							incrementH();
-							cTransform("6j");
-							if(getH()>4) {
-								applySolution(find, 0);
-								setH(0);
-							}
-
-						}
-					}
-					else 
+						setH(0);
+						applySolution(find, 0);
+					} else 
 					{
+						incrementH();
 						cTransform("6j");
+						if(getH()>4) {
+							applySolution(find, 0);
+							setH(0);
+						}
+
 					}
+				}
+				else 
+				{
+					cTransform("6j");
 				}
 
 			case 'C':
@@ -396,7 +388,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				for(j=0; j!=4; j++)
 				{
 					if(fazis2_alul()) continue;
-					for(i=0; i!=rulesLen(); /*20*/ i++)
+					for(i=0; i!=rulesLen(); i++)
 					{
 						if(rules[i].group == FEHERET_ALULRA)
 						{

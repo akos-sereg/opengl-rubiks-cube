@@ -68,21 +68,8 @@ void endRenderText( void )
 //-----------------------------------------------------------------------------
 const BitmapFontData* getBitmapFontDataByType( BitmapFontType font )
 {
-   /* if( font == BITMAP_FONT_TYPE_8_BY_13 )
-        return &FontFixed8x13;
-    if( font == BITMAP_FONT_TYPE_9_BY_15 )
-        return &FontFixed9x15;*/
     if( font == BITMAP_FONT_TYPE_HELVETICA_10 )
         return &FontHelvetica10;
-    /*if( font == BITMAP_FONT_TYPE_HELVETICA_12 )
-        return &FontHelvetica12;
-    if( font == BITMAP_FONT_TYPE_HELVETICA_18 )
-        return &FontHelvetica18;
-    if( font == BITMAP_FONT_TYPE_TIMES_ROMAN_10 )
-        return &FontTimesRoman10;
-    if( font == BITMAP_FONT_TYPE_TIMES_ROMAN_24 )
-        return &FontTimesRoman24;
-*/
     return 0;
 }
 
@@ -157,43 +144,17 @@ void renderWireCube( GLdouble dSize )
 #   undef V
 #   undef N
 }
-/*
-void renderSide(struct mycolor *colors)
-{
-	int i, j;
-	glTranslatef(-1.0, 0.5, 0.25);
-	glPushMatrix();
-	{
-		glColor4f(0.0, 1.0, 0.0, 1.0);
-		for(i=0; i!=3; i++)
-		{
-			for(j=0; j!=3; j++)
-			{
-				glTranslatef(0.0, 1.0, 0.0);
-				renderWireCubeColor(0.8, 0.2);
-				
-			}
-			glTranslatef(1.0, -3.0, 0.0);
-		}
-	
-	}
-	glPopMatrix();
 
-}
-*/
 void renderSide(struct mycolor *colors )
 {
     int i,j,n=0;
 	
 	glTranslatef((-1.0)*getArany(), -1.0*getArany(), -0.25*getArany());
-	//renderWireCubeColor(0.95, 0.5);
 	double dst = 0.5;
 
 	
 	for(i=0; i!=3; i++)
 	{
-		
-		//glRotatef(90.0, 0.0, 0.0, 1.0);
 		glPushMatrix();
 		{
 			glTranslatef(1.0*i*getArany(), (-dst)*getArany(), 0.0*getArany());
@@ -201,11 +162,9 @@ void renderSide(struct mycolor *colors )
 			n++;
 		}
 		glPopMatrix();
-		//glRotatef(-90.0, 0.0, 0.0, 1.0);
 	}
 	for(i=0; i!=3; i++)
 	{
-		//glRotatef(90.0, 0.0, 0.0, 1.0);
 		glPushMatrix();
 		{
 			glTranslatef(1.0*i*getArany(), (2.0 + dst+0.006)*getArany(), 0.0);
@@ -213,7 +172,6 @@ void renderSide(struct mycolor *colors )
 			n++;
 		}
 		glPopMatrix();
-		//glRotatef(-90.0, 0.0, 0.0, 1.0);
 	}
 
 	for(j=0; j!=3; j++)
@@ -260,10 +218,6 @@ void renderSide(struct mycolor *colors )
 		glTranslatef(0.0, 1.0*getArany(), 0.0);
 		
 	}
-	
-	//glPopMatrix();
-	
-
 }
 
 void renderLap()
@@ -350,57 +304,24 @@ void renderGridColor( GLdouble dSize, double red, double green, double blue)
     /*
      * PWO: I dared to convert the code to use macros...
      */
- //   glBegin( GL_LINE_LOOP ); 
 	double j;
 	double y = size;
 	double range = 0.05;
 	
 	glPushMatrix();
 	{
-		//glTranslatef(0.0, 0.1, 0.0);
-		//renderWall(dSize);
-		//glTranslatef(0.0, -0.1, 0.0);
 		glColor4f(red, green, blue, 1.0); 
 
 		N( 1.0, 0.0, 0.0); 
-		//for(j=-y; j<y; j+=range)
-		//{
-			glBegin(GL_QUADS);
-			{
-				glVertex3d(y, 0.0, y);
-				glVertex3d(y, 0.0, -y);
-				glVertex3d(-y, 0.0, -y);
-				glVertex3d(-y, 0.0, y);
-			}
-			glEnd();
-			/*
-			glBegin(GL_LINE_LOOP);
-			{
-				glVertex3d(j, 0.0, -y);
-				glVertex3d(j, 0.0, y);
-			}
-			glEnd();
-
-			glBegin(GL_LINE_LOOP);
-			{
-				glVertex3d(-y, 0.0, j);
-				glVertex3d(y, 0.0, j);
-			}
-			glEnd();*/
-					
-		//}
 		
-		/*V(+,-,+); 
-		V(+,-,-); 
-		V(+,+,-); 
-		V(+,+,+); */
-//	glEnd();
-    /*glBegin( GL_LINE_LOOP ); glColor3f(color, 0.0, 0.0); N( 0.0, 1.0, 0.0); V(+,+,+); V(+,+,-); V(-,+,-); V(-,+,+); glEnd();
-    glBegin( GL_LINE_LOOP ); glColor3f(color, 0.0, 0.0); N( 0.0, 0.0, 1.0); V(+,+,+); V(-,+,+); V(-,-,+); V(+,-,+); glEnd();
-    glBegin( GL_LINE_LOOP ); glColor3f(color, 0.0, 0.0); N(-1.0, 0.0, 0.0); V(-,-,+); V(-,+,+); V(-,+,-); V(-,-,-); glEnd();
-    glBegin( GL_LINE_LOOP ); glColor3f(color, 0.0, 0.0); N( 0.0,-1.0, 0.0); V(-,-,+); V(-,-,-); V(+,-,-); V(+,-,+); glEnd();
-    glBegin( GL_LINE_LOOP ); glColor3f(color, 0.0, 0.0); N( 0.0, 0.0,-1.0); V(-,-,-); V(-,+,-); V(+,+,-); V(+,-,-); glEnd();
-*/
+		glBegin(GL_QUADS);
+		{
+			glVertex3d(y, 0.0, y);
+			glVertex3d(y, 0.0, -y);
+			glVertex3d(-y, 0.0, -y);
+			glVertex3d(-y, 0.0, y);
+		}
+		glEnd();
 	}
 	glPopMatrix();
 #   undef V
@@ -417,7 +338,6 @@ void renderWall( GLdouble dSize)
     /*
      * PWO: I dared to convert the code to use macros...
      */
- //   glBegin( GL_LINE_LOOP ); 
 	double j;
 	double y = size;
 	double range = 0.05;
@@ -425,30 +345,17 @@ void renderWall( GLdouble dSize)
 	{
 		glColor4f(0.2, 0.2, 0.2, 0.0); 
 
-		N( 1.0, 0.0, 0.0); 
+		N(1.0, 0.0, 0.0); 
 		
-			glBegin(GL_QUADS);
-			{
-				glVertex3d(y, 0.0, y);
-				glVertex3d(y, 0.0, -y);
-				glVertex3d(-y, 0.0, -y);
-				glVertex3d(-y, 0.0, y);
-			}
-			glEnd();
+		glBegin(GL_QUADS);
+		{
+			glVertex3d(y, 0.0, y);
+			glVertex3d(y, 0.0, -y);
+			glVertex3d(-y, 0.0, -y);
+			glVertex3d(-y, 0.0, y);
+		}
+		glEnd();
 
-					
-		
-		/*V(+,-,+); 
-		V(+,-,-); 
-		V(+,+,-); 
-		V(+,+,+); */
-//	glEnd();
-    /*glBegin( GL_LINE_LOOP ); glColor3f(color, 0.0, 0.0); N( 0.0, 1.0, 0.0); V(+,+,+); V(+,+,-); V(-,+,-); V(-,+,+); glEnd();
-    glBegin( GL_LINE_LOOP ); glColor3f(color, 0.0, 0.0); N( 0.0, 0.0, 1.0); V(+,+,+); V(-,+,+); V(-,-,+); V(+,-,+); glEnd();
-    glBegin( GL_LINE_LOOP ); glColor3f(color, 0.0, 0.0); N(-1.0, 0.0, 0.0); V(-,-,+); V(-,+,+); V(-,+,-); V(-,-,-); glEnd();
-    glBegin( GL_LINE_LOOP ); glColor3f(color, 0.0, 0.0); N( 0.0,-1.0, 0.0); V(-,-,+); V(-,-,-); V(+,-,-); V(+,-,+); glEnd();
-    glBegin( GL_LINE_LOOP ); glColor3f(color, 0.0, 0.0); N( 0.0, 0.0,-1.0); V(-,-,-); V(-,+,-); V(+,+,-); V(+,-,-); glEnd();
-*/
 	}
 	glPopMatrix();
 #   undef V
@@ -501,16 +408,6 @@ void renderQuad( GLdouble dSize )
 #   undef N
 }
 
-/*
- * Compute lookup table of cos and sin values forming a cirle
- *
- * Notes:
- *    It is the responsibility of the caller to free these tables
- *    The size of the table is (n+1) to form a connected loop
- *    The last entry is exactly the same as the first
- *    The sign of n can be flipped to get the reverse loop
- */
-
 static void circleTable(double **sint,double **cost,const int n)
 {
     int i;
@@ -557,28 +454,24 @@ void renderGridZ(float y, float range, float height)
 	float i,j;
 
 	glColor3f(0.0, 0.15, 0.0);
-	
-	
-		//for(i=-x; i!=x; i+=range)
-		//{
 			
-				for(j=-y; j!=y; j+=range)
-				{
-					glBegin(GL_LINE_LOOP);
-					{
-						glVertex3d(j, height, -y);
-						glVertex3d(j, height, y);
-					}
-					glEnd();
+	for(j=-y; j!=y; j+=range)
+	{
+		glBegin(GL_LINE_LOOP);
+		{
+			glVertex3d(j, height, -y);
+			glVertex3d(j, height, y);
+		}
+		glEnd();
 
-					glBegin(GL_LINE_LOOP);
-					{
-						glVertex3d(-y, height, j);
-						glVertex3d(y, height, j);
-					}
-					glEnd();
+		glBegin(GL_LINE_LOOP);
+		{
+			glVertex3d(-y, height, j);
+			glVertex3d(y, height, j);
+		}
+		glEnd();
 					
-				}
+	}
 		
 
 }
@@ -589,30 +482,23 @@ void renderGrid(float y, float range)
 	float i,j;
 
 	glColor3f(0.0, 0.3, 0.0);
-	
-	
-		//for(i=-x; i!=x; i+=range)
-		//{
-			
-				for(j=-y; j!=y; j+=range)
-				{
-					glBegin(GL_LINE_LOOP);
-					{
-						glVertex3d(j, 0.0, -y);
-						glVertex3d(j, 0.0, y);
-					}
-					glEnd();
+	for(j=-y; j!=y; j+=range)
+	{
+		glBegin(GL_LINE_LOOP);
+		{
+			glVertex3d(j, 0.0, -y);
+			glVertex3d(j, 0.0, y);
+		}
+		glEnd();
 
-					glBegin(GL_LINE_LOOP);
-					{
-						glVertex3d(-y, 0.0, j);
-						glVertex3d(y, 0.0, j);
-					}
-					glEnd();
+		glBegin(GL_LINE_LOOP);
+		{
+			glVertex3d(-y, 0.0, j);
+			glVertex3d(y, 0.0, j);
+		}
+		glEnd();
 					
-				}
-		
-
+	}
 }
 
 
