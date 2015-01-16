@@ -33,13 +33,13 @@
     <ClCompile Include="Rules.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Strategia.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vector3f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CubeModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SolutionStrategy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,9 +62,6 @@
     <ClInclude Include="Rules.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Strategia.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="vector3f.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -72,6 +69,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CubeModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SolutionStrategy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -97,10 +97,10 @@
     <EmbeddedResource Include="Rules.resX">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strategia.resX">
+    <EmbeddedResource Include="vector3f.resX">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
-    <EmbeddedResource Include="vector3f.resX">
+    <EmbeddedResource Include="SolutionStrategy.resX">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
   </ItemGroup>
