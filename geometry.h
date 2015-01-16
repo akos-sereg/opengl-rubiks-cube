@@ -1,7 +1,7 @@
 #pragma once
 
 #ifndef _GEOMETRY_H_INCLUDED_
-#define  _GEOMETRY_H_INCLUDED_
+#define _GEOMETRY_H_INCLUDED_
 
 struct mycolor 
 {

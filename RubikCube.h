@@ -30,9 +30,9 @@ double getArany();
 #include "geometry.h"
 #include "matrix4x4f.h"
 #include "vector3f.h"
+#include "CubeTransform.h"
 #include "CubeModel.h"
 #include "CubeGeometry.h"
-#include "CubeTransform.h"
 #include "Rules.h"
 #include "Strategia.h"
 
@@ -46,6 +46,7 @@ struct Vertex
 // GLOBALS
 //-----------------------------------------------------------------------------
 
+SolutionStrategy* getSolutionStrategy();
 CubeModel* getCube();
 CubeModel* getOldCube();
 

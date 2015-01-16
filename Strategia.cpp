@@ -1,19 +1,19 @@
 #include "RubikCube.h"
 
-int run()
+int SolutionStrategy::run()
 {
 	int iter=0;
-	fazis1();
+	SolutionStrategy::solvePhase1();
 	while(findPattern(MINTA_FAZIS2) == -1) 
 	{
-		fazis2();
+		SolutionStrategy::solvePhase2();
 		iter++;
 		if(iter > 5) return 0;
 	}
 	iter=0;
 	while(findPattern(MINTA_FAZIS3) == -1)
 	{
-		fazis3();
+		SolutionStrategy::solvePhase3();
 		iter++;
 		if(iter >5) return 0;
 	}
@@ -21,7 +21,7 @@ int run()
 	iter=0;
 	while(findPattern(MINTA_FAZIS4) == -1)
 	{
-		fazis4();
+		SolutionStrategy::solvePhase4();
 		iter++;
 		if(iter>5) return 0;
 	}
@@ -29,13 +29,13 @@ int run()
 	iter=0;
 	while(findPattern(MINTA_FAZIS5) == -1)
 	{
-		fazis5();
+		SolutionStrategy::solvePhase5();
 		iter++;
 		if(iter>5) return 0;
 	}
 
-	fazis6(); // megbizhato, nem tesszuk whileba
-	fazis7();
+	SolutionStrategy::solvePhase6();
+	SolutionStrategy::solvePhase7();
 
 	if(findPattern(MINTA_FAZIS5) == -1) return 0;
 
@@ -44,9 +44,9 @@ int run()
 }
 
 
-void fazis1()
+void SolutionStrategy::solvePhase1()
 {
-	setInfo("Fazis 1");
+	setInfo("Running Phase 1");
 
 	// feher felforgatasa
 	int i;
@@ -71,24 +71,16 @@ void fazis1()
 				break;	
 			}
 			return;
-		} else 
-		{
-			//char buff[1024];
-			//sprintf(buff, "%s [%d|%2.2f:%2.2f:%2.2f]", msginfo, i, cube->GetCellColor(i, 5).Red, cube->GetCellColor(i, 5).Green, cube->GetCellColor(i, 5).Blue);
 		}
 	}
-
-
-
 }
 
-
-void fazis2()
+void SolutionStrategy::solvePhase2()
 {
 	int j,i,k;
 	for(j=0; j!=4; j++)
 	{
-		if(fazis2_alul()) continue;
+		if(getSolutionStrategy()->solvePhase2Bottom()) continue;
 		for(i=0; i!=rulesLen();  i++)
 		{
 			if(rules[i].group == FEHERET_ALULRA)
@@ -99,7 +91,7 @@ void fazis2()
 					int k;
 					for(k=0; k!=4; k++)
 					{
-						if(fazis2_alul()) break;
+						if(getSolutionStrategy()->solvePhase2Bottom()) break;
 						cTransform("6j");
 					}
 				}
@@ -114,7 +106,7 @@ void fazis2()
 	}
 }
 
-void fazis3()
+void SolutionStrategy::solvePhase3()
 {
 	int find;
 	int i,j,old,m;
@@ -124,34 +116,25 @@ void fazis3()
 		setInfo("Nincs kesz a masodik fazis!");
 		return;
 	}
-	// 3. fazis
-
-	if(1)
+	
+	for(old=0; old!=4; old++)
 	{
-		for(old=0; old!=4; old++)
+		find2 = findPattern(SAROKFEHER_LE);
+		if(find2!=-1)
+			applySolution(find2, 0);
+
+		for(j=0; j!=5; j++)
 		{
-			find2 = findPattern(SAROKFEHER_LE);
-			if(find2!=-1)
-				applySolution(find2, 0);
+			find = findPattern(FEHER_LENT_POZICIOBAN);
+			if(find != -1) 
+				applySolution(find, 0);
 
-
-			// nem negyet fordulunk hanem otot, hogy a kulso
-			// for ciklusra is maradjon iteracionkent egy 
-			// elforgatas. neki is kell, mert van olyan sarokfeher_le
-			// amit csak akkor tud megoldani, ha jo helyre van forgatva
-			for(j=0; j!=5; j++)
-			{
-				find = findPattern(FEHER_LENT_POZICIOBAN);
-				if(find != -1) 
-					applySolution(find, 0);
-
-				cTransform("6j");
-			}
+			cTransform("6j");
 		}
 	}
 }
 
-void fazis4()
+void SolutionStrategy::solvePhase4()
 {
 	int find;
 	int iteration;
@@ -163,50 +146,44 @@ void fazis4()
 			setInfo("Nincs harmadik fazisban!");
 			return;
 		}
-		//int h;
-		//h=0;
-		//while(findPattern(MINTA_FAZIS4) == -1)
-		if(1)
+		
+		find = findPattern(NAGYT_KIST);
+		if(find!=-1) 
 		{
-			find = findPattern(NAGYT_KIST);
-			if(find!=-1) 
+			if(rules[find].elofeltetel[0] != RESCUE) 
 			{
-				if(rules[find].elofeltetel[0] != RESCUE) 
-				{
-					setH(0);
-					applySolution(find, 0);
-				} else 
-				{
-					incrementH();
-					cTransform("6j");
-					if(getH()>4) {	// nincs mit tenni.
-						applySolution(find, 0);
-						setH(0);
-					}
-
-				}
-			}
-			else 
+				setH(0);
+				applySolution(find, 0);
+			} else 
 			{
+				incrementH();
 				cTransform("6j");
+				if(getH()>4) {	// nincs mit tenni.
+					applySolution(find, 0);
+					setH(0);
+				}
+
 			}
 		}
-
+		else 
+		{
+			cTransform("6j");
+		}
+		
 		if(findPattern(MINTA_FAZIS4) == -1)
-			setInfo("nincs meg a negyedik fazis");
+			setInfo("Phase 4 failed");
 		else
-			setInfo("megvan a negyedik fazis");
+			setInfo("Phase 4 succeeded");
 	}
-
 }
 
 
-void  fazis5()
+void SolutionStrategy::solvePhase5()
 {
 	int s;
 	int i,j;
 
-	if(findPattern(MINTA_FAZIS5) != -1) return;		// nem kell csinalni semmit sem
+	if(findPattern(MINTA_FAZIS5) != -1) return;
 	for(j=0; j!=10; j++)
 	{
 		for(i=0; i!=10; i++)
@@ -223,11 +200,10 @@ void  fazis5()
 		}
 		cTransform("6j");
 	}
-
 }
 
 
-int fazis6()
+void SolutionStrategy::solvePhase6()
 {
 	int i;
 	int kesz;
@@ -240,13 +216,12 @@ int fazis6()
 		if(sarokChkSum(i) != sarokPosChkSum(i)) 
 			kesz = 0;
 	if(kesz) 
-		return 1;
+		return;
 
 	while(1)
 	{
 		iter++;
 
-		//fixpont keresese
 		fix = -1;
 		for(i=1; i!=5; i++)
 			if((double)sarokChkSum(i) == (double)sarokPosChkSum(i)) fix = i;
@@ -254,18 +229,15 @@ int fazis6()
 
 		switch(fix) 
 		{
-		case 1: find = findPattern(SARKOK1);break;
-		case 2: find = findPattern(SARKOK2);break;
-		case 3: find = findPattern(SARKOK3);break;
-		case 4: find = findPattern(SARKOK4);break;
-		default: find = findPattern(SARKOK1);break;
+			case 1: find = findPattern(SARKOK1);break;
+			case 2: find = findPattern(SARKOK2);break;
+			case 3: find = findPattern(SARKOK3);break;
+			case 4: find = findPattern(SARKOK4);break;
+			default: find = findPattern(SARKOK1);break;
 		}
-
-		//sprintf(msginfo, "fixpont: %d alkalmazzuk: %d (2: %f es %f)", fix, find, sarokChkSum(2), sarokPosChkSum(2));
 
 		applySolution(find, 0);
 
-		// kilepes vizsgalata
 		kesz=1;
 		for(i=1; i!=5; i++)
 			if((double)sarokChkSum(i) != (double)sarokPosChkSum(i)) 
@@ -273,17 +245,15 @@ int fazis6()
 				kesz = 0;
 			}
 			if(kesz)  {
-				return 1;
+				return;
 			}
 	}
 
-
-
-	return 1;
+	return;
 }
 
 
-void fazis7()
+void SolutionStrategy::solvePhase7()
 {
 	int find;
 
@@ -295,11 +265,10 @@ void fazis7()
 			applySolution(find, 0);
 	} 
 
-	setInfo("ki van rakva");
-
+	setInfo("Cube solved");
 }
 
-double sarokChkSum(int num)
+double SolutionStrategy::sarokChkSum(int num)
 {
 	CubeModel* cube = getCube();
 	double retval;
@@ -354,7 +323,7 @@ double sarokChkSum(int num)
 }
 
 
-double sarokPosChkSum(int num)
+double SolutionStrategy::sarokPosChkSum(int num)
 {
 	CubeModel* cube = getCube();
 	double retval;
@@ -406,9 +375,7 @@ double sarokPosChkSum(int num)
 
 }
 
-
-
-int fazis2_alul()
+int SolutionStrategy::solvePhase2Bottom()
 {
 	int i=0;
 	for(i=0; i!=rulesLen(); i++)
@@ -421,14 +388,14 @@ int fazis2_alul()
 				sprintf(buff, "%d igaz", i);
 				setWarning(buff);
 				applySolution(i,0);
-				return 1; // kov. iteracio
+				return 1; 
 			} else setWarning("");
 		}
 	}
-	return 0; // nem csinaltunk semmit
+	return 0; 
 }
 
-int cCompare(int side1, int place1, int side2, int place2)
+int SolutionStrategy::compareColors(int side1, int place1, int side2, int place2)
 {
 	CubeModel* cube = getCube();
 	if((cube->GetCellColor(side1, place1).Red == cube->GetCellColor(side2, place2).Red) &&

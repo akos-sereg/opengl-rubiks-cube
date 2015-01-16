@@ -3,7 +3,7 @@
 
 #include "RubikCube.h"
 
-
+SolutionStrategy solutionStrategy;
 CubeModel cube;
 CubeModel oldCube;
 
@@ -15,6 +15,11 @@ CubeModel* getCube()
 CubeModel* getOldCube()
 {
 	return &oldCube;
+}
+
+SolutionStrategy* getSolutionStrategy() 
+{
+	return &solutionStrategy;
 }
 
 char msginfo[256], warning[256];
@@ -284,9 +289,9 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				cTransformN(rand()%16);
 				break;
 
-			case 'N':
-				fazis1();
-				break;
+			/*case 'N':
+				strategy
+				break;*/
 
 			case '1': 
 				saveCubeColors();
@@ -301,7 +306,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				rotatingStep=0;
 				stopRotating();
 				
-				if(run())
+				if(solutionStrategy.run())
 				{
 					if(!test)
 					{
@@ -384,7 +389,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 
 			case 'X':
 
-				for(j=0; j!=4; j++)
+				/*for(j=0; j!=4; j++)
 				{
 					if(fazis2_alul()) continue;
 					for(i=0; i!=rulesLen(); i++)
@@ -409,7 +414,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				{
 					if(rules[i].group == MINTA_FAZIS2) 
 						if(!checkPattern(i)) sprintf(warning, "Broken rule found while running phase 2");
-				}
+				}*/
 				
 				break;
 
