@@ -1,6 +1,5 @@
 #include "RubikCube.h"
 
-
 MovingWhiteCellUpToCenterPhase::MovingWhiteCellUpToCenterPhase(void)
 {
 }

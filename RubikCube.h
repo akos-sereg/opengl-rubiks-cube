@@ -25,6 +25,7 @@ using namespace std;
 #include "glut.h"
 #include "ISolutionPhase.h"
 #include "MovingWhiteCellUpToCenterPhase.h"
+#include "MovingTopCornersPhase.h"
 #include "GeometryProvider.h"
 #include "matrix4x4f.h"
 #include "vector3f.h"

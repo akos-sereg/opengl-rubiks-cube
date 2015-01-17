@@ -8,19 +8,13 @@ int SolutionStrategy::run()
 	
 	std::list<ISolutionPhase*> solutionPhases;
 	solutionPhases.push_back(new MovingWhiteCellUpToCenterPhase());
+	solutionPhases.push_back(new MovingTopCornersPhase());
 	
 	for (std::list<ISolutionPhase*>::const_iterator iterator = solutionPhases.begin(), end = solutionPhases.end(); iterator != end; ++iterator) {
 		ISolutionPhase* currentPhase = *iterator;
 		currentPhase->solvePhase(getCube());
 	}
 
-	while(getRuleEngine()->findPattern(MINTA_FAZIS2) == -1) 
-	{
-		solvePhase2();
-		iter++;
-		if(iter > 5) return 0;
-	}
-	iter=0;
 	while(getRuleEngine()->findPattern(MINTA_FAZIS3) == -1)
 	{
 		solvePhase3();
@@ -51,67 +45,6 @@ int SolutionStrategy::run()
 
 	return 1;
 
-}
-
-
-void SolutionStrategy::solvePhase1()
-{
-	setInfo("Running Phase 1");
-
-	int i;
-	CubeModel* cube = getCube();
-	for(i=1; i!=7; i++)
-	{
-		if((int)cube->GetCellColor(i, 5).Red == 1 &&
-			(int)cube->GetCellColor(i, 5).Green == 1 &&
-			(int)cube->GetCellColor(i, 5).Blue == 1)
-		{
-			switch(i)
-			{
-			case 1: cTransform("7j"); break;
-			case 2: cTransform("8j"); break;
-			case 3: cTransform("7b"); break;
-			case 4: cTransform("8b"); break;
-			case 5: break;
-			case 6: 
-				cTransform("8b");
-				cTransform("8b");
-				break;	
-			}
-			return;
-		}
-	}
-}
-
-void SolutionStrategy::solvePhase2()
-{
-	int j,i,k;
-	for(j=0; j!=4; j++)
-	{
-		if(solvePhase2Bottom()) continue;
-		for(i=0; i!=getRuleEngine()->rulesLen();  i++)
-		{
-			if(rules[i].group == FEHERET_ALULRA)
-			{
-				if(getRuleEngine()->checkPattern(i)) 
-				{	
-					getRuleEngine()->applySolution(i, 0);
-					int k;
-					for(k=0; k!=4; k++)
-					{
-						if(solvePhase2Bottom()) break;
-						cTransform("6j");
-					}
-				}
-			}
-		}
-	}
-
-	for(i=0; i!=getRuleEngine()->rulesLen(); i++)
-	{
-		if(rules[i].group == MINTA_FAZIS2) 
-			if(!getRuleEngine()->checkPattern(i)) setWarning("HIBA: hibas szabalyrendszer a 2. fazis kirakasa kozben!");
-	}
 }
 
 void SolutionStrategy::solvePhase3()
@@ -307,8 +240,6 @@ double SolutionStrategy::sarokChkSum(int num)
 		cr = cube->GetCellColor(6, 1).Red; cg = cube->GetCellColor(6, 1).Green; cb = cube->GetCellColor(6, 1).Blue;
 	}
 
-	//retval = 0.0001*ar + 0.001*ag + 0.01*ab + 0.1*br + 1.0*bg + 10.0*bb + 100.0*cr + 1000.0*cg + 10000.0*cb;
-
 	double c[3];
 	c[0] = 100.0*ar + 10.0*ag + 1.0*ab;
 	c[1] = 100.0*br + 10.0*bg + 1.0*bb;
@@ -324,10 +255,7 @@ double SolutionStrategy::sarokChkSum(int num)
 		if(c[i] > c[maxIndex]) maxIndex = i;
 	int kozepso = 3 - (maxIndex+minIndex);
 
-
 	return c[minIndex]*100.0 + c[kozepso]*10.0 + c[maxIndex]*1.0;
-
-
 }
 
 
@@ -379,28 +307,6 @@ double SolutionStrategy::sarokPosChkSum(int num)
 
 
 	return c[minIndex]*100.0 + c[kozepso]*10.0 + c[maxIndex]*1.0;
-	//return (double)c[0];
-
-}
-
-int SolutionStrategy::solvePhase2Bottom()
-{
-	int i=0;
-	for(i=0; i!=getRuleEngine()->rulesLen(); i++)
-	{
-		if(rules[i].group == MINTA_KORONA_FELPORGET)
-		{
-			if(getRuleEngine()->checkPattern(i))
-			{
-				char buff[256];
-				sprintf(buff, "%d true", i);
-				setWarning(buff);
-				getRuleEngine()->applySolution(i,0);
-				return 1; 
-			} else setWarning("");
-		}
-	}
-	return 0; 
 }
 
 int SolutionStrategy::compareColors(int side1, int place1, int side2, int place2)

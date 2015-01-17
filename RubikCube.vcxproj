@@ -112,6 +112,7 @@
     <ClCompile Include="GeometryProvider.cpp" />
     <ClCompile Include="ISolutionPhase.cpp" />
     <ClCompile Include="matrix4x4f.cpp" />
+    <ClCompile Include="MovingTopCornersPhase.cpp" />
     <ClCompile Include="MovingWhiteCellUpToCenterPhase.cpp" />
     <ClCompile Include="RubikCube.cpp" />
     <ClCompile Include="RuleEngine.cpp" />
@@ -131,6 +132,7 @@
     <ClInclude Include="matrix4x4f.h">
       <FileType>CppClass</FileType>
     </ClInclude>
+    <ClInclude Include="MovingTopCornersPhase.h" />
     <ClInclude Include="MovingWhiteCellUpToCenterPhase.h" />
     <ClInclude Include="RubikCube.h">
       <FileType>CppForm</FileType>
