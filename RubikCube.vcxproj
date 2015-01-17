@@ -107,7 +107,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CubeGeometry.cpp" />
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="CubeTransform.cpp" />
     <ClCompile Include="GeometryProvider.cpp" />
@@ -118,9 +117,6 @@
     <ClCompile Include="vector3f.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CubeGeometry.h">
-      <FileType>CppClass</FileType>
-    </ClInclude>
     <ClInclude Include="CubeModel.h" />
     <ClInclude Include="CubeTransform.h">
       <FileType>CppClass</FileType>
@@ -146,11 +142,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CubeGeometry.resX">
-      <DependentUpon>CubeGeometry.h</DependentUpon>
-      <LogicalName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RubikCube.CubeGeometry.resources</LogicalName>
-      <LogicalName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RubikCube.CubeGeometry.resources</LogicalName>
-    </EmbeddedResource>
     <EmbeddedResource Include="CubeTransform.resX">
       <DependentUpon>CubeTransform.h</DependentUpon>
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RubikCube.CubeTransform.resources</LogicalName>

@@ -32,7 +32,6 @@ double getArany();
 #include "vector3f.h"
 #include "CubeTransform.h"
 #include "CubeModel.h"
-#include "CubeGeometry.h"
 #include "RuleEngine.h"
 #include "SolutionStrategy.h"
 

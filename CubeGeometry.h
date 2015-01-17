@@ -1,5 +1,0 @@
-#ifndef _CUBEGEOMETRY_INCLUDED_
-#define _CUBEGEOMETRY_INCLUDED_
-
-
-#endif
