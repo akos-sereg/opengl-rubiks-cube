@@ -66,7 +66,7 @@ void GeometryProvider::endRenderText( void )
 // Name: getBitmapFontDataByType()
 // Desc: Matches a BitmapFontType with a BitmapFontData structure pointer.
 //-----------------------------------------------------------------------------
-const BitmapFontData* getBitmapFontDataByType( BitmapFontType font )
+const BitmapFontData* GeometryProvider::getBitmapFontDataByType( BitmapFontType font )
 {
     if( font == BITMAP_FONT_TYPE_HELVETICA_10 )
         return &FontHelvetica10;

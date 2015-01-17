@@ -21,6 +21,16 @@ enum BitmapFontType
     BITMAP_FONT_TYPE_TIMES_ROMAN_24
 };
 
+struct BitmapFontData
+{
+    char*           Name;         /* The source font name             */
+    int             Quantity;     /* Number of chars in font          */
+    int             Height;       /* Height of the characters         */
+    const GLubyte** Characters;   /* The characters mapping           */
+
+    float           xorig, yorig; /* Relative origin of the character */
+};
+
 class GeometryProvider
 {
 	public:
@@ -36,7 +46,7 @@ class GeometryProvider
 		void beginRenderText(int nWindowWidth, int nWindowHeight);
 		void endRenderText( void );
 		void renderText( float x, float y, BitmapFontType fontType, char *string );
-		//BitmapFontData* getBitmapFontDataByType( BitmapFontType font );
+		const BitmapFontData* getBitmapFontDataByType( BitmapFontType font );
 };
 
 //-----------------------------------------------------------------------------
@@ -82,21 +92,6 @@ struct Vertex2
 	unsigned char r, g, b, a;
 	float x, y, z;
 };
-
-/*
- * The bitmap font structure
- */
-
-struct BitmapFontData
-{
-    char*           Name;         /* The source font name             */
-    int             Quantity;     /* Number of chars in font          */
-    int             Height;       /* Height of the characters         */
-    const GLubyte** Characters;   /* The characters mapping           */
-
-    float           xorig, yorig; /* Relative origin of the character */
-};
-
 
 /* The font structure: */
 
