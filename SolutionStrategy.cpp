@@ -9,19 +9,11 @@ int SolutionStrategy::run()
 	solutionPhases.push_back(new MovingTopCornersPhase());
 	solutionPhases.push_back(new MovingCornerWhiteDownPhase());
 	solutionPhases.push_back(new MovingSideCentersPhase());
+	solutionPhases.push_back(new MovingBottomCentersPhase());
 	
 	for (std::list<ISolutionPhase*>::const_iterator iterator = solutionPhases.begin(), end = solutionPhases.end(); iterator != end; ++iterator) {
 		ISolutionPhase* currentPhase = *iterator;
 		currentPhase->solvePhase(getCube());
-	}
-
-	int iter=0;
-
-	while(getRuleEngine()->findPattern(MINTA_FAZIS5) == -1)
-	{
-		solvePhase5();
-		iter++;
-		if(iter>5) return 0;
 	}
 
 	solvePhase6();
@@ -30,33 +22,7 @@ int SolutionStrategy::run()
 	if(getRuleEngine()->findPattern(MINTA_FAZIS5) == -1) return 0;
 
 	return 1;
-
 }
-
-void SolutionStrategy::solvePhase5()
-{
-	int s;
-	int i,j;
-
-	if(getRuleEngine()->findPattern(MINTA_FAZIS5) != -1) return;
-	for(j=0; j!=10; j++)
-	{
-		for(i=0; i!=10; i++)
-		{
-			s = getRuleEngine()->findPattern(ALSO1);
-			if(s!=-1)
-			{
-				getRuleEngine()->applySolution(s, 0);
-				if(getRuleEngine()->findPattern(MINTA_FAZIS5) != -1)
-				{
-					return;
-				}
-			}
-		}
-		cTransform("6j");
-	}
-}
-
 
 void SolutionStrategy::solvePhase6()
 {

@@ -28,6 +28,7 @@ using namespace std;
 #include "MovingTopCornersPhase.h"
 #include "MovingCornerWhiteDownPhase.h"
 #include "MovingSideCentersPhase.h"
+#include "MovingBottomCentersPhase.h"
 #include "GeometryProvider.h"
 #include "matrix4x4f.h"
 #include "vector3f.h"
