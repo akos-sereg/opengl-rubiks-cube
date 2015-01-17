@@ -7,6 +7,7 @@ SolutionStrategy solutionStrategy;
 CubeModel cube;
 CubeModel oldCube;
 RuleEngine ruleEngine;
+Geometry geometryProvider;
 
 CubeModel* getCube() 
 {
@@ -26,6 +27,11 @@ SolutionStrategy* getSolutionStrategy()
 RuleEngine* getRuleEngine() 
 {
 	return &ruleEngine;
+}
+
+Geometry* getGeometryProvider() 
+{
+	return &geometryProvider;
 }
 
 char msginfo[256], warning[256];
@@ -812,10 +818,10 @@ void render( void )
 		if((rotating < 4 || rotating>5) && rotating!=8) glRotatef(showLap[rotating].deg, 0.0, 1.0, 0.0);
 		else glRotatef(showLap[rotating].deg, 1.0, 0.0, 0.0);
 		glTranslatef(showLap[rotating].x1, showLap[rotating].y1, showLap[rotating].z1);
-		renderLap();
+		getGeometryProvider()->renderLap();
 		glTranslatef(-showLap[rotating].x1, -showLap[rotating].y1, -showLap[rotating].z1);
 		glTranslatef(showLap[rotating].x2, showLap[rotating].y2, showLap[rotating].z2);
-		renderLap();
+		getGeometryProvider()->renderLap();
 		glTranslatef(-showLap[rotating].x2, -showLap[rotating].y2, -showLap[rotating].z2);
 		if((rotating < 4 || rotating > 5) && rotating != 8) glRotatef(-showLap[rotating].deg, 0.0, 1.0, 0.0);
 		else glRotatef(-showLap[rotating].deg, 1.0, 0.0, 0.0);
@@ -824,7 +830,7 @@ void render( void )
 		glTranslatef(0.52, 0.55, 0.52);
 		for(i=0; i!=3; i++)
 		{
-			renderLap();
+			getGeometryProvider()->renderLap();
 			glTranslatef(0.0, 0.0, 0.98);
 		}
 		glTranslatef(0.0, 0.0, -(3*0.98));
@@ -833,7 +839,7 @@ void render( void )
 
 	glPushMatrix();
 	{
-		renderGrid(10*arany, 0.5*arany);
+		getGeometryProvider()->renderGrid(10*arany, 0.5*arany);
 		refreshCube();
 
 		if(!changed) 
@@ -852,7 +858,7 @@ void render( void )
 				
 				glTranslatef(sideRotate[snum].dist[0]*arany, sideRotate[snum].dist[1]*arany, sideRotate[snum].dist[2]*arany);
 				glRotatef(sideRotate[snum].deg, 0.0, 0.0, 1.0);
-				renderSide(sideRotate[snum].colors);
+				getGeometryProvider()->renderSide(sideRotate[snum].colors);
 				if(sideRotate[snum].deg>0.0) sideRotate[snum].deg -= rotSpeedCurrent;
 				else if(sideRotate[snum].deg<0.0) sideRotate[snum].deg += rotSpeed;
 
@@ -878,7 +884,7 @@ void render( void )
 	int h;
 	glColor3f(1.0, 1.0, 1.0);
 	sprintf(warning, "Steps (not optimized): %d / %d", rotatingStep+1, step);
-	renderTextFull(10.0, 12.0, warning);
+	getGeometryProvider()->renderTextFull(10.0, 12.0, warning);
 
 	if(rotatingStep == step-1) stopRotating();
 	if(rotating==-1 && getRotating())
@@ -897,7 +903,7 @@ void render( void )
 	while(strlen(info[i].line))
 	{
 		sprintf(warning, "%s", info[i].line);
-		renderTextFull(10, (12*i) + 24, warning);
+		getGeometryProvider()->renderTextFull(10, (12*i) + 24, warning);
 		i++;
 	}
 
@@ -978,7 +984,7 @@ void setColorGrid(int lap, int sorszam, double red, double green, double blue)
 	{
 		glTranslatef(x*arany, y*arany, z*arany);
 		glRotatef(fok[0], fok[1], fok[2], fok[3]);
-		renderGridColor(0.8 * arany, red, green, blue);
+		getGeometryProvider()->renderGridColor(0.8 * arany, red, green, blue);
 		glTranslatef(-x*arany, -y*arany, -z*arany);
 
 	}

@@ -50,6 +50,7 @@ SolutionStrategy* getSolutionStrategy();
 CubeModel* getCube();
 CubeModel* getOldCube();
 RuleEngine* getRuleEngine();
+Geometry* getGeometryProvider();
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, 
 				   LPSTR lpCmdLine, int nCmdShow);

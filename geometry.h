@@ -24,14 +24,21 @@ struct mycolor
 //                 mumbo-jumbo.
 //
 // The following functions are defined here:
-void renderGridColor( GLdouble dSize, double red, double green, double blue);
-void renderWireCubeColor( GLdouble dSize, double color);
-void renderCubeColor( GLdouble dSize, double color);
-void renderTextFull(float x, float y, char *str);
-void renderSide(struct mycolor *colors);
-void renderLap();
-void renderGrid(float y, float range);
-void renderWall( GLdouble dSize);
+
+
+class Geometry
+{
+	public:
+		void renderGridColor( GLdouble dSize, double red, double green, double blue);
+		void renderWireCubeColor( GLdouble dSize, double color);
+		void renderCubeColor( GLdouble dSize, double color);
+		void renderTextFull(float x, float y, char *str);
+		void renderSide(struct mycolor *colors);
+		void renderLap();
+		void renderGrid(float y, float range);
+		void renderWall( GLdouble dSize);
+};
+
 //-----------------------------------------------------------------------------
 
 /*

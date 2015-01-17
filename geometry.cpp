@@ -111,7 +111,7 @@ void renderText( float x, float y, BitmapFontType fontType, char *string )
 
 
 
-void renderTextFull(float x, float y, char *str)
+void Geometry::renderTextFull(float x, float y, char *str)
 {
 	
 	beginRenderText(800, 600);
@@ -145,7 +145,7 @@ void renderWireCube( GLdouble dSize )
 #   undef N
 }
 
-void renderSide(struct mycolor *colors )
+void Geometry::renderSide(struct mycolor *colors )
 {
     int i,j,n=0;
 	
@@ -220,7 +220,7 @@ void renderSide(struct mycolor *colors )
 	}
 }
 
-void renderLap()
+void Geometry::renderLap()
 {
 	int i;
 	int j;
@@ -240,7 +240,7 @@ void renderLap()
 }
 
 
-void renderWireCubeColor( GLdouble dSize, double color)
+void Geometry::renderWireCubeColor( GLdouble dSize, double color)
 {
     double size = dSize * 0.5;
 
@@ -267,7 +267,7 @@ void renderWireCubeColor( GLdouble dSize, double color)
 }
 
 
-void renderCubeColor( GLdouble dSize, double color)
+void Geometry::renderCubeColor( GLdouble dSize, double color)
 {
     double size = dSize * 0.5;
 
@@ -294,7 +294,7 @@ void renderCubeColor( GLdouble dSize, double color)
 
 
 
-void renderGridColor( GLdouble dSize, double red, double green, double blue)
+void Geometry::renderGridColor(GLdouble dSize, double red, double green, double blue)
 {
     double size = dSize * 0.5;
 
@@ -328,7 +328,7 @@ void renderGridColor( GLdouble dSize, double red, double green, double blue)
 #   undef N
 }
 
-void renderWall( GLdouble dSize)
+void Geometry::renderWall( GLdouble dSize)
 {
     double size = dSize * 0.5;
 
@@ -477,7 +477,7 @@ void renderGridZ(float y, float range, float height)
 }
 
 
-void renderGrid(float y, float range)
+void Geometry::renderGrid(float y, float range)
 {
 	float i,j;
 
