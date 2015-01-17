@@ -3,12 +3,6 @@
 #ifndef _RUBIKCUBE_H_INCLUDED_
 #define _RUBIKCUBE_H_INCLUDED_
 
-//
-//void render(void);
-//int noRotating();
-//void saveCubeColors();
-//void loadCubeColors();
-//void cAddQueue(char *cmd);
 void setWarning(char* text);
 void setInfo(char *info);
 int isTest();
@@ -41,11 +35,6 @@ struct Vertex
 	float x, y, z;
 };
 
-//-----------------------------------------------------------------------------
-// GLOBALS
-//-----------------------------------------------------------------------------
-
-
 class RubikCube
 {
 	public:
@@ -70,9 +59,7 @@ RuleEngine* getRuleEngine();
 GeometryProvider* getGeometryProvider();
 RubikCube* getRubikCube();
 
-int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, 
-				   LPSTR lpCmdLine, int nCmdShow);
+int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
 
 #endif

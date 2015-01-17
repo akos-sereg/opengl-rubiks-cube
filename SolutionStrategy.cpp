@@ -3,17 +3,19 @@
 int SolutionStrategy::run()
 {
 	int iter=0;
-	SolutionStrategy::solvePhase1();
+	
+	solvePhase1();
+	
 	while(getRuleEngine()->findPattern(MINTA_FAZIS2) == -1) 
 	{
-		getSolutionStrategy()->solvePhase2();
+		solvePhase2();
 		iter++;
 		if(iter > 5) return 0;
 	}
 	iter=0;
 	while(getRuleEngine()->findPattern(MINTA_FAZIS3) == -1)
 	{
-		getSolutionStrategy()->solvePhase3();
+		solvePhase3();
 		iter++;
 		if(iter >5) return 0;
 	}
@@ -21,7 +23,7 @@ int SolutionStrategy::run()
 	iter=0;
 	while(getRuleEngine()->findPattern(MINTA_FAZIS4) == -1)
 	{
-		getSolutionStrategy()->solvePhase4();
+		solvePhase4();
 		iter++;
 		if(iter>5) return 0;
 	}
@@ -29,13 +31,13 @@ int SolutionStrategy::run()
 	iter=0;
 	while(getRuleEngine()->findPattern(MINTA_FAZIS5) == -1)
 	{
-		getSolutionStrategy()->solvePhase5();
+		solvePhase5();
 		iter++;
 		if(iter>5) return 0;
 	}
 
-	getSolutionStrategy()->solvePhase6();
-	getSolutionStrategy()->solvePhase7();
+	solvePhase6();
+	solvePhase7();
 
 	if(getRuleEngine()->findPattern(MINTA_FAZIS5) == -1) return 0;
 
@@ -80,7 +82,7 @@ void SolutionStrategy::solvePhase2()
 	int j,i,k;
 	for(j=0; j!=4; j++)
 	{
-		if(getSolutionStrategy()->solvePhase2Bottom()) continue;
+		if(solvePhase2Bottom()) continue;
 		for(i=0; i!=getRuleEngine()->rulesLen();  i++)
 		{
 			if(rules[i].group == FEHERET_ALULRA)
@@ -91,7 +93,7 @@ void SolutionStrategy::solvePhase2()
 					int k;
 					for(k=0; k!=4; k++)
 					{
-						if(getSolutionStrategy()->solvePhase2Bottom()) break;
+						if(solvePhase2Bottom()) break;
 						cTransform("6j");
 					}
 				}
