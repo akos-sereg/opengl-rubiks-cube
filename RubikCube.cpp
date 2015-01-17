@@ -8,6 +8,7 @@ CubeModel cube;
 CubeModel oldCube;
 RuleEngine ruleEngine;
 GeometryProvider geometryProvider;
+RubikCube rubikCube;
 
 CubeModel* getCube() 
 {
@@ -32,6 +33,11 @@ RuleEngine* getRuleEngine()
 GeometryProvider* getGeometryProvider() 
 {
 	return &geometryProvider;
+}
+
+RubikCube* getRubikCube() 
+{
+	return &rubikCube;
 }
 
 char msginfo[256], warning[256];
@@ -254,7 +260,7 @@ int WINAPI WinMain( HINSTANCE hInstance,
 	ShowWindow( g_hWnd, nCmdShow );
 	UpdateWindow( g_hWnd );
 
-	init();
+	rubikCube.init();
 
 	while( uMsg.message != WM_QUIT )
 	{
@@ -270,11 +276,11 @@ int WINAPI WinMain( HINSTANCE hInstance,
 			g_dLastTime    = g_dCurrentTime;
 
 			//_sleep(40);
-			render();
+			rubikCube.render();
 		}
 	}
 
-	shutDown(); 
+	rubikCube.shutDown(); 
 
 	UnregisterClass( "MY_WINDOWS_CLASS", winClass.hInstance );
 
@@ -306,14 +312,14 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				break;*/
 
 			case '1': 
-				saveCubeColors();
+				rubikCube.saveCubeColors();
 				step = 0;
 				rotatingStep = 0;
 				stopRotating();
 				break;
 
 			case '2': 
-				saveCubeColors();
+				rubikCube.saveCubeColors();
 				step=0;
 				rotatingStep=0;
 				stopRotating();
@@ -323,7 +329,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 					if(!test)
 					{
 						startRotating();
-						loadCubeColors();
+						rubikCube.loadCubeColors();
 					} else step=0;
 					rotatingStep=-1;
 				} else sprintf(msginfo, "Error: unable to solve cube");
@@ -523,7 +529,7 @@ void inline drawString (char *s)
 // Name: init()
 // Desc: 
 //-----------------------------------------------------------------------------
-void init( void )
+void RubikCube::init( void )
 {
 	GLuint PixelFormat;
 
@@ -568,7 +574,7 @@ void init( void )
 //       . = Dot-product operation
 //
 //-----------------------------------------------------------------------------
-void updateViewMatrix( void )
+void RubikCube::updateViewMatrix( void )
 {
 	matrix4x4f view;
 	view.identity();
@@ -611,7 +617,7 @@ void updateViewMatrix( void )
 // Name: getRealTimeUserInput()
 // Desc: 
 //-----------------------------------------------------------------------------
-void getRealTimeUserInput( void )
+void RubikCube::getRealTimeUserInput( void )
 {
 	// Mouse input
 	POINT mousePosit;
@@ -741,7 +747,7 @@ void getRealTimeUserInput( void )
 // Name: shutDown()
 // Desc: 
 //-----------------------------------------------------------------------------
-void shutDown( void )   
+void RubikCube::shutDown( void )   
 {
 	if( g_hRC != NULL )
 	{
@@ -795,14 +801,14 @@ struct showLap
 };
 
 
-void render( void )
+void RubikCube::render( void )
 {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-	getRealTimeUserInput();
+	rubikCube.getRealTimeUserInput();
 
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity();
-	updateViewMatrix();
+	rubikCube.updateViewMatrix();
 	
 	glDisable( GL_BLEND);
 	glEnable( GL_DEPTH_TEST );
@@ -840,7 +846,7 @@ void render( void )
 	glPushMatrix();
 	{
 		getGeometryProvider()->renderGrid(10*arany, 0.5*arany);
-		refreshCube();
+		rubikCube.refreshCube();
 
 		if(!changed) 
 		{
@@ -971,7 +977,7 @@ struct cubeSide
 	{0.0,  0.0, 0.0, 0.0}
 };
 
-void setColorGrid(int lap, int sorszam, double red, double green, double blue)
+void RubikCube::setColorGrid(int lap, int sorszam, double red, double green, double blue)
 {
 	double x,y,z;
 	double fok[4] = { cubeSide[lap].deg, cubeSide[lap].degx, cubeSide[lap].degy, cubeSide[lap].degz };
@@ -1121,7 +1127,7 @@ struct lapSzinek
 	}
 };
 
-void refreshCube()
+void RubikCube::refreshCube()
 {
 	CubeModel* cubeModel = getCube();
 
@@ -1156,7 +1162,7 @@ void refreshCube()
 	}
 }
 
-void saveCubeColors()
+void RubikCube::saveCubeColors()
 {
 	CubeModel* cubeModel = getCube();
 	CubeModel* oldCubeModel = getOldCube();
@@ -1171,7 +1177,7 @@ void saveCubeColors()
 
 }
 
-void loadCubeColors()
+void RubikCube::loadCubeColors()
 {
 	CubeModel* cubeModel = getCube();
 	CubeModel* oldCubeModel = getOldCube();
@@ -1191,14 +1197,14 @@ void loadCubeColors()
 }
 
 
-void cAddQueue(char *cmd)
+void RubikCube::cAddQueue(char *cmd)
 {
 	sprintf(history[step].step, "%s", cmd);
 	step++;
 }
 
 
-int noRotating()
+int RubikCube::noRotating()
 {
 
 	return stillRotate;
@@ -1216,9 +1222,7 @@ int noRotating()
 }
 
 
-
-
-void rotateColorSide(int num)
+void RubikCube::rotateColorSide(int num)
 {
 	int i;
 	int n = num/2;

@@ -205,7 +205,7 @@ int getRotating()
 
 void cTransform(char *id)
 {
-	if(!showRotating) cAddQueue(id);
+	if(!showRotating) getRubikCube()->cAddQueue(id);
 
 	CubeModel tempCube;
 
@@ -231,7 +231,7 @@ void cTransform(char *id)
 
 	if(showRotating==1 && !isTest()) 
 	{	
-		rotateColorSide(transid);
+		getRubikCube()->rotateColorSide(transid);
 	}
 	
 	CubeModel* cube = getCube();

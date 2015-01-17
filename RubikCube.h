@@ -3,12 +3,12 @@
 #ifndef _RUBIKCUBE_H_INCLUDED_
 #define _RUBIKCUBE_H_INCLUDED_
 
-
-void render(void);
-int noRotating();
-void saveCubeColors();
-void loadCubeColors();
-void cAddQueue(char *cmd);
+//
+//void render(void);
+//int noRotating();
+//void saveCubeColors();
+//void loadCubeColors();
+//void cAddQueue(char *cmd);
 void setWarning(char* text);
 void setInfo(char *info);
 int isTest();
@@ -45,20 +45,34 @@ struct Vertex
 // GLOBALS
 //-----------------------------------------------------------------------------
 
+
+class RubikCube
+{
+	public:
+		void init(void);
+		void shutDown(void);
+		void refreshCube(void);
+		void setColorGrid(int lap, int sorszam, double red, double green, double blue);
+		void rotateColorSide(int num);
+		int noRotating();
+		void cAddQueue(char *cmd);
+		void loadCubeColors();
+		void saveCubeColors();
+		void updateViewMatrix( void );
+		void getRealTimeUserInput( void );
+		void render( void );
+};
+
 SolutionStrategy* getSolutionStrategy();
 CubeModel* getCube();
 CubeModel* getOldCube();
 RuleEngine* getRuleEngine();
 GeometryProvider* getGeometryProvider();
+RubikCube* getRubikCube();
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, 
 				   LPSTR lpCmdLine, int nCmdShow);
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-void init(void);
-void shutDown(void);
-void refreshCube(void);
-void setColorGrid(int lap, int sorszam, double red, double green, double blue);
-void rotateColorSide(int num);
-int checkPattern2(int n);
+
 
 #endif
