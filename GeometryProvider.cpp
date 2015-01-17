@@ -87,7 +87,7 @@ const BitmapFontData* getBitmapFontDataByType( BitmapFontType font )
 //       endRenderText();
 //
 //-----------------------------------------------------------------------------
-void renderText( float x, float y, BitmapFontType fontType, char *string )
+void GeometryProvider::renderText( float x, float y, BitmapFontType fontType, char *string )
 {
 	
     glRasterPos2f( x, y );
@@ -265,9 +265,6 @@ void GeometryProvider::renderCubeColor( GLdouble dSize, double color)
 #   undef V
 #   undef N
 }
-
-
-
 
 void GeometryProvider::renderGridColor(GLdouble dSize, double red, double green, double blue)
 {

@@ -10,6 +10,17 @@ struct mycolor
 	double blue;
 };
 
+enum BitmapFontType
+{
+    BITMAP_FONT_TYPE_8_BY_13,
+    BITMAP_FONT_TYPE_9_BY_15,
+    BITMAP_FONT_TYPE_HELVETICA_10,
+    BITMAP_FONT_TYPE_HELVETICA_12,
+    BITMAP_FONT_TYPE_HELVETICA_18,
+    BITMAP_FONT_TYPE_TIMES_ROMAN_10,
+    BITMAP_FONT_TYPE_TIMES_ROMAN_24
+};
+
 class GeometryProvider
 {
 	public:
@@ -20,12 +31,12 @@ class GeometryProvider
 		void renderSide(struct mycolor *colors);
 		void renderLap();
 		void renderGrid(float y, float range);
-		//void renderWall( GLdouble dSize);
 
 	private:
 		void beginRenderText(int nWindowWidth, int nWindowHeight);
 		void endRenderText( void );
-		//const BitmapFontData* GeometryProvider::getBitmapFontDataByType( BitmapFontType font );
+		void renderText( float x, float y, BitmapFontType fontType, char *string );
+		//BitmapFontData* getBitmapFontDataByType( BitmapFontType font );
 };
 
 //-----------------------------------------------------------------------------
@@ -72,18 +83,6 @@ struct Vertex2
 	float x, y, z;
 };
 
-
-
-enum BitmapFontType
-{
-    BITMAP_FONT_TYPE_8_BY_13,
-    BITMAP_FONT_TYPE_9_BY_15,
-    BITMAP_FONT_TYPE_HELVETICA_10,
-    BITMAP_FONT_TYPE_HELVETICA_12,
-    BITMAP_FONT_TYPE_HELVETICA_18,
-    BITMAP_FONT_TYPE_TIMES_ROMAN_10,
-    BITMAP_FONT_TYPE_TIMES_ROMAN_24
-};
 /*
  * The bitmap font structure
  */
