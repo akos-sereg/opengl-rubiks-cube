@@ -87,12 +87,6 @@ class GeometryProvider
 #include <math.h>
 #include <GL/gl.h>
 
-struct Vertex2
-{
-	unsigned char r, g, b, a;
-	float x, y, z;
-};
-
 /* The font structure: */
 
 static const GLubyte Helvetica10_Character_032[] = {  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0}; /* " " */
