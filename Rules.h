@@ -29,14 +29,15 @@
 
 #define OLDAL					99
 
-
-void applySolution(int n, int rotnum);
-int sideval(int num);
-int checkPattern(int n);
-int rulesLen();
-int findPattern(int code);
-
-
+class RuleEngine
+{
+	public:
+		void applySolution(int n, int rotnum);
+		int sideval(int num);
+		int checkPattern(int n);
+		int rulesLen();
+		int findPattern(int code);
+};
 
 struct pattern
 {

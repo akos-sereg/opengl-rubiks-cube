@@ -6,6 +6,7 @@
 SolutionStrategy solutionStrategy;
 CubeModel cube;
 CubeModel oldCube;
+RuleEngine ruleEngine;
 
 CubeModel* getCube() 
 {
@@ -20,6 +21,11 @@ CubeModel* getOldCube()
 SolutionStrategy* getSolutionStrategy() 
 {
 	return &solutionStrategy;
+}
+
+RuleEngine* getRuleEngine() 
+{
+	return &ruleEngine;
 }
 
 char msginfo[256], warning[256];
@@ -331,25 +337,25 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			case 'V':
 				int find;
 
-				if(findPattern(MINTA_FAZIS3) == -1)
+				if(getRuleEngine()->findPattern(MINTA_FAZIS3) == -1)
 				{
 					sprintf(msginfo, "Phase 3 validation failed");
 					break;
 				}
 				
-				find = findPattern(NAGYT_KIST);
+				find = getRuleEngine()->findPattern(NAGYT_KIST);
 				if(find!=-1) 
 				{
 					if(rules[find].elofeltetel[0] != RESCUE) 
 					{
 						setH(0);
-						applySolution(find, 0);
+						getRuleEngine()->applySolution(find, 0);
 					} else 
 					{
 						incrementH();
 						cTransform("6j");
 						if(getH()>4) {
-							applySolution(find, 0);
+							getRuleEngine()->applySolution(find, 0);
 							setH(0);
 						}
 
@@ -363,7 +369,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			case 'C':
 				int i,j,rule_use,old,m;
 				int find2;
-				if(findPattern(MINTA_FAZIS2) == -1) 
+				if(getRuleEngine()->findPattern(MINTA_FAZIS2) == -1) 
 				{
 					sprintf(msginfo, "Phase 2 validation failed");
 					break;
@@ -372,15 +378,15 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				
 				for(old=0; old!=4; old++)
 				{
-					find2 = findPattern(SAROKFEHER_LE);
+					find2 = getRuleEngine()->findPattern(SAROKFEHER_LE);
 					if(find2!=-1)
-						applySolution(find2, 0);
+						getRuleEngine()->applySolution(find2, 0);
 
 					for(j=0; j!=5; j++)
 					{
-						find = findPattern(FEHER_LENT_POZICIOBAN);
+						find = getRuleEngine()->findPattern(FEHER_LENT_POZICIOBAN);
 						if(find != -1) 
-							applySolution(find, 0);
+							getRuleEngine()->applySolution(find, 0);
 
 						cTransform("6j");
 					}
@@ -438,10 +444,10 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			case 'K': cTransformN(17); break;
 			case 'B':
 				int s;
-				s = findPattern(ALSO1);
+				s = getRuleEngine()->findPattern(ALSO1);
 				if(s!=-1)
 				{
-					applySolution(s, 0);
+					getRuleEngine()->applySolution(s, 0);
 				}
 				break;
 

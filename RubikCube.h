@@ -49,6 +49,7 @@ struct Vertex
 SolutionStrategy* getSolutionStrategy();
 CubeModel* getCube();
 CubeModel* getOldCube();
+RuleEngine* getRuleEngine();
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, 
 				   LPSTR lpCmdLine, int nCmdShow);

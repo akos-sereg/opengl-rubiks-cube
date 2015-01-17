@@ -1,13 +1,13 @@
 #include "RubikCube.h"
 
-int rulesLen()
+int RuleEngine::rulesLen()
 {
 	int i;
 	while(rules[i].group != ENDRULE) i++;
 	return i;
 }
 
-int checkPattern(int n)
+int RuleEngine::checkPattern(int n)
 {
 	int i=0;
 	double pseudoColor[10][4];
@@ -81,12 +81,12 @@ int checkPattern(int n)
 		
 		i++;
 	}
-	//}while(i!=1);
+	
 	return 1;
 }
 
 
-void applySolution(int n, int rotnum)
+void RuleEngine::applySolution(int n, int rotnum)
 {
 	char cmd[16];
 	int i=0;
@@ -102,7 +102,7 @@ void applySolution(int n, int rotnum)
 	return;
 }
 
-int findPattern(int code)
+int RuleEngine::findPattern(int code)
 {
 	int i;
 	for(i=0; i!=rulesLen(); i++)
@@ -115,7 +115,7 @@ int findPattern(int code)
 	return -1;
 }
 
-int sideval(int num)
+int RuleEngine::sideval(int num)
 {
 	return num;
 }

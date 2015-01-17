@@ -4,40 +4,40 @@ int SolutionStrategy::run()
 {
 	int iter=0;
 	SolutionStrategy::solvePhase1();
-	while(findPattern(MINTA_FAZIS2) == -1) 
+	while(getRuleEngine()->findPattern(MINTA_FAZIS2) == -1) 
 	{
-		SolutionStrategy::solvePhase2();
+		getSolutionStrategy()->solvePhase2();
 		iter++;
 		if(iter > 5) return 0;
 	}
 	iter=0;
-	while(findPattern(MINTA_FAZIS3) == -1)
+	while(getRuleEngine()->findPattern(MINTA_FAZIS3) == -1)
 	{
-		SolutionStrategy::solvePhase3();
+		getSolutionStrategy()->solvePhase3();
 		iter++;
 		if(iter >5) return 0;
 	}
 
 	iter=0;
-	while(findPattern(MINTA_FAZIS4) == -1)
+	while(getRuleEngine()->findPattern(MINTA_FAZIS4) == -1)
 	{
-		SolutionStrategy::solvePhase4();
+		getSolutionStrategy()->solvePhase4();
 		iter++;
 		if(iter>5) return 0;
 	}
 
 	iter=0;
-	while(findPattern(MINTA_FAZIS5) == -1)
+	while(getRuleEngine()->findPattern(MINTA_FAZIS5) == -1)
 	{
-		SolutionStrategy::solvePhase5();
+		getSolutionStrategy()->solvePhase5();
 		iter++;
 		if(iter>5) return 0;
 	}
 
-	SolutionStrategy::solvePhase6();
-	SolutionStrategy::solvePhase7();
+	getSolutionStrategy()->solvePhase6();
+	getSolutionStrategy()->solvePhase7();
 
-	if(findPattern(MINTA_FAZIS5) == -1) return 0;
+	if(getRuleEngine()->findPattern(MINTA_FAZIS5) == -1) return 0;
 
 	return 1;
 
@@ -81,13 +81,13 @@ void SolutionStrategy::solvePhase2()
 	for(j=0; j!=4; j++)
 	{
 		if(getSolutionStrategy()->solvePhase2Bottom()) continue;
-		for(i=0; i!=rulesLen();  i++)
+		for(i=0; i!=getRuleEngine()->rulesLen();  i++)
 		{
 			if(rules[i].group == FEHERET_ALULRA)
 			{
-				if(checkPattern(i)) 
+				if(getRuleEngine()->checkPattern(i)) 
 				{	
-					applySolution(i, 0);
+					getRuleEngine()->applySolution(i, 0);
 					int k;
 					for(k=0; k!=4; k++)
 					{
@@ -99,10 +99,10 @@ void SolutionStrategy::solvePhase2()
 		}
 	}
 
-	for(i=0; i!=rulesLen(); i++)
+	for(i=0; i!=getRuleEngine()->rulesLen(); i++)
 	{
 		if(rules[i].group == MINTA_FAZIS2) 
-			if(!checkPattern(i)) setWarning("HIBA: hibas szabalyrendszer a 2. fazis kirakasa kozben!");
+			if(!getRuleEngine()->checkPattern(i)) setWarning("HIBA: hibas szabalyrendszer a 2. fazis kirakasa kozben!");
 	}
 }
 
@@ -111,7 +111,7 @@ void SolutionStrategy::solvePhase3()
 	int find;
 	int i,j,old,m;
 	int find2;
-	if(findPattern(MINTA_FAZIS2) == -1) 
+	if(getRuleEngine()->findPattern(MINTA_FAZIS2) == -1) 
 	{
 		setInfo("Nincs kesz a masodik fazis!");
 		return;
@@ -119,15 +119,15 @@ void SolutionStrategy::solvePhase3()
 	
 	for(old=0; old!=4; old++)
 	{
-		find2 = findPattern(SAROKFEHER_LE);
+		find2 = getRuleEngine()->findPattern(SAROKFEHER_LE);
 		if(find2!=-1)
-			applySolution(find2, 0);
+			getRuleEngine()->applySolution(find2, 0);
 
 		for(j=0; j!=5; j++)
 		{
-			find = findPattern(FEHER_LENT_POZICIOBAN);
+			find = getRuleEngine()->findPattern(FEHER_LENT_POZICIOBAN);
 			if(find != -1) 
-				applySolution(find, 0);
+				getRuleEngine()->applySolution(find, 0);
 
 			cTransform("6j");
 		}
@@ -141,25 +141,25 @@ void SolutionStrategy::solvePhase4()
 	for(iteration=0; iteration!=15; iteration++)
 	{
 
-		if(findPattern(MINTA_FAZIS3) == -1)
+		if(getRuleEngine()->findPattern(MINTA_FAZIS3) == -1)
 		{
 			setInfo("Nincs harmadik fazisban!");
 			return;
 		}
 		
-		find = findPattern(NAGYT_KIST);
+		find = getRuleEngine()->findPattern(NAGYT_KIST);
 		if(find!=-1) 
 		{
 			if(rules[find].elofeltetel[0] != RESCUE) 
 			{
 				setH(0);
-				applySolution(find, 0);
+				getRuleEngine()->applySolution(find, 0);
 			} else 
 			{
 				incrementH();
 				cTransform("6j");
 				if(getH()>4) {	// nincs mit tenni.
-					applySolution(find, 0);
+					getRuleEngine()->applySolution(find, 0);
 					setH(0);
 				}
 
@@ -170,7 +170,7 @@ void SolutionStrategy::solvePhase4()
 			cTransform("6j");
 		}
 		
-		if(findPattern(MINTA_FAZIS4) == -1)
+		if(getRuleEngine()->findPattern(MINTA_FAZIS4) == -1)
 			setInfo("Phase 4 failed");
 		else
 			setInfo("Phase 4 succeeded");
@@ -183,16 +183,16 @@ void SolutionStrategy::solvePhase5()
 	int s;
 	int i,j;
 
-	if(findPattern(MINTA_FAZIS5) != -1) return;
+	if(getRuleEngine()->findPattern(MINTA_FAZIS5) != -1) return;
 	for(j=0; j!=10; j++)
 	{
 		for(i=0; i!=10; i++)
 		{
-			s = findPattern(ALSO1);
+			s = getRuleEngine()->findPattern(ALSO1);
 			if(s!=-1)
 			{
-				applySolution(s, 0);
-				if(findPattern(MINTA_FAZIS5) != -1)
+				getRuleEngine()->applySolution(s, 0);
+				if(getRuleEngine()->findPattern(MINTA_FAZIS5) != -1)
 				{
 					return; // kesz van az 5. fazis
 				}
@@ -229,14 +229,14 @@ void SolutionStrategy::solvePhase6()
 
 		switch(fix) 
 		{
-			case 1: find = findPattern(SARKOK1);break;
-			case 2: find = findPattern(SARKOK2);break;
-			case 3: find = findPattern(SARKOK3);break;
-			case 4: find = findPattern(SARKOK4);break;
-			default: find = findPattern(SARKOK1);break;
+			case 1: find = getRuleEngine()->findPattern(SARKOK1);break;
+			case 2: find = getRuleEngine()->findPattern(SARKOK2);break;
+			case 3: find = getRuleEngine()->findPattern(SARKOK3);break;
+			case 4: find = getRuleEngine()->findPattern(SARKOK4);break;
+			default: find = getRuleEngine()->findPattern(SARKOK1);break;
 		}
 
-		applySolution(find, 0);
+		getRuleEngine()->applySolution(find, 0);
 
 		kesz=1;
 		for(i=1; i!=5; i++)
@@ -257,12 +257,12 @@ void SolutionStrategy::solvePhase7()
 {
 	int find;
 
-	while(findPattern(KIRAKOTT) == -1)
+	while(getRuleEngine()->findPattern(KIRAKOTT) == -1)
 	{
-		find = findPattern(FINISH);
-		if(find == -1) find = findPattern(FINISH_RESC);
+		find = getRuleEngine()->findPattern(FINISH);
+		if(find == -1) find = getRuleEngine()->findPattern(FINISH_RESC);
 		if(find != -1)
-			applySolution(find, 0);
+			getRuleEngine()->applySolution(find, 0);
 	} 
 
 	setInfo("Cube solved");
@@ -378,16 +378,16 @@ double SolutionStrategy::sarokPosChkSum(int num)
 int SolutionStrategy::solvePhase2Bottom()
 {
 	int i=0;
-	for(i=0; i!=rulesLen(); i++)
+	for(i=0; i!=getRuleEngine()->rulesLen(); i++)
 	{
 		if(rules[i].group == MINTA_KORONA_FELPORGET)
 		{
-			if(checkPattern(i))
+			if(getRuleEngine()->checkPattern(i))
 			{
 				char buff[256];
-				sprintf(buff, "%d igaz", i);
+				sprintf(buff, "%d true", i);
 				setWarning(buff);
-				applySolution(i,0);
+				getRuleEngine()->applySolution(i,0);
 				return 1; 
 			} else setWarning("");
 		}
