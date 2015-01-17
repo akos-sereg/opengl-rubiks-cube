@@ -33,7 +33,7 @@ double getArany();
 #include "CubeTransform.h"
 #include "CubeModel.h"
 #include "CubeGeometry.h"
-#include "Rules.h"
+#include "RuleEngine.h"
 #include "SolutionStrategy.h"
 
 struct Vertex

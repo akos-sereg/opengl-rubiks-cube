@@ -113,7 +113,7 @@
     <ClCompile Include="geometry.cpp" />
     <ClCompile Include="matrix4x4f.cpp" />
     <ClCompile Include="RubikCube.cpp" />
-    <ClCompile Include="Rules.cpp" />
+    <ClCompile Include="RuleEngine.cpp" />
     <ClCompile Include="SolutionStrategy.cpp" />
     <ClCompile Include="vector3f.cpp" />
   </ItemGroup>
@@ -135,7 +135,7 @@
     <ClInclude Include="RubikCube.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="Rules.h">
+    <ClInclude Include="RuleEngine.h">
       <FileType>CppClass</FileType>
     </ClInclude>
     <ClInclude Include="SolutionStrategy.h">
@@ -171,8 +171,8 @@
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RubikCube.RubikCube.resources</LogicalName>
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RubikCube.RubikCube.resources</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="Rules.resX">
-      <DependentUpon>Rules.h</DependentUpon>
+    <EmbeddedResource Include="RuleEngine.resX">
+      <DependentUpon>RuleEngine.h</DependentUpon>
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RubikCube.Rules.resources</LogicalName>
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RubikCube.Rules.resources</LogicalName>
     </EmbeddedResource>
