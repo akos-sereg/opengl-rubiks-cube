@@ -58,22 +58,6 @@ double getArany()
 	return arany;
 }
 
-
-int getH()
-{
-	return h;
-}
-
-void setH(int hValue)
-{
-	h = hValue;
-}
-
-void incrementH() 
-{
-	h++;
-}
-
 int getOldal() 
 {
 	return Oldal;
@@ -307,10 +291,6 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				cTransformN(rand()%16);
 				break;
 
-			/*case 'N':
-				strategy
-				break;*/
-
 			case '1': 
 				rubikCube.saveCubeColors();
 				step = 0;
@@ -345,95 +325,6 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				break;
 			case '6':
 				rotSpeed=1.0;
-				break;
-			case 'V':
-				int find;
-
-				if(getRuleEngine()->findPattern(MINTA_FAZIS3) == -1)
-				{
-					sprintf(msginfo, "Phase 3 validation failed");
-					break;
-				}
-				
-				find = getRuleEngine()->findPattern(NAGYT_KIST);
-				if(find!=-1) 
-				{
-					if(rules[find].elofeltetel[0] != RESCUE) 
-					{
-						setH(0);
-						getRuleEngine()->applySolution(find, 0);
-					} else 
-					{
-						incrementH();
-						cTransform("6j");
-						if(getH()>4) {
-							getRuleEngine()->applySolution(find, 0);
-							setH(0);
-						}
-
-					}
-				}
-				else 
-				{
-					cTransform("6j");
-				}
-
-			case 'C':
-				int i,j,rule_use,old,m;
-				int find2;
-				if(getRuleEngine()->findPattern(MINTA_FAZIS2) == -1) 
-				{
-					sprintf(msginfo, "Phase 2 validation failed");
-					break;
-				}
-				
-				
-				for(old=0; old!=4; old++)
-				{
-					find2 = getRuleEngine()->findPattern(SAROKFEHER_LE);
-					if(find2!=-1)
-						getRuleEngine()->applySolution(find2, 0);
-
-					for(j=0; j!=5; j++)
-					{
-						find = getRuleEngine()->findPattern(FEHER_LENT_POZICIOBAN);
-						if(find != -1) 
-							getRuleEngine()->applySolution(find, 0);
-
-						cTransform("6j");
-					}
-				}
-				break;
-
-			case 'X':
-
-				/*for(j=0; j!=4; j++)
-				{
-					if(fazis2_alul()) continue;
-					for(i=0; i!=rulesLen(); i++)
-					{
-						if(rules[i].group == FEHERET_ALULRA)
-						{
-							if(checkPattern(i)) 
-							{	
-								applySolution(i, 0);
-								int k;
-								for(k=0; k!=4; k++)
-								{
-									if(fazis2_alul()) break;
-									cTransform("6j");
-								}
-							}
-						}
-					}
-				}
-
-				for(i=0; i!=rulesLen(); i++)
-				{
-					if(rules[i].group == MINTA_FAZIS2) 
-						if(!checkPattern(i)) sprintf(warning, "Broken rule found while running phase 2");
-				}*/
-				
 				break;
 
 			case 'Q': cTransformN(0); break;

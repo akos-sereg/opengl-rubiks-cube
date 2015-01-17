@@ -24,6 +24,7 @@ void MovingSideCentersPhase::solvePhase(CubeModel* cubeModel)
 
 void MovingSideCentersPhase::executeAll()
 {
+	int h;
 	int find;
 	int iteration;
 	for(iteration=0; iteration!=15; iteration++)
@@ -40,15 +41,15 @@ void MovingSideCentersPhase::executeAll()
 		{
 			if(rules[find].elofeltetel[0] != RESCUE) 
 			{
-				setH(0);
+				h = 0;
 				getRuleEngine()->applySolution(find, 0);
 			} else 
 			{
-				incrementH();
+				h++;
 				cTransform("6j");
-				if(getH()>4) {
+				if(h>4) {
 					getRuleEngine()->applySolution(find, 0);
-					setH(0);
+					h = 0;
 				}
 
 			}

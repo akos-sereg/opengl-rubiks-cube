@@ -7,9 +7,6 @@ void setWarning(char* text);
 void setInfo(char *info);
 int isTest();
 int getOldal();
-int getH();
-void setH(int hValue);
-void incrementH();
 double getArany();
 
 using namespace std;
