@@ -113,6 +113,7 @@
     <ClCompile Include="ISolutionPhase.cpp" />
     <ClCompile Include="matrix4x4f.cpp" />
     <ClCompile Include="MovingBottomCentersPhase.cpp" />
+    <ClCompile Include="MovingBottomCornersPhase.cpp" />
     <ClCompile Include="MovingCornerWhiteDownPhase.cpp" />
     <ClCompile Include="MovingSideCentersPhase.cpp" />
     <ClCompile Include="MovingTopCornersPhase.cpp" />
@@ -136,6 +137,7 @@
       <FileType>CppClass</FileType>
     </ClInclude>
     <ClInclude Include="MovingBottomCentersPhase.h" />
+    <ClInclude Include="MovingBottomCornersPhase.h" />
     <ClInclude Include="MovingCornerWhiteDownPhase.h" />
     <ClInclude Include="MovingSideCentersPhase.h" />
     <ClInclude Include="MovingTopCornersPhase.h" />

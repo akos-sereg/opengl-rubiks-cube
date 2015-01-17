@@ -9,11 +9,7 @@ class SolutionStrategy
 		int run();
 
 	private: 
-		void solvePhase6();
 		void solvePhase7();
-
-		double sarokChkSum(int num);
-		double sarokPosChkSum(int num);
 
 		int compareColors(int side1, int place1, int side2, int place2);
 };
