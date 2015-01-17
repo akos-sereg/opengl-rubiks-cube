@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CheckSolvedCubePhase.cpp" />
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="CubeTransform.cpp" />
     <ClCompile Include="GeometryProvider.cpp" />
@@ -124,6 +125,7 @@
     <ClCompile Include="vector3f.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CheckSolvedCubePhase.h" />
     <ClInclude Include="CubeModel.h" />
     <ClInclude Include="CubeTransform.h">
       <FileType>CppClass</FileType>

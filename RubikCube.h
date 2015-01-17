@@ -30,6 +30,7 @@ using namespace std;
 #include "MovingSideCentersPhase.h"
 #include "MovingBottomCentersPhase.h"
 #include "MovingBottomCornersPhase.h"
+#include "CheckSolvedCubePhase.h"
 #include "GeometryProvider.h"
 #include "matrix4x4f.h"
 #include "vector3f.h"
