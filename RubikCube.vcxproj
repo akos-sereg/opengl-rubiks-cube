@@ -110,7 +110,9 @@
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="CubeTransform.cpp" />
     <ClCompile Include="GeometryProvider.cpp" />
+    <ClCompile Include="ISolutionPhase.cpp" />
     <ClCompile Include="matrix4x4f.cpp" />
+    <ClCompile Include="MovingWhiteCellUpToCenterPhase.cpp" />
     <ClCompile Include="RubikCube.cpp" />
     <ClCompile Include="RuleEngine.cpp" />
     <ClCompile Include="SolutionStrategy.cpp" />
@@ -125,9 +127,11 @@
       <FileType>CppClass</FileType>
     </ClInclude>
     <ClInclude Include="glut.h" />
+    <ClInclude Include="ISolutionPhase.h" />
     <ClInclude Include="matrix4x4f.h">
       <FileType>CppClass</FileType>
     </ClInclude>
+    <ClInclude Include="MovingWhiteCellUpToCenterPhase.h" />
     <ClInclude Include="RubikCube.h">
       <FileType>CppForm</FileType>
     </ClInclude>

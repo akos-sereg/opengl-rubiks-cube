@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx</Extensions>
     </Filter>
+    <Filter Include="Header Files\SolutionPhases">
+      <UniqueIdentifier>{522cd34d-af9c-41a8-9b11-36aae410d3dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SolutionPhases">
+      <UniqueIdentifier>{ec4cdcf0-80e5-40cc-bacf-b87fc938f48c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CubeTransform.cpp">
@@ -38,6 +44,12 @@
     </ClCompile>
     <ClCompile Include="GeometryProvider.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ISolutionPhase.cpp">
+      <Filter>Source Files\SolutionPhases</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingWhiteCellUpToCenterPhase.cpp">
+      <Filter>Source Files\SolutionPhases</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="GeometryProvider.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ISolutionPhase.h">
+      <Filter>Header Files\SolutionPhases</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingWhiteCellUpToCenterPhase.h">
+      <Filter>Header Files\SolutionPhases</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

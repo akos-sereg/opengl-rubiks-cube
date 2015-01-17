@@ -1,11 +1,19 @@
 #include "RubikCube.h"
 
+using namespace std;
+
 int SolutionStrategy::run()
 {
 	int iter=0;
 	
-	solvePhase1();
+	std::list<ISolutionPhase*> solutionPhases;
+	solutionPhases.push_back(new MovingWhiteCellUpToCenterPhase());
 	
+	for (std::list<ISolutionPhase*>::const_iterator iterator = solutionPhases.begin(), end = solutionPhases.end(); iterator != end; ++iterator) {
+		ISolutionPhase* currentPhase = *iterator;
+		currentPhase->solvePhase(getCube());
+	}
+
 	while(getRuleEngine()->findPattern(MINTA_FAZIS2) == -1) 
 	{
 		solvePhase2();
@@ -50,7 +58,6 @@ void SolutionStrategy::solvePhase1()
 {
 	setInfo("Running Phase 1");
 
-	// feher felforgatasa
 	int i;
 	CubeModel* cube = getCube();
 	for(i=1; i!=7; i++)
@@ -59,7 +66,6 @@ void SolutionStrategy::solvePhase1()
 			(int)cube->GetCellColor(i, 5).Green == 1 &&
 			(int)cube->GetCellColor(i, 5).Blue == 1)
 		{
-			setInfo("belepve");
 			switch(i)
 			{
 			case 1: cTransform("7j"); break;

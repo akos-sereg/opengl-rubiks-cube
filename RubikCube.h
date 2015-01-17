@@ -12,7 +12,9 @@ void setH(int hValue);
 void incrementH();
 double getArany();
 
+using namespace std;
 
+#include <list>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -21,6 +23,8 @@ double getArany();
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "glut.h"
+#include "ISolutionPhase.h"
+#include "MovingWhiteCellUpToCenterPhase.h"
 #include "GeometryProvider.h"
 #include "matrix4x4f.h"
 #include "vector3f.h"
