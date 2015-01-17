@@ -302,40 +302,6 @@ void GeometryProvider::renderGridColor(GLdouble dSize, double red, double green,
 #   undef V
 #   undef N
 }
-//
-//void GeometryProvider::renderWall( GLdouble dSize)
-//{
-//    double size = dSize * 0.5;
-//
-//#   define V(a,b,c) glVertex3d( a size, b size, c size );
-//#   define N(a,b,c) glNormal3d( a, b, c );
-//
-//    /*
-//     * PWO: I dared to convert the code to use macros...
-//     */
-//	double j;
-//	double y = size;
-//	double range = 0.05;
-//	glPushMatrix();
-//	{
-//		glColor4f(0.2, 0.2, 0.2, 0.0); 
-//
-//		N(1.0, 0.0, 0.0); 
-//		
-//		glBegin(GL_QUADS);
-//		{
-//			glVertex3d(y, 0.0, y);
-//			glVertex3d(y, 0.0, -y);
-//			glVertex3d(-y, 0.0, -y);
-//			glVertex3d(-y, 0.0, y);
-//		}
-//		glEnd();
-//
-//	}
-//	glPopMatrix();
-//#   undef V
-//#   undef N
-//}
 
 
 /*
@@ -382,75 +348,6 @@ void renderQuad( GLdouble dSize )
 #   undef V
 #   undef N
 }
-
-static void circleTable(double **sint,double **cost,const int n)
-{
-    int i;
-
-    /* Table size, the sign of n flips the circle direction */
-
-    const int size = abs(n);
-
-    /* Determine the angle between samples */
-
-    const double angle = 2*M_PI/(double)n;
-
-    /* Allocate memory for n samples, plus duplicate of first entry at the end */
-
-    *sint = (double *) calloc(sizeof(double), size+1);
-    *cost = (double *) calloc(sizeof(double), size+1);
-
-    /* Bail out if memory allocation fails, fgError never returns */
-
-    if (!(*sint) || !(*cost))
-    {
-        free(*sint);
-        free(*cost);
-        //fgError("Failed to allocate memory in circleTable");
-    }
-
-    /* Compute cos and sin around the circle */
-
-    for (i=0; i<size; i++)
-    {
-        (*sint)[i] = sin(angle*i);
-        (*cost)[i] = cos(angle*i);
-    }
-
-    /* Last sample is duplicate of the first */
-
-    (*sint)[size] = (*sint)[0];
-    (*cost)[size] = (*cost)[0];
-}
-
-
-void renderGridZ(float y, float range, float height)
-{
-	float i,j;
-
-	glColor3f(0.0, 0.15, 0.0);
-			
-	for(j=-y; j!=y; j+=range)
-	{
-		glBegin(GL_LINE_LOOP);
-		{
-			glVertex3d(j, height, -y);
-			glVertex3d(j, height, y);
-		}
-		glEnd();
-
-		glBegin(GL_LINE_LOOP);
-		{
-			glVertex3d(-y, height, j);
-			glVertex3d(y, height, j);
-		}
-		glEnd();
-					
-	}
-		
-
-}
-
 
 void GeometryProvider::renderGrid(float y, float range)
 {
