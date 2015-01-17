@@ -27,7 +27,7 @@ double getArany();
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "glut.h"
-#include "geometry.h"
+#include "GeometryProvider.h"
 #include "matrix4x4f.h"
 #include "vector3f.h"
 #include "CubeTransform.h"
@@ -50,7 +50,7 @@ SolutionStrategy* getSolutionStrategy();
 CubeModel* getCube();
 CubeModel* getOldCube();
 RuleEngine* getRuleEngine();
-Geometry* getGeometryProvider();
+GeometryProvider* getGeometryProvider();
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, 
 				   LPSTR lpCmdLine, int nCmdShow);

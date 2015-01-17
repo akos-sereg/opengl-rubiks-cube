@@ -110,7 +110,7 @@
     <ClCompile Include="CubeGeometry.cpp" />
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="CubeTransform.cpp" />
-    <ClCompile Include="geometry.cpp" />
+    <ClCompile Include="GeometryProvider.cpp" />
     <ClCompile Include="matrix4x4f.cpp" />
     <ClCompile Include="RubikCube.cpp" />
     <ClCompile Include="RuleEngine.cpp" />
@@ -125,7 +125,7 @@
     <ClInclude Include="CubeTransform.h">
       <FileType>CppClass</FileType>
     </ClInclude>
-    <ClInclude Include="geometry.h">
+    <ClInclude Include="GeometryProvider.h">
       <FileType>CppClass</FileType>
     </ClInclude>
     <ClInclude Include="glut.h" />
@@ -156,8 +156,8 @@
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RubikCube.CubeTransform.resources</LogicalName>
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RubikCube.CubeTransform.resources</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="geometry.resX">
-      <DependentUpon>geometry.h</DependentUpon>
+    <EmbeddedResource Include="GeometryProvider.resX">
+      <DependentUpon>GeometryProvider.h</DependentUpon>
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RubikCube.geometry.resources</LogicalName>
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RubikCube.geometry.resources</LogicalName>
     </EmbeddedResource>

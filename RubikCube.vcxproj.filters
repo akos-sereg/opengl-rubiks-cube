@@ -21,9 +21,6 @@
     <ClCompile Include="CubeTransform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="geometry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="matrix4x4f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -42,15 +39,15 @@
     <ClCompile Include="RuleEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeometryProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CubeGeometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CubeTransform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="matrix4x4f.h">
@@ -74,15 +71,15 @@
     <ClInclude Include="RuleEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeometryProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CubeGeometry.resX">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
     <EmbeddedResource Include="CubeTransform.resX">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="geometry.resX">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
     <EmbeddedResource Include="LoadSituation.resX">
@@ -101,6 +98,9 @@
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
     <EmbeddedResource Include="RuleEngine.resX">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GeometryProvider.resX">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
   </ItemGroup>

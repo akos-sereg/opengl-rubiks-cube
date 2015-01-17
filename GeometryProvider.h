@@ -10,23 +10,7 @@ struct mycolor
 	double blue;
 };
 
-//-----------------------------------------------------------------------------
-//           Name: geometry.h
-//         Author: Freeglut
-//  Last Modified: 01/27/05
-//    Description: Data and utility functions for rendering several useful 
-//                 geometric shapes. This code is a modified version of the 
-//                 code found in "freeglut_teapot.c" and "freeglut_geometry.c", 
-//                 which is part of the open source project, Freegut.
-//                 http://freeglut.sourceforge.net/
-//
-//                 See the text below this comment for all the legal licensing 
-//                 mumbo-jumbo.
-//
-// The following functions are defined here:
-
-
-class Geometry
+class GeometryProvider
 {
 	public:
 		void renderGridColor( GLdouble dSize, double red, double green, double blue);
@@ -36,7 +20,12 @@ class Geometry
 		void renderSide(struct mycolor *colors);
 		void renderLap();
 		void renderGrid(float y, float range);
-		void renderWall( GLdouble dSize);
+		//void renderWall( GLdouble dSize);
+
+	private:
+		void beginRenderText(int nWindowWidth, int nWindowHeight);
+		void endRenderText( void );
+		//const BitmapFontData* GeometryProvider::getBitmapFontDataByType( BitmapFontType font );
 };
 
 //-----------------------------------------------------------------------------
@@ -73,7 +62,6 @@ class Geometry
 #endif
 
 #include <stdlib.h>
-// Do this to access M_PI, which is not officially part of the C/C++ standard.
 #define _USE_MATH_DEFINES 
 #include <math.h>
 #include <GL/gl.h>

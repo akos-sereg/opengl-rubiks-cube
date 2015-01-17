@@ -7,7 +7,7 @@ SolutionStrategy solutionStrategy;
 CubeModel cube;
 CubeModel oldCube;
 RuleEngine ruleEngine;
-Geometry geometryProvider;
+GeometryProvider geometryProvider;
 
 CubeModel* getCube() 
 {
@@ -29,7 +29,7 @@ RuleEngine* getRuleEngine()
 	return &ruleEngine;
 }
 
-Geometry* getGeometryProvider() 
+GeometryProvider* getGeometryProvider() 
 {
 	return &geometryProvider;
 }

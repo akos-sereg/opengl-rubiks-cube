@@ -7,7 +7,7 @@
 //       endRenderText to stop.
 //-----------------------------------------------------------------------------
 
-void beginRenderText( int nWindowWidth, int nWindowHeight )
+void GeometryProvider::beginRenderText( int nWindowWidth, int nWindowHeight )
 {
     // Push back and cache the current state of pixel alignment.
     glPushClientAttrib( GL_CLIENT_PIXEL_STORE_BIT );
@@ -43,7 +43,7 @@ void beginRenderText( int nWindowWidth, int nWindowHeight )
 //       above. Call this function to stop rendering text. The call to 
 //       beginRenderText should come first and be paired with this function.
 //-----------------------------------------------------------------------------
-void endRenderText( void )
+void GeometryProvider::endRenderText( void )
 {
     // Pop everything back to what ever it was set to before we started 
     // rendering text to the screen.
@@ -111,9 +111,8 @@ void renderText( float x, float y, BitmapFontType fontType, char *string )
 
 
 
-void Geometry::renderTextFull(float x, float y, char *str)
+void GeometryProvider::renderTextFull(float x, float y, char *str)
 {
-	
 	beginRenderText(800, 600);
 	{
 		renderText(x, y, BITMAP_FONT_TYPE_HELVETICA_10, str);
@@ -121,31 +120,7 @@ void Geometry::renderTextFull(float x, float y, char *str)
 	endRenderText();
 }
 
-
-
-
-void renderWireCube( GLdouble dSize )
-{
-    double size = dSize * 0.5;
-
-#   define V(a,b,c) glVertex3d( a size, b size, c size );
-#   define N(a,b,c) glNormal3d( a, b, c );
-
-    /*
-     * PWO: I dared to convert the code to use macros...
-     */
-    glBegin( GL_LINE_LOOP ); N( 1.0, 0.0, 0.0); V(+,-,+); V(+,-,-); V(+,+,-); V(+,+,+); glEnd();
-    glBegin( GL_LINE_LOOP ); N( 0.0, 1.0, 0.0); V(+,+,+); V(+,+,-); V(-,+,-); V(-,+,+); glEnd();
-    glBegin( GL_LINE_LOOP ); N( 0.0, 0.0, 1.0); V(+,+,+); V(-,+,+); V(-,-,+); V(+,-,+); glEnd();
-    glBegin( GL_LINE_LOOP ); N(-1.0, 0.0, 0.0); V(-,-,+); V(-,+,+); V(-,+,-); V(-,-,-); glEnd();
-    glBegin( GL_LINE_LOOP ); N( 0.0,-1.0, 0.0); V(-,-,+); V(-,-,-); V(+,-,-); V(+,-,+); glEnd();
-    glBegin( GL_LINE_LOOP ); N( 0.0, 0.0,-1.0); V(-,-,-); V(-,+,-); V(+,+,-); V(+,-,-); glEnd();
-
-#   undef V
-#   undef N
-}
-
-void Geometry::renderSide(struct mycolor *colors )
+void GeometryProvider::renderSide(struct mycolor *colors )
 {
     int i,j,n=0;
 	
@@ -220,7 +195,7 @@ void Geometry::renderSide(struct mycolor *colors )
 	}
 }
 
-void Geometry::renderLap()
+void GeometryProvider::renderLap()
 {
 	int i;
 	int j;
@@ -240,7 +215,7 @@ void Geometry::renderLap()
 }
 
 
-void Geometry::renderWireCubeColor( GLdouble dSize, double color)
+void GeometryProvider::renderWireCubeColor( GLdouble dSize, double color)
 {
     double size = dSize * 0.5;
 
@@ -267,7 +242,7 @@ void Geometry::renderWireCubeColor( GLdouble dSize, double color)
 }
 
 
-void Geometry::renderCubeColor( GLdouble dSize, double color)
+void GeometryProvider::renderCubeColor( GLdouble dSize, double color)
 {
     double size = dSize * 0.5;
 
@@ -294,7 +269,7 @@ void Geometry::renderCubeColor( GLdouble dSize, double color)
 
 
 
-void Geometry::renderGridColor(GLdouble dSize, double red, double green, double blue)
+void GeometryProvider::renderGridColor(GLdouble dSize, double red, double green, double blue)
 {
     double size = dSize * 0.5;
 
@@ -327,40 +302,40 @@ void Geometry::renderGridColor(GLdouble dSize, double red, double green, double 
 #   undef V
 #   undef N
 }
-
-void Geometry::renderWall( GLdouble dSize)
-{
-    double size = dSize * 0.5;
-
-#   define V(a,b,c) glVertex3d( a size, b size, c size );
-#   define N(a,b,c) glNormal3d( a, b, c );
-
-    /*
-     * PWO: I dared to convert the code to use macros...
-     */
-	double j;
-	double y = size;
-	double range = 0.05;
-	glPushMatrix();
-	{
-		glColor4f(0.2, 0.2, 0.2, 0.0); 
-
-		N(1.0, 0.0, 0.0); 
-		
-		glBegin(GL_QUADS);
-		{
-			glVertex3d(y, 0.0, y);
-			glVertex3d(y, 0.0, -y);
-			glVertex3d(-y, 0.0, -y);
-			glVertex3d(-y, 0.0, y);
-		}
-		glEnd();
-
-	}
-	glPopMatrix();
-#   undef V
-#   undef N
-}
+//
+//void GeometryProvider::renderWall( GLdouble dSize)
+//{
+//    double size = dSize * 0.5;
+//
+//#   define V(a,b,c) glVertex3d( a size, b size, c size );
+//#   define N(a,b,c) glNormal3d( a, b, c );
+//
+//    /*
+//     * PWO: I dared to convert the code to use macros...
+//     */
+//	double j;
+//	double y = size;
+//	double range = 0.05;
+//	glPushMatrix();
+//	{
+//		glColor4f(0.2, 0.2, 0.2, 0.0); 
+//
+//		N(1.0, 0.0, 0.0); 
+//		
+//		glBegin(GL_QUADS);
+//		{
+//			glVertex3d(y, 0.0, y);
+//			glVertex3d(y, 0.0, -y);
+//			glVertex3d(-y, 0.0, -y);
+//			glVertex3d(-y, 0.0, y);
+//		}
+//		glEnd();
+//
+//	}
+//	glPopMatrix();
+//#   undef V
+//#   undef N
+//}
 
 
 /*
@@ -477,7 +452,7 @@ void renderGridZ(float y, float range, float height)
 }
 
 
-void Geometry::renderGrid(float y, float range)
+void GeometryProvider::renderGrid(float y, float range)
 {
 	float i,j;
 
