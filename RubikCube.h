@@ -26,6 +26,7 @@ using namespace std;
 #include "ISolutionPhase.h"
 #include "MovingWhiteCellUpToCenterPhase.h"
 #include "MovingTopCornersPhase.h"
+#include "MovingCornerWhiteDownPhase.h"
 #include "GeometryProvider.h"
 #include "matrix4x4f.h"
 #include "vector3f.h"

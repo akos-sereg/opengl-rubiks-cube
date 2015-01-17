@@ -9,17 +9,11 @@ int SolutionStrategy::run()
 	std::list<ISolutionPhase*> solutionPhases;
 	solutionPhases.push_back(new MovingWhiteCellUpToCenterPhase());
 	solutionPhases.push_back(new MovingTopCornersPhase());
+	solutionPhases.push_back(new MovingCornerWhiteDownPhase());
 	
 	for (std::list<ISolutionPhase*>::const_iterator iterator = solutionPhases.begin(), end = solutionPhases.end(); iterator != end; ++iterator) {
 		ISolutionPhase* currentPhase = *iterator;
 		currentPhase->solvePhase(getCube());
-	}
-
-	while(getRuleEngine()->findPattern(MINTA_FAZIS3) == -1)
-	{
-		solvePhase3();
-		iter++;
-		if(iter >5) return 0;
 	}
 
 	iter=0;
@@ -45,34 +39,6 @@ int SolutionStrategy::run()
 
 	return 1;
 
-}
-
-void SolutionStrategy::solvePhase3()
-{
-	int find;
-	int i,j,old,m;
-	int find2;
-	if(getRuleEngine()->findPattern(MINTA_FAZIS2) == -1) 
-	{
-		setInfo("Nincs kesz a masodik fazis!");
-		return;
-	}
-	
-	for(old=0; old!=4; old++)
-	{
-		find2 = getRuleEngine()->findPattern(SAROKFEHER_LE);
-		if(find2!=-1)
-			getRuleEngine()->applySolution(find2, 0);
-
-		for(j=0; j!=5; j++)
-		{
-			find = getRuleEngine()->findPattern(FEHER_LENT_POZICIOBAN);
-			if(find != -1) 
-				getRuleEngine()->applySolution(find, 0);
-
-			cTransform("6j");
-		}
-	}
 }
 
 void SolutionStrategy::solvePhase4()
