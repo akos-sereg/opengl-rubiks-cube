@@ -57,6 +57,9 @@
     <ClCompile Include="MovingCornerWhiteDownPhase.cpp">
       <Filter>Source Files\SolutionPhases</Filter>
     </ClCompile>
+    <ClCompile Include="MovingSideCentersPhase.cpp">
+      <Filter>Source Files\SolutionPhases</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CubeTransform.h">
@@ -96,6 +99,9 @@
       <Filter>Header Files\SolutionPhases</Filter>
     </ClInclude>
     <ClInclude Include="MovingCornerWhiteDownPhase.h">
+      <Filter>Header Files\SolutionPhases</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingSideCentersPhase.h">
       <Filter>Header Files\SolutionPhases</Filter>
     </ClInclude>
   </ItemGroup>

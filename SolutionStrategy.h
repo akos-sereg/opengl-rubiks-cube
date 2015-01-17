@@ -9,7 +9,6 @@ class SolutionStrategy
 		int run();
 
 	private: 
-		void solvePhase4();
 		void solvePhase5();
 		void solvePhase6();
 		void solvePhase7();

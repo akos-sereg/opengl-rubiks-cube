@@ -4,27 +4,19 @@ using namespace std;
 
 int SolutionStrategy::run()
 {
-	int iter=0;
-	
 	std::list<ISolutionPhase*> solutionPhases;
 	solutionPhases.push_back(new MovingWhiteCellUpToCenterPhase());
 	solutionPhases.push_back(new MovingTopCornersPhase());
 	solutionPhases.push_back(new MovingCornerWhiteDownPhase());
+	solutionPhases.push_back(new MovingSideCentersPhase());
 	
 	for (std::list<ISolutionPhase*>::const_iterator iterator = solutionPhases.begin(), end = solutionPhases.end(); iterator != end; ++iterator) {
 		ISolutionPhase* currentPhase = *iterator;
 		currentPhase->solvePhase(getCube());
 	}
 
-	iter=0;
-	while(getRuleEngine()->findPattern(MINTA_FAZIS4) == -1)
-	{
-		solvePhase4();
-		iter++;
-		if(iter>5) return 0;
-	}
+	int iter=0;
 
-	iter=0;
 	while(getRuleEngine()->findPattern(MINTA_FAZIS5) == -1)
 	{
 		solvePhase5();
@@ -40,50 +32,6 @@ int SolutionStrategy::run()
 	return 1;
 
 }
-
-void SolutionStrategy::solvePhase4()
-{
-	int find;
-	int iteration;
-	for(iteration=0; iteration!=15; iteration++)
-	{
-
-		if(getRuleEngine()->findPattern(MINTA_FAZIS3) == -1)
-		{
-			setInfo("Nincs harmadik fazisban!");
-			return;
-		}
-		
-		find = getRuleEngine()->findPattern(NAGYT_KIST);
-		if(find!=-1) 
-		{
-			if(rules[find].elofeltetel[0] != RESCUE) 
-			{
-				setH(0);
-				getRuleEngine()->applySolution(find, 0);
-			} else 
-			{
-				incrementH();
-				cTransform("6j");
-				if(getH()>4) {	// nincs mit tenni.
-					getRuleEngine()->applySolution(find, 0);
-					setH(0);
-				}
-
-			}
-		}
-		else 
-		{
-			cTransform("6j");
-		}
-		
-		if(getRuleEngine()->findPattern(MINTA_FAZIS4) == -1)
-			setInfo("Phase 4 failed");
-		else
-			setInfo("Phase 4 succeeded");
-	}
-}
-
 
 void SolutionStrategy::solvePhase5()
 {
@@ -101,7 +49,7 @@ void SolutionStrategy::solvePhase5()
 				getRuleEngine()->applySolution(s, 0);
 				if(getRuleEngine()->findPattern(MINTA_FAZIS5) != -1)
 				{
-					return; // kesz van az 5. fazis
+					return;
 				}
 			}
 		}
