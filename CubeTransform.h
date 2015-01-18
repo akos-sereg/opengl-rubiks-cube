@@ -20,7 +20,7 @@ class CubeTransform
 		int showRotating;
 };
 
-struct elem
+struct CubeCell
 {
 	int side;
 	int place;

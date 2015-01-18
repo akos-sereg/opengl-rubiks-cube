@@ -813,10 +813,10 @@ void RubikCube::setColorGrid(int lap, int sorszam, double red, double green, dou
 }
 
 
-struct lapSzinek
+struct CubeCellColors
 {
-	struct elem e[21];
-} lapSzinek[]=
+	struct CubeCell e[21];
+} cellColors[]=
 {
 	{
 		{
@@ -967,7 +967,7 @@ void RubikCube::refreshCube()
 				int s = rotating + (rotating-1)+1;
 
 				for(k=0; k!=21; k++)
-					if(lapSzinek[s].e[k].side == i && lapSzinek[s].e[k].place==j) 
+					if(cellColors[s].e[k].side == i && cellColors[s].e[k].place==j) 
 						l=0;
 				if(!l) continue;
 			}
@@ -1020,13 +1020,12 @@ void RubikCube::rotateColorSide(int num)
 {
 	int i;
 	int n = num/2;
-	//int n=num;
-
+	
 	CubeModel* cubeModel = getCube();
 	
 	for(i=0; i!=21; i++)
 	{
-		CubeModel::CubeColor color = cubeModel->GetCellColor(lapSzinek[num].e[i].side, lapSzinek[num].e[i].place);
+		CubeModel::CubeColor color = cubeModel->GetCellColor(cellColors[num].e[i].side, cellColors[num].e[i].place);
 
 		sideRotate[n].colors[i].red = color.Red;
 		sideRotate[n].colors[i].green = color.Green;
