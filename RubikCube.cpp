@@ -19,8 +19,6 @@ RubikCube* getRubikCube()
 
 char msginfo[256], warning[256];
 
-int stillRotate=0;
-
 void setWarning(char* text)
 {
 	sprintf(warning, text);
@@ -65,18 +63,6 @@ double g_dCurrentTime;
 double g_dLastTime;
 
 double g_fSpeedmodifier = 0.0001f;
-
-
-Vertex g_lineVertices[] =
-{
-	{ 255,   0,   0, 255,  0.0f, 0.1f, 0.0f }, // red   = +x Axis (x)
-	{ 255,   0,   0, 255,  5.0f, 0.0f, 0.0f },
-	{   0, 255,   0, 255,  0.0f, 0.1f, 0.0f }, // green = +z Axis (y)
-	{   0, 255,   0, 255,  0.0f, 5.0f, 0.0f },
-	{   0,   0, 255, 255,  0.0f, 0.1f, 0.0f }, // blue  = +y Axis (z)
-	{   0,   0, 255, 255,  0.0f, 0.0f, 5.0f }
-};
-
 
 struct sideRotate
 {
@@ -335,6 +321,7 @@ RubikCube::RubikCube(void)
 	rotatingStep = -1;
 	rotatingSpeed = 3.0;
 	rotatingSpeedCurrent = 3.0;
+	stillRotate = 0;
 
 	g_vEye.x = 10.0; g_vEye.y = 5.0; g_vEye.z = 10.0;
 	g_vLook.x = -0.66; g_vLook.y = -0.28; g_vLook.z = -0.69;
@@ -621,6 +608,16 @@ struct showLap
 
 void RubikCube::render( void )
 {
+	Vertex g_lineVertices[] =
+	{
+		{ 255,   0,   0, 255,  0.0f, 0.1f, 0.0f }, // red   = +x Axis (x)
+		{ 255,   0,   0, 255,  5.0f, 0.0f, 0.0f },
+		{   0, 255,   0, 255,  0.0f, 0.1f, 0.0f }, // green = +z Axis (y)
+		{   0, 255,   0, 255,  0.0f, 5.0f, 0.0f },
+		{   0,   0, 255, 255,  0.0f, 0.1f, 0.0f }, // blue  = +y Axis (z)
+		{   0,   0, 255, 255,  0.0f, 0.0f, 5.0f }
+	};
+
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	rubikCube.getRealTimeUserInput();
 

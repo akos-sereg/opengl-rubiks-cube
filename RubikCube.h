@@ -78,6 +78,7 @@ class RubikCube
 		float g_fMoveSpeed_turn;
 		float g_fMoveSpeed_Travel;
 		float g_fMoveSpeed_Travel_small;
+		int stillRotate;
 };
 
 CubeModel* getCube();
