@@ -17,8 +17,8 @@ int RuleEngine::checkPattern(int n)
 
 	while(rules[n].patt[i].side != -1)
 	{
-		if(rules[n].patt[i].side == -1) return 1; // eddig nem volt hibas visszateres
-		if(rules[n].patt[i].side == OLDAL) checkOldal = getOldal();
+		if(rules[n].patt[i].side == -1) return 1;
+		if(rules[n].patt[i].side == OLDAL) checkOldal = 0;
 		else checkOldal = rules[n].patt[i].side;
 
 		CubeModel* cube = getCube();

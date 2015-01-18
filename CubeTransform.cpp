@@ -229,7 +229,7 @@ void cTransform(char *id)
 	else if(strcmp(id, "9j") == 0) transid = 16;
 	else if(strcmp(id, "9b") == 0) transid = 17;
 
-	if(showRotating==1 && !isTest()) 
+	if(showRotating == 1) 
 	{	
 		getRubikCube()->rotateColorSide(transid);
 	}

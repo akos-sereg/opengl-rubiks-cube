@@ -46,26 +46,13 @@ int stillRotate=0;
 
 double rotSpeed = 3.0;
 double rotSpeedCurrent = 3.0;
-int test=0;
-int Oldal;
 int rotatingStep=-1;
 int rotating=-1;
-int h;
 double arany = 1.0;
 
 double getArany()
 {
 	return arany;
-}
-
-int getOldal() 
-{
-	return Oldal;
-}
-
-int isTest() 
-{
-	return test;
 }
 
 void setWarning(char* text)
@@ -306,12 +293,11 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				
 				if(solutionStrategy.run())
 				{
-					if(!test)
-					{
-						startRotating();
-						rubikCube.loadCubeColors();
-					} else step=0;
-					rotatingStep=-1;
+					startRotating();
+					rubikCube.loadCubeColors();
+
+					rotatingStep = -1;
+
 				} else sprintf(msginfo, "Error: unable to solve cube");
 				break;
 			case '9':

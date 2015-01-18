@@ -5,8 +5,6 @@
 
 void setWarning(char* text);
 void setInfo(char *info);
-int isTest();
-int getOldal();
 double getArany();
 
 using namespace std;
