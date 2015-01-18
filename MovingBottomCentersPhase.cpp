@@ -1,8 +1,9 @@
 #include "RubikCube.h"
 
 
-MovingBottomCentersPhase::MovingBottomCentersPhase(void)
+MovingBottomCentersPhase::MovingBottomCentersPhase(RuleEngine *engine)
 {
+	ruleEngine = engine;
 }
 
 
@@ -16,7 +17,7 @@ void MovingBottomCentersPhase::solvePhase(CubeModel* cubeModel)
 
 	int iter=0;
 
-	while(getRuleEngine()->findPattern(MINTA_FAZIS5) == -1)
+	while(ruleEngine->findPattern(MINTA_FAZIS5) == -1)
 	{
 		executeAll();
 		iter++;
@@ -29,16 +30,16 @@ void MovingBottomCentersPhase::executeAll()
 	int s;
 	int i,j;
 
-	if(getRuleEngine()->findPattern(MINTA_FAZIS5) != -1) return;
+	if(ruleEngine->findPattern(MINTA_FAZIS5) != -1) return;
 	for(j=0; j!=10; j++)
 	{
 		for(i=0; i!=10; i++)
 		{
-			s = getRuleEngine()->findPattern(ALSO1);
+			s = ruleEngine->findPattern(ALSO1);
 			if(s!=-1)
 			{
-				getRuleEngine()->applySolution(s, 0);
-				if(getRuleEngine()->findPattern(MINTA_FAZIS5) != -1)
+				ruleEngine->applySolution(s, 0);
+				if(ruleEngine->findPattern(MINTA_FAZIS5) != -1)
 				{
 					return;
 				}

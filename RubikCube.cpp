@@ -3,9 +3,8 @@
 
 #include "RubikCube.h"
 
-SolutionStrategy solutionStrategy;
 CubeModel cube;
-RuleEngine* ruleEngine = new RuleEngine(&cube);
+SolutionStrategy* solutionStrategy = new SolutionStrategy(new RuleEngine(&cube));
 GeometryProvider geometryProvider;
 RubikCube rubikCube;
 
@@ -16,12 +15,7 @@ CubeModel* getCube()
 
 SolutionStrategy* getSolutionStrategy() 
 {
-	return &solutionStrategy;
-}
-
-RuleEngine* getRuleEngine() 
-{
-	return ruleEngine;
+	return solutionStrategy;
 }
 
 GeometryProvider* getGeometryProvider() 
@@ -279,7 +273,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				rotatingStep=0;
 				getCube()->getTransformEngine()->stopRotating();
 				
-				if(solutionStrategy.run())
+				if(solutionStrategy->run())
 				{
 					getCube()->getTransformEngine()->startRotating();
 					rubikCube.loadCubeColors();
@@ -319,14 +313,14 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			case 'H': getCube()->getTransformEngine()->cTransformN(15); break;
 			case 'J': getCube()->getTransformEngine()->cTransformN(16); break;
 			case 'K': getCube()->getTransformEngine()->cTransformN(17); break;
-			case 'B':
+			/*case 'B':
 				int s;
-				s = getRuleEngine()->findPattern(ALSO1);
+				s = ruleEngine->findPattern(ALSO1);
 				if(s!=-1)
 				{
-					getRuleEngine()->applySolution(s, 0);
+					ruleEngine->applySolution(s, 0);
 				}
-				break;
+				break;*/
 
 			case VK_ESCAPE:
 				PostQuitMessage(0);

@@ -61,7 +61,6 @@ class RubikCube
 
 SolutionStrategy* getSolutionStrategy();
 CubeModel* getCube();
-RuleEngine* getRuleEngine();
 GeometryProvider* getGeometryProvider();
 RubikCube* getRubikCube();
 

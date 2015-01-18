@@ -6,7 +6,7 @@
 class MovingSideCentersPhase: public ISolutionPhase
 {
 public:
-	MovingSideCentersPhase(void);
+	MovingSideCentersPhase(RuleEngine* engine);
 	~MovingSideCentersPhase(void);
 
 	void solvePhase(CubeModel* cubeModel);
@@ -14,5 +14,6 @@ public:
 
 private:
 	CubeModel* cube;
+	RuleEngine* ruleEngine;
 };
 

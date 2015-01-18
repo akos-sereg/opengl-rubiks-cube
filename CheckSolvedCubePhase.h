@@ -6,9 +6,11 @@
 class CheckSolvedCubePhase: public ISolutionPhase
 {
 public:
-	CheckSolvedCubePhase(void);
+	CheckSolvedCubePhase(RuleEngine *engine);
 	~CheckSolvedCubePhase(void);
 
 	void solvePhase(CubeModel* cubeModel);
+private:
+	RuleEngine *ruleEngine;
 };
 

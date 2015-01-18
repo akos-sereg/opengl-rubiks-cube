@@ -1,7 +1,8 @@
 #include "RubikCube.h"
 
-MovingTopCornersPhase::MovingTopCornersPhase(void)
+MovingTopCornersPhase::MovingTopCornersPhase(RuleEngine* engine)
 {
+	ruleEngine = engine;
 }
 
 
@@ -14,7 +15,7 @@ void MovingTopCornersPhase::solvePhase(CubeModel* cubeModel)
 	cube = cubeModel;
 
 	int iter = 0;
-	while(getRuleEngine()->findPattern(MINTA_FAZIS2) == -1) 
+	while(ruleEngine->findPattern(MINTA_FAZIS2) == -1) 
 	{
 		executeAll();
 
@@ -29,13 +30,13 @@ void MovingTopCornersPhase::executeAll()
 	for(j=0; j!=4; j++)
 	{
 		if(executeBottom()) continue;
-		for(i=0; i!=getRuleEngine()->rulesLen();  i++)
+		for(i=0; i!=ruleEngine->rulesLen();  i++)
 		{
 			if(rules[i].group == FEHERET_ALULRA)
 			{
-				if(getRuleEngine()->checkPattern(i)) 
+				if(ruleEngine->checkPattern(i)) 
 				{	
-					getRuleEngine()->applySolution(i, 0);
+					ruleEngine->applySolution(i, 0);
 					int k;
 					for(k=0; k!=4; k++)
 					{
@@ -47,26 +48,26 @@ void MovingTopCornersPhase::executeAll()
 		}
 	}
 
-	for(i=0; i!=getRuleEngine()->rulesLen(); i++)
+	for(i=0; i!=ruleEngine->rulesLen(); i++)
 	{
 		if(rules[i].group == MINTA_FAZIS2) 
-			if(!getRuleEngine()->checkPattern(i)) setWarning("Error: phase 2 was not successful. Rule set should be extended to cover this situation.");
+			if(!ruleEngine->checkPattern(i)) setWarning("Error: phase 2 was not successful. Rule set should be extended to cover this situation.");
 	}
 }
 
 int MovingTopCornersPhase::executeBottom() 
 {
 	int i=0;
-	for(i=0; i!=getRuleEngine()->rulesLen(); i++)
+	for(i=0; i!=ruleEngine->rulesLen(); i++)
 	{
 		if(rules[i].group == MINTA_KORONA_FELPORGET)
 		{
-			if(getRuleEngine()->checkPattern(i))
+			if(ruleEngine->checkPattern(i))
 			{
 				char buff[256];
 				sprintf(buff, "%d true", i);
 				setWarning(buff);
-				getRuleEngine()->applySolution(i,0);
+				ruleEngine->applySolution(i,0);
 				return 1; 
 			} else setWarning("");
 		}

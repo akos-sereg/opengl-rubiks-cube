@@ -6,7 +6,7 @@
 class MovingCornerWhiteDownPhase: public ISolutionPhase
 {
 public:
-	MovingCornerWhiteDownPhase(void);
+	MovingCornerWhiteDownPhase(RuleEngine* engine);
 	~MovingCornerWhiteDownPhase(void);
 
 	void solvePhase(CubeModel* cubeModel);
@@ -14,5 +14,6 @@ public:
 
 private:
 	CubeModel* cube;
+	RuleEngine* ruleEngine;
 };
 

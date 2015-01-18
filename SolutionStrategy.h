@@ -6,7 +6,11 @@
 class SolutionStrategy
 {
 	public:
+		SolutionStrategy(RuleEngine* engine);
 		int run();
+
+	private:
+		RuleEngine* ruleEngine;
 };
 
 #endif

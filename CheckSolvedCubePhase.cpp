@@ -1,7 +1,8 @@
 #include "RubikCube.h"
 
-CheckSolvedCubePhase::CheckSolvedCubePhase(void)
+CheckSolvedCubePhase::CheckSolvedCubePhase(RuleEngine *engine)
 {
+	ruleEngine = engine;
 }
 
 
@@ -13,12 +14,12 @@ void CheckSolvedCubePhase::solvePhase(CubeModel* cubeModel)
 {
 	int find;
 
-	while(getRuleEngine()->findPattern(KIRAKOTT) == -1)
+	while(ruleEngine->findPattern(KIRAKOTT) == -1)
 	{
-		find = getRuleEngine()->findPattern(FINISH);
-		if(find == -1) find = getRuleEngine()->findPattern(FINISH_RESC);
+		find = ruleEngine->findPattern(FINISH);
+		if(find == -1) find = ruleEngine->findPattern(FINISH_RESC);
 		if(find != -1)
-			getRuleEngine()->applySolution(find, 0);
+			ruleEngine->applySolution(find, 0);
 	} 
 
 	setInfo("Cube solved");

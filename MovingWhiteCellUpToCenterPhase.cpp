@@ -1,7 +1,8 @@
 #include "RubikCube.h"
 
-MovingWhiteCellUpToCenterPhase::MovingWhiteCellUpToCenterPhase(void)
+MovingWhiteCellUpToCenterPhase::MovingWhiteCellUpToCenterPhase(RuleEngine *engine)
 {
+	ruleEngine = engine;
 }
 
 

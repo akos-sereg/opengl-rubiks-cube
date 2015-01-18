@@ -5,11 +5,14 @@
 class MovingBottomCornersPhase: public ISolutionPhase
 {
 public:
-	MovingBottomCornersPhase(void);
+	MovingBottomCornersPhase(RuleEngine* engine);
 	~MovingBottomCornersPhase(void);
 
 	void solvePhase(CubeModel* cubeModel);
 	double sarokChkSum(int num);
 	double sarokPosChkSum(int num);
+
+private:
+	RuleEngine* ruleEngine;
 };
 

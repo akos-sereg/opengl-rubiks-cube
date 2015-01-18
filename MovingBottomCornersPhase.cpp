@@ -1,7 +1,8 @@
 #include "RubikCube.h"
 
-MovingBottomCornersPhase::MovingBottomCornersPhase(void)
+MovingBottomCornersPhase::MovingBottomCornersPhase(RuleEngine* engine)
 {
+	ruleEngine = engine;
 }
 
 
@@ -35,14 +36,14 @@ void MovingBottomCornersPhase::solvePhase(CubeModel* cubeModel)
 
 		switch(fix) 
 		{
-			case 1: find = getRuleEngine()->findPattern(SARKOK1);break;
-			case 2: find = getRuleEngine()->findPattern(SARKOK2);break;
-			case 3: find = getRuleEngine()->findPattern(SARKOK3);break;
-			case 4: find = getRuleEngine()->findPattern(SARKOK4);break;
-			default: find = getRuleEngine()->findPattern(SARKOK1);break;
+			case 1: find = ruleEngine->findPattern(SARKOK1);break;
+			case 2: find = ruleEngine->findPattern(SARKOK2);break;
+			case 3: find = ruleEngine->findPattern(SARKOK3);break;
+			case 4: find = ruleEngine->findPattern(SARKOK4);break;
+			default: find = ruleEngine->findPattern(SARKOK1);break;
 		}
 
-		getRuleEngine()->applySolution(find, 0);
+		ruleEngine->applySolution(find, 0);
 
 		kesz=1;
 		for(i=1; i!=5; i++)
