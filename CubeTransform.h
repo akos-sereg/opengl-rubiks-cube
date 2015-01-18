@@ -20,12 +20,6 @@ class CubeTransform
 		int showRotating;
 };
 
-struct CubeCell
-{
-	int side;
-	int place;
-};
-
 struct cubeTransformStep
 {
 	int target_side;

@@ -532,25 +532,6 @@ void RubikCube::shutDown( void )
 	}
 }
 
-
-struct showLap
-{
-	double deg;
-	double x1, y1, z1;
-	double x2, y2, z2;
-} showLap[] = 
-{
-	{ 0.0, 0.505, 0.52, 0.6, 0.54, 0.55, 1.5 },
-	{ 90.0, -2.45, 0.55, 0.55, -2.45, 0.55, 1.55 },
-	{ 0.0, 0.505, 0.52, 2.45, 0.54, 0.55, 1.5 },
-	{ 90.0, -2.45, 0.55, 2.40, -2.45, 0.55, 1.55 },
-	{ 90.0, 0.52, 0.55, -0.55, 0.52, 0.55, -1.55 },
-	{ 90.0, 0.52, 0.55, -2.45, 0.52, 0.55, -1.55 },
-	{ 90.0, -2.45, 0.55, 0.55, -2.45, 0.55, 2.40 },
-	{ 0.0, 0.505, 0.52, 0.55, 0.54, 0.55, 2.45 },
-	{ 90.0, 0.52, 0.55, -0.55, 0.52, 0.55, -2.475 }
-};
-
 void RubikCube::render( void )
 {
 	Vertex g_lineVertices[] =
@@ -581,16 +562,16 @@ void RubikCube::render( void )
 
 	if(rotating!=-1)
 	{
-		if((rotating < 4 || rotating>5) && rotating!=8) glRotatef(showLap[rotating].deg, 0.0, 1.0, 0.0);
-		else glRotatef(showLap[rotating].deg, 1.0, 0.0, 0.0);
-		glTranslatef(showLap[rotating].x1, showLap[rotating].y1, showLap[rotating].z1);
+		if((rotating < 4 || rotating>5) && rotating!=8) glRotatef(CubeTransformData::showLap[rotating].deg, 0.0, 1.0, 0.0);
+		else glRotatef(CubeTransformData::showLap[rotating].deg, 1.0, 0.0, 0.0);
+		glTranslatef(CubeTransformData::showLap[rotating].x1, CubeTransformData::showLap[rotating].y1, CubeTransformData::showLap[rotating].z1);
 		geometryProvider->renderLap();
-		glTranslatef(-showLap[rotating].x1, -showLap[rotating].y1, -showLap[rotating].z1);
-		glTranslatef(showLap[rotating].x2, showLap[rotating].y2, showLap[rotating].z2);
+		glTranslatef(-CubeTransformData::showLap[rotating].x1, -CubeTransformData::showLap[rotating].y1, -CubeTransformData::showLap[rotating].z1);
+		glTranslatef(CubeTransformData::showLap[rotating].x2, CubeTransformData::showLap[rotating].y2, CubeTransformData::showLap[rotating].z2);
 		geometryProvider->renderLap();
-		glTranslatef(-showLap[rotating].x2, -showLap[rotating].y2, -showLap[rotating].z2);
-		if((rotating < 4 || rotating > 5) && rotating != 8) glRotatef(-showLap[rotating].deg, 0.0, 1.0, 0.0);
-		else glRotatef(-showLap[rotating].deg, 1.0, 0.0, 0.0);
+		glTranslatef(-CubeTransformData::showLap[rotating].x2, -CubeTransformData::showLap[rotating].y2, -CubeTransformData::showLap[rotating].z2);
+		if((rotating < 4 || rotating > 5) && rotating != 8) glRotatef(-CubeTransformData::showLap[rotating].deg, 0.0, 1.0, 0.0);
+		else glRotatef(-CubeTransformData::showLap[rotating].deg, 1.0, 0.0, 0.0);
 	} else
 	{
 		glTranslatef(0.52, 0.55, 0.52);
@@ -676,50 +657,6 @@ void RubikCube::render( void )
 	SwapBuffers( g_hDC );
 }
 
-
-struct sideCoord
-{
-	double x;
-	double y;
-	double z;
-} sideCoord[7][10] = 
-{
-	{ {0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0} },
-	{ // side 1
-		{0.0, 0.0, 0.0},
-		{0.5, 2.5, 2.975}, {1.5, 2.5, 2.975}, {2.5, 2.5, 2.975},
-		{0.5, 1.5, 2.975}, {1.5, 1.5, 2.975}, {2.5, 1.5, 2.975},
-		{0.5, 0.5, 2.975}, {1.5, 0.5, 2.975}, {2.5, 0.5, 2.975}
-	}, { // side 2
-		{0.0, 0.0, 0.0},
-		{2.92, 2.5, 2.5}, {2.92, 2.5, 1.5}, {2.92, 2.5, 0.5},
-		{2.92, 1.5, 2.5}, {2.92, 1.5, 1.5}, {2.92, 1.5, 0.5},
-		{2.92, 0.5, 2.5}, {2.92, 0.5, 1.5}, {2.92, 0.5, 0.5},
-	}, { // side 3
-		{0.0, 0.0, 0.0},
-		{0.5, 2.5, 0.025}, {1.5, 2.5, 0.025}, {2.5, 2.5, 0.025},
-		{0.5, 1.5, 0.025}, {1.5, 1.5, 0.025}, {2.5, 1.5, 0.025},
-		{0.5, 0.5, 0.025}, {1.5, 0.5, 0.025}, {2.5, 0.5, 0.025},
-	}, { // side 4
-		{0.0, 0.0, 0.0},
-		{0.025, 2.5, 2.5}, {0.025, 2.5, 1.5}, {0.025, 2.5, 0.5},
-		{0.025, 1.5, 2.5}, {0.025, 1.5, 1.5}, {0.025, 1.5, 0.5},
-		{0.025, 0.5, 2.5}, {0.025, 0.5, 1.5}, {0.025, 0.5, 0.5},
-	}, { // side 5
-		{0.0, 0.0, 0.0},
-		{0.5, 2.975, 0.5}, {1.5, 2.975, 0.5}, {2.5, 2.975, 0.5},
-		{0.5, 2.975, 1.5}, {1.5, 2.975, 1.5}, {2.5, 2.975, 1.5},
-		{0.5, 2.975, 2.5}, {1.5, 2.975, 2.5}, {2.5, 2.975, 2.5},
-	}, { // side 6
-		{0.0, 0.0, 0.0},
-		{0.5, 0.025, 0.5}, {1.5, 0.025, 0.5}, {2.5, 0.025, 0.5},
-		{0.5, 0.025, 1.5}, {1.5, 0.025, 1.5}, {2.5, 0.025, 1.5},
-		{0.5, 0.025, 2.5}, {1.5, 0.025, 2.5}, {2.5, 0.025, 2.5},
-
-	},
-
-};
-
 void RubikCube::setColorGrid(int lap, int sorszam, double red, double green, double blue)
 {
 	cubeSide cubeSide[7] = {
@@ -734,9 +671,9 @@ void RubikCube::setColorGrid(int lap, int sorszam, double red, double green, dou
 
 	double x,y,z;
 	double fok[4] = { cubeSide[lap].deg, cubeSide[lap].degx, cubeSide[lap].degy, cubeSide[lap].degz };
-	x = sideCoord[lap][sorszam].x;
-	y = sideCoord[lap][sorszam].y;
-	z = sideCoord[lap][sorszam].z;
+	x = CubeTransformData::sideCoordinates[lap][sorszam].x;
+	y = CubeTransformData::sideCoordinates[lap][sorszam].y;
+	z = CubeTransformData::sideCoordinates[lap][sorszam].z;
 
 
 	glPushMatrix();
@@ -749,136 +686,6 @@ void RubikCube::setColorGrid(int lap, int sorszam, double red, double green, dou
 	}
 	glPopMatrix();
 }
-
-
-struct CubeCellColors
-{
-	struct CubeCell e[21];
-} cellColors[]=
-{
-	{
-		{
-			{2, 7}, {2, 4}, {2, 1}, {4, 7}, {4, 4}, {4, 1}, {6, 9}, {1, 9}, 
-			{1, 6}, {1, 3}, {5, 9}, {6, 8}, {1, 8}, {1, 5}, {1, 2}, {5, 8}, 
-			{6, 7}, {1, 7}, {1, 4}, {1, 1}, {5, 7}
-		}
-	},{
-		{
-			{4, 1}, {4, 4}, {4, 7}, {2, 1}, {2, 4}, {2, 7}, {5, 7}, {1, 1}, 
-			{1, 4}, {1, 7}, {6, 7}, {5, 8}, {1, 2}, {1, 5}, {1, 8}, {6, 8}, 
-			{5, 9}, {1, 3}, {1, 6}, {1, 9}, {6, 9}
-		}
-	},{
-		{
-			{3, 9}, {3, 6}, {3, 3}, {1, 9}, {1, 6}, {1, 3}, {6, 3}, 
-			{2, 9}, {2, 6}, {2, 3}, {5, 3}, {6, 6}, {2, 8}, {2, 5}, {2, 2}, 
-			{5, 6}, {6, 9}, {2, 7}, {2, 4}, {2, 1}, {5, 9}
-		}
-	},
-	{
-		{
-			{1, 3}, {1, 6}, {1, 9}, {3, 3}, {3, 6}, {3, 9}, {5, 9}, {2, 1}, 
-			{2, 4}, {2, 7}, {6, 9}, {5, 6}, {2, 2}, {2, 5}, {2, 8}, {6, 6},
-			{5, 3}, {2, 3}, {2, 6}, {2, 9}, {6, 3}
-		}
-	},
-	{
-		{
-			{4, 9}, {4, 6}, {4, 3}, {2, 9}, {2, 6}, {2, 3}, {6, 1}, {3, 7}, 
-			{3, 4}, {3, 1}, {5, 1}, {6, 2}, {3, 8}, {3, 5}, {3, 2}, {5, 2},
-			{6, 3}, {3, 9}, {3, 6}, {3, 3}, {5, 3}
-		}
-	},
-	{
-		{
-			{2, 3}, {2, 6}, {2, 9}, {4, 3}, {4, 6}, {4, 9}, {5, 3}, {3, 3}, 
-			{3, 6}, {3, 9}, {6, 3}, {5, 2}, {3, 2}, {3, 5}, {3, 8}, {6, 2},
-			{5, 1}, {3, 1}, {3, 4}, {3, 7}, {6, 1}
-		}
-	},{
-		{
-			{1, 7}, {1, 4}, {1, 1}, {3, 7}, {3, 4}, {3, 1}, {6, 7}, {4, 7}, 
-			{4, 4}, {4, 1}, {5, 7}, {6, 4}, {4, 8}, {4, 5}, {4, 2}, {5, 4},
-			{6, 1}, {4, 9}, {4, 6}, {4, 3}, {5, 1}
-		}
-	},
-	{
-		{
-			{3, 1}, {3, 4}, {3, 7}, {1, 1}, {1, 4}, {1, 7}, {5, 1}, {4, 3}, 
-			{4, 6}, {4, 9}, {6, 1}, {5, 4}, {4, 2}, {4, 5}, {4, 8}, {6, 4},
-			{5, 7}, {4, 1}, {4, 4}, {4, 7}, {6, 7}
-		}
-	},
-	{
-		{
-			{4, 3}, {4, 2}, {4, 1}, {2, 3}, {2, 2}, {2, 1}, {3, 1}, {5, 1}, 
-			{5, 4}, {5, 7}, {1, 1}, {3, 2}, {5, 2}, {5, 5}, {5, 8}, {1, 2},
-			{3, 3}, {5, 3}, {5, 6}, {5, 9}, {1, 3}
-		}
-	},{
-		{
-			{2, 1}, {2, 2}, {2, 3}, {4, 1}, {4, 2}, {4, 3}, {1, 3}, {5, 9}, 
-			{5, 6}, {5, 3}, {3, 3}, {1, 2}, {5, 8}, {5, 5}, {5, 2}, {3, 2}, 
-			{1, 1}, {5, 7}, {5, 4}, {5, 1}, {3, 1}
-		}
-	},
-	{
-		{
-			{2, 9}, {2, 8}, {2, 7}, {4, 9}, {4, 8}, {4, 7}, {3, 9}, {6, 3}, 
-			{6, 6}, {6, 9}, {1, 9}, {3, 8}, {6, 2}, {6, 5}, {6, 8}, {1, 8},
-			{3, 7}, {6, 1}, {6, 4}, {6, 7}, {1, 7}
-		}
-	},
-	{
-		{
-			{4, 7}, {4, 8}, {4, 9}, {2, 7}, {2, 8}, {2, 9}, {1, 7}, {6, 7}, 
-			{6, 4}, {6, 1}, {3, 7}, {1, 8}, {6, 8}, {6, 5}, {6, 2}, {3, 8},
-			{1, 9}, {6, 9}, {6, 6}, {6, 3}, {3, 9}
-		}
-	},
-	{
-		{
-			{3, 8}, {3, 5}, {3, 2}, {1, 8}, {1, 5}, {1, 2}, {6, 2}, {0, 0}, 
-			{0, 0}, {0, 0}, {5, 2}, {6, 5}, {0, 0}, {0, 0}, {0, 0}, {5, 5},
-			{6, 8}, {0, 0}, {0, 0}, {0, 0}, {5, 8}
-		}
-	},//0-13. -- 14.
-	{
-		{
-			{1, 2}, {1, 5}, {1, 8}, {3, 2}, {3, 5}, {3, 8}, {5, 8}, {0, 0}, 
-			{0, 0}, {0, 0}, {6, 8}, {5, 5}, {0, 0}, {0, 0}, {0, 0}, {6, 5},
-			{5, 2}, {0, 0}, {0, 0}, {0, 0}, {6, 2}
-		}
-	},
-	{
-		{
-			{4, 2}, {4, 5}, {4, 8}, {2, 2}, {2, 5}, {2, 8}, {5, 4}, {0, 0}, 
-			{0, 0}, {0, 0}, {6, 4}, {5, 5}, {0, 0}, {0, 0}, {0, 0}, {6, 5},
-			{5, 6}, {0, 0}, {0, 0}, {0, 0}, {6, 6}
-		}
-	},
-	{
-		{
-			{2, 8}, {2, 5}, {2, 2}, {4, 8}, {4, 5}, {4, 2}, {6, 6}, {0, 0}, 
-			{0, 0}, {0, 0}, {5, 6}, {6, 5}, {0, 0}, {0, 0}, {0, 0}, {5, 5},
-			{6, 4}, {0, 0}, {0, 0}, {0, 0}, {5, 4}
-		}
-	},
-	{
-		{
-			{2, 6}, {2, 5}, {2, 4}, {4, 6}, {4, 5}, {4, 4}, {3, 6}, {0, 0}, 
-			{0, 0}, {0, 0}, {1, 6}, {3, 5}, {0, 0}, {0, 0}, {0, 0}, {1, 5},
-			{3, 4}, {0, 0}, {0, 0}, {0, 0}, {1, 4}
-		}
-	},
-	{
-		{
-			{4, 4}, {4, 5}, {4, 6}, {2, 4}, {2, 5}, {2, 6}, {1, 4}, {0, 0}, 
-			{0, 0}, {0, 0}, {3, 4}, {1, 5}, {0, 0}, {0, 0}, {0, 0}, {3, 5},
-			{1, 6}, {0, 0}, {0, 0}, {0, 0}, {3, 6}
-		}
-	}
-};
 
 void RubikCube::refreshCube()
 {
@@ -905,7 +712,7 @@ void RubikCube::refreshCube()
 				int s = rotating + (rotating-1)+1;
 
 				for(k=0; k!=21; k++)
-					if(cellColors[s].e[k].side == i && cellColors[s].e[k].place==j) 
+					if(CubeTransformData::cellColors[s].e[k].side == i && CubeTransformData::cellColors[s].e[k].place==j) 
 						l=0;
 				if(!l) continue;
 			}
@@ -963,7 +770,7 @@ void RubikCube::rotateColorSide(int num)
 	
 	for(i=0; i!=21; i++)
 	{
-		CubeModel::CubeColor color = cubeModel->GetCellColor(cellColors[num].e[i].side, cellColors[num].e[i].place);
+		CubeModel::CubeColor color = cubeModel->GetCellColor(CubeTransformData::cellColors[num].e[i].side, CubeTransformData::cellColors[num].e[i].place);
 
 		CubeTransformData::sideRotate[n].colors[i].red = color.Red;
 		CubeTransformData::sideRotate[n].colors[i].green = color.Green;
