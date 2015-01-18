@@ -43,6 +43,7 @@ struct Vertex
 class RubikCube
 {
 	public:
+		RubikCube(void);
 		void init(void);
 		void shutDown(void);
 		void refreshCube(void);
@@ -57,11 +58,11 @@ class RubikCube
 
 	private:
 		CubeModel oldCube;
+		GeometryProvider* geometryProvider;
 };
 
 SolutionStrategy* getSolutionStrategy();
 CubeModel* getCube();
-GeometryProvider* getGeometryProvider();
 RubikCube* getRubikCube();
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);

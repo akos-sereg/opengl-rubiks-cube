@@ -5,7 +5,6 @@
 
 CubeModel cube;
 SolutionStrategy* solutionStrategy = new SolutionStrategy(new RuleEngine(&cube));
-GeometryProvider geometryProvider;
 RubikCube rubikCube;
 
 CubeModel* getCube() 
@@ -16,11 +15,6 @@ CubeModel* getCube()
 SolutionStrategy* getSolutionStrategy() 
 {
 	return solutionStrategy;
-}
-
-GeometryProvider* getGeometryProvider() 
-{
-	return &geometryProvider;
 }
 
 RubikCube* getRubikCube() 
@@ -383,6 +377,10 @@ void inline drawString (char *s)
 		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, s[i]);
 }
 
+RubikCube::RubikCube(void)
+{
+	geometryProvider = new GeometryProvider();
+}
 
 //-----------------------------------------------------------------------------
 // Name: init()
@@ -664,10 +662,10 @@ void RubikCube::render( void )
 		if((rotating < 4 || rotating>5) && rotating!=8) glRotatef(showLap[rotating].deg, 0.0, 1.0, 0.0);
 		else glRotatef(showLap[rotating].deg, 1.0, 0.0, 0.0);
 		glTranslatef(showLap[rotating].x1, showLap[rotating].y1, showLap[rotating].z1);
-		getGeometryProvider()->renderLap();
+		geometryProvider->renderLap();
 		glTranslatef(-showLap[rotating].x1, -showLap[rotating].y1, -showLap[rotating].z1);
 		glTranslatef(showLap[rotating].x2, showLap[rotating].y2, showLap[rotating].z2);
-		getGeometryProvider()->renderLap();
+		geometryProvider->renderLap();
 		glTranslatef(-showLap[rotating].x2, -showLap[rotating].y2, -showLap[rotating].z2);
 		if((rotating < 4 || rotating > 5) && rotating != 8) glRotatef(-showLap[rotating].deg, 0.0, 1.0, 0.0);
 		else glRotatef(-showLap[rotating].deg, 1.0, 0.0, 0.0);
@@ -676,7 +674,7 @@ void RubikCube::render( void )
 		glTranslatef(0.52, 0.55, 0.52);
 		for(i=0; i!=3; i++)
 		{
-			getGeometryProvider()->renderLap();
+			geometryProvider->renderLap();
 			glTranslatef(0.0, 0.0, 0.98);
 		}
 		glTranslatef(0.0, 0.0, -(3*0.98));
@@ -685,7 +683,7 @@ void RubikCube::render( void )
 
 	glPushMatrix();
 	{
-		getGeometryProvider()->renderGrid(10, 0.5);
+		geometryProvider->renderGrid(10, 0.5);
 		rubikCube.refreshCube();
 
 		if(!changed) 
@@ -704,7 +702,7 @@ void RubikCube::render( void )
 				
 				glTranslatef(sideRotate[snum].dist[0], sideRotate[snum].dist[1], sideRotate[snum].dist[2]);
 				glRotatef(sideRotate[snum].deg, 0.0, 0.0, 1.0);
-				getGeometryProvider()->renderSide(sideRotate[snum].colors);
+				geometryProvider->renderSide(sideRotate[snum].colors);
 				if(sideRotate[snum].deg>0.0) sideRotate[snum].deg -= rotSpeedCurrent;
 				else if(sideRotate[snum].deg<0.0) sideRotate[snum].deg += rotSpeed;
 
@@ -730,7 +728,7 @@ void RubikCube::render( void )
 	int h;
 	glColor3f(1.0, 1.0, 1.0);
 	sprintf(warning, "Steps (not optimized): %d / %d", rotatingStep+1, step);
-	getGeometryProvider()->renderTextFull(10.0, 12.0, warning);
+	geometryProvider->renderTextFull(10.0, 12.0, warning);
 
 	if(rotatingStep == step-1) getCube()->getTransformEngine()->stopRotating();
 	if(rotating==-1 && getCube()->getTransformEngine()->getRotating())
@@ -749,7 +747,7 @@ void RubikCube::render( void )
 	while(strlen(info[i].line))
 	{
 		sprintf(warning, "%s", info[i].line);
-		getGeometryProvider()->renderTextFull(10, (12*i) + 24, warning);
+		geometryProvider->renderTextFull(10, (12*i) + 24, warning);
 		i++;
 	}
 
@@ -830,7 +828,7 @@ void RubikCube::setColorGrid(int lap, int sorszam, double red, double green, dou
 	{
 		glTranslatef(x, y, z);
 		glRotatef(fok[0], fok[1], fok[2], fok[3]);
-		getGeometryProvider()->renderGridColor(0.8, red, green, blue);
+		geometryProvider->renderGridColor(0.8, red, green, blue);
 		glTranslatef(-x, -y, -z);
 
 	}
