@@ -214,34 +214,6 @@ void GeometryProvider::renderLap()
 	glPopMatrix();
 }
 
-
-void GeometryProvider::renderWireCubeColor( GLdouble dSize, double color)
-{
-    double size = dSize * 0.5;
-
-#   define V(a,b,c) glVertex3d( a size, b size, c size );
-#   define N(a,b,c) glNormal3d( a, b, c );
-
-	double red=0.1;
-	double green=0.1;
-	double blue=0.1;
-    /*
-     * PWO: I dared to convert the code to use macros...
-     */
-
-	GLenum g = GL_QUADS;
-    glBegin(g); glColor3f(red, green, blue); N( 1.0, 0.0, 0.0); V(+,-,+); V(+,-,-); V(+,+,-); V(+,+,+); glEnd();
-    glBegin(g); glColor3f(red, green, blue); N( 0.0, 1.0, 0.0); V(+,+,+); V(+,+,-); V(-,+,-); V(-,+,+); glEnd();
-    glBegin(g); glColor3f(red, green, blue); N( 0.0, 0.0, 1.0); V(+,+,+); V(-,+,+); V(-,-,+); V(+,-,+); glEnd();
-    glBegin(g); glColor3f(red, green, blue); N(-1.0, 0.0, 0.0); V(-,-,+); V(-,+,+); V(-,+,-); V(-,-,-); glEnd();
-    glBegin(g); glColor3f(red, green, blue); N( 0.0,-1.0, 0.0); V(-,-,+); V(-,-,-); V(+,-,-); V(+,-,+); glEnd();
-    glBegin(g); glColor3f(red, green, blue); N( 0.0, 0.0,-1.0); V(-,-,-); V(-,+,-); V(+,+,-); V(+,-,-); glEnd();
-
-#   undef V
-#   undef N
-}
-
-
 void GeometryProvider::renderCubeColor( GLdouble dSize, double color)
 {
     double size = dSize * 0.5;
@@ -350,7 +322,7 @@ void GeometryProvider::renderGrid(float y, float range)
 {
 	float i,j;
 
-	glColor3f(0.0, 0.3, 0.0);
+	glColor3f(0.3, 0.3, 0.3);
 	for(j=-y; j!=y; j+=range)
 	{
 		glBegin(GL_LINE_LOOP);

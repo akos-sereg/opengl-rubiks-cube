@@ -35,7 +35,6 @@ class GeometryProvider
 {
 	public:
 		void renderGridColor( GLdouble dSize, double red, double green, double blue);
-		void renderWireCubeColor( GLdouble dSize, double color);
 		void renderCubeColor( GLdouble dSize, double color);
 		void renderTextFull(float x, float y, char *str);
 		void renderSide(struct mycolor *colors);
