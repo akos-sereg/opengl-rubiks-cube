@@ -2,7 +2,7 @@
 
 CubeModel::CubeModel(void)
 {
-	transformEngine = new CubeTransform();
+	transformEngine = new CubeTransform(this);
 }
 
 CubeTransform* CubeModel::getTransformEngine(void)

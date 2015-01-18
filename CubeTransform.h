@@ -3,10 +3,13 @@
 #ifndef _CUBETRANSFORM_H_INCLUDED_
 #define _CUBETRANSFORM_H_INCLUDED_
 
+// forward declaration
+class CubeModel; 
+
 class CubeTransform
 {
 	public:
-		CubeTransform(void);
+		CubeTransform(void* cubeModel);
 		void startRotating();
 		void stopRotating(); 
 		int getRotating();
@@ -16,6 +19,7 @@ class CubeTransform
 		void cTransform(char *id);	
 
 	private:
+		CubeModel* cube;
 		int rotated;
 		int showRotating;
 };

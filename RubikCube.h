@@ -30,8 +30,8 @@ using namespace std;
 #include "GeometryProvider.h"
 #include "matrix4x4f.h"
 #include "vector3f.h"
-#include "CubeTransform.h"
 #include "CubeModel.h"
+#include "CubeTransform.h"
 #include "RuleEngine.h"
 #include "SolutionStrategy.h"
 

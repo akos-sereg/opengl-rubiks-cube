@@ -1,7 +1,9 @@
 #include "RubikCube.h"
 
-CubeTransform::CubeTransform(void)
+CubeTransform::CubeTransform(void* cubeModel)
 {
+	cube = reinterpret_cast<CubeModel*>(cubeModel);
+
 	rotated = 0;
 	showRotating = 0;
 }
@@ -90,8 +92,6 @@ void CubeTransform::cTransform(char *id)
 		getRubikCube()->rotateColorSide(transid);
 	}
 	
-	CubeModel* cube = getCube();
-
 	int side, cellId;
 	for(side=1; side!=7; side++) {
 		for(cellId=1; cellId!=10; cellId++) {
