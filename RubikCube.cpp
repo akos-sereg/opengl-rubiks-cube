@@ -12,11 +12,6 @@ CubeModel* getCube()
 	return &cube;
 }
 
-SolutionStrategy* getSolutionStrategy() 
-{
-	return solutionStrategy;
-}
-
 RubikCube* getRubikCube() 
 {
 	return &rubikCube;
@@ -25,11 +20,6 @@ RubikCube* getRubikCube()
 char msginfo[256], warning[256];
 
 int stillRotate=0;
-
-double rotSpeed = 3.0;
-double rotSpeedCurrent = 3.0;
-int rotatingStep=-1;
-int rotating=-1;
 
 void setWarning(char* text)
 {
@@ -257,14 +247,14 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			case '1': 
 				rubikCube.saveCubeColors();
 				step = 0;
-				rotatingStep = 0;
+				rubikCube.setRotatingStep(0);
 				getCube()->getTransformEngine()->stopRotating();
 				break;
 
 			case '2': 
 				rubikCube.saveCubeColors();
 				step=0;
-				rotatingStep=0;
+				rubikCube.setRotatingStep(0);
 				getCube()->getTransformEngine()->stopRotating();
 				
 				if(solutionStrategy->run())
@@ -272,21 +262,21 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 					getCube()->getTransformEngine()->startRotating();
 					rubikCube.loadCubeColors();
 
-					rotatingStep = -1;
+					rubikCube.setRotatingStep(-1);
 
 				} else sprintf(msginfo, "Error: unable to solve cube");
 				break;
 			case '9':
-				rotSpeed=10.0;
+				rubikCube.setRotatingSpeed(10.0);
 				break;
 			case '8':
-				rotSpeed=6.0;
+				rubikCube.setRotatingSpeed(6.0);
 				break;
 			case '7':
-				rotSpeed=3.0;
+				rubikCube.setRotatingSpeed(3.0);
 				break;
 			case '6':
-				rotSpeed=1.0;
+				rubikCube.setRotatingSpeed(1.0);
 				break;
 
 			case 'Q': getCube()->getTransformEngine()->cTransformN(0); break;
@@ -380,6 +370,20 @@ void inline drawString (char *s)
 RubikCube::RubikCube(void)
 {
 	geometryProvider = new GeometryProvider();
+	rotating = -1;
+	rotatingStep = -1;
+	rotatingSpeed = 3.0;
+	rotatingSpeedCurrent = 3.0;
+}
+
+void RubikCube::setRotatingStep(int step)
+{
+	rotatingStep = step;
+}
+
+void RubikCube::setRotatingSpeed(int speed) 
+{
+	rotatingSpeed = speed;
 }
 
 //-----------------------------------------------------------------------------
@@ -703,14 +707,14 @@ void RubikCube::render( void )
 				glTranslatef(sideRotate[snum].dist[0], sideRotate[snum].dist[1], sideRotate[snum].dist[2]);
 				glRotatef(sideRotate[snum].deg, 0.0, 0.0, 1.0);
 				geometryProvider->renderSide(sideRotate[snum].colors);
-				if(sideRotate[snum].deg>0.0) sideRotate[snum].deg -= rotSpeedCurrent;
-				else if(sideRotate[snum].deg<0.0) sideRotate[snum].deg += rotSpeed;
+				if(sideRotate[snum].deg>0.0) sideRotate[snum].deg -= rotatingSpeedCurrent;
+				else if(sideRotate[snum].deg<0.0) sideRotate[snum].deg += rotatingSpeed;
 
 				if(sideRotate[snum].deg == 0.0) 
 				{
 					stillRotate = 0;
 					rotating=-1;
-					if(rotSpeedCurrent != rotSpeed) rotSpeedCurrent = rotSpeed;
+					if(rotatingSpeedCurrent != rotatingSpeed) rotatingSpeedCurrent = rotatingSpeed;
 				} else 
 				{
 					stillRotate = 1;

@@ -55,13 +55,18 @@ class RubikCube
 		void updateViewMatrix( void );
 		void getRealTimeUserInput( void );
 		void render( void );
+		void setRotatingStep(int step);
+		void setRotatingSpeed(int rotatingSpeed);
 
 	private:
 		CubeModel oldCube;
 		GeometryProvider* geometryProvider;
+		int rotating;
+		int rotatingStep;
+		int rotatingSpeed;
+		int rotatingSpeedCurrent;
 };
 
-SolutionStrategy* getSolutionStrategy();
 CubeModel* getCube();
 RubikCube* getRubikCube();
 
