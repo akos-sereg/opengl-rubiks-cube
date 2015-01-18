@@ -3,13 +3,6 @@
 #ifndef _GEOMETRY_H_INCLUDED_
 #define _GEOMETRY_H_INCLUDED_
 
-struct mycolor 
-{
-	double red;
-	double green;
-	double blue;
-};
-
 enum BitmapFontType
 {
     BITMAP_FONT_TYPE_8_BY_13,

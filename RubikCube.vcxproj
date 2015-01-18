@@ -110,6 +110,7 @@
     <ClCompile Include="CheckSolvedCubePhase.cpp" />
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="CubeTransform.cpp" />
+    <ClCompile Include="CubeTransformData.cpp" />
     <ClCompile Include="GeometryProvider.cpp" />
     <ClCompile Include="ISolutionPhase.cpp" />
     <ClCompile Include="matrix4x4f.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="CubeTransform.h">
       <FileType>CppClass</FileType>
     </ClInclude>
+    <ClInclude Include="CubeTransformData.h" />
     <ClInclude Include="GeometryProvider.h">
       <FileType>CppClass</FileType>
     </ClInclude>

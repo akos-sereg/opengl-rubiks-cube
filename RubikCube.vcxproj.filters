@@ -69,6 +69,9 @@
     <ClCompile Include="CheckSolvedCubePhase.cpp">
       <Filter>Source Files\SolutionPhases</Filter>
     </ClCompile>
+    <ClCompile Include="CubeTransformData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CubeTransform.h">
@@ -122,15 +125,12 @@
     <ClInclude Include="CheckSolvedCubePhase.h">
       <Filter>Header Files\SolutionPhases</Filter>
     </ClInclude>
+    <ClInclude Include="CubeTransformData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CubeGeometry.resX">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
     <EmbeddedResource Include="CubeTransform.resX">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LoadSituation.resX">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
     <EmbeddedResource Include="matrix4x4f.resX">

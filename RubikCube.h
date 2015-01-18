@@ -18,6 +18,7 @@ using namespace std;
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "glut.h"
+#include "CubeTransformData.h"
 #include "ISolutionPhase.h"
 #include "MovingWhiteCellUpToCenterPhase.h"
 #include "MovingTopCornersPhase.h"

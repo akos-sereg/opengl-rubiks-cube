@@ -64,61 +64,6 @@ double g_dLastTime;
 
 double g_fSpeedmodifier = 0.0001f;
 
-struct sideRotate
-{
-	double deg;
-	double rot[4];
-	double dist[3];
-	int to;
-	struct mycolor colors[21];
-
-} sideRotate[9] = { 
-	{
-		// 1. side
-		0.0, {0, 0.0, 0.0, 0.0}, {1.5, 1.5, 2.75}, 1, 
-		{ 
-			{1.0, 1.0, 1.0}, {1.0, 1.0, 0.0}, {0.5, 0.5, 0.0}, {0.0, 1.0, 0.0},
-			{0.0, 0.0, 1.0}, {1.0, 1.0, 0.5}, {0.1, 0.5, 0.5}, {0.5, 0.5, 1.0},
-			{1.0, 1.0, 1.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0},
-			{1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0},
-			{1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0},
-			{1.0, 0.0, 0.0}
-		}
-	}, {
-		// 2. side
-		0.0, {90.0, 0.0, 1.0, 0.0}, {-1.5, 1.5, 2.75}, 1,
-		{}
-	},{
-		// 3. side
-		0.0, {180.0, 0.0, 1.0, 0.0}, {-1.5, 1.5, -0.375}, 1,
-		{}
-	}, {
-		// 4. side
-		0.0, {-90.0, 0.0, 1.0, 0.0}, {1.5, 1.5, -0.225}, 1,
-		{}
-	}, {
-		// 5. side
-		0.0, {-90.0, 1.0, 0.0, 0.0}, {1.5, -1.5, 2.725}, 1,
-		{}
-	}, {
-		// 6. side
-		0.0, {90.0, 1.0, 0.0, 0.0}, {1.5, 1.5, -0.25}, 1,
-		{}
-	}, {
-		// 7. side
-		0.0, {90.0, 0.0, 1.0, 0.0}, {-1.5, 1.5, 1.725}, 1,
-		{}
-	}, {
-		// 8. side
-		0.0, {0.0, 0.0, 0.0, 0.0}, {1.5, 1.5, 1.740}, 1,
-		{}
-	}, {
-		// 9. side
-		0.0, {90.0, 1.0, 0.0, 0.0}, {1.5, 1.5, -1.25}, 1,
-		{}
-	}
-};
-
 //-----------------------------------------------------------------------------
 // Name: WinMain()
 // Desc: The application's entry point
@@ -673,17 +618,17 @@ void RubikCube::render( void )
 		int snum;
 		for(snum=0; snum!=9; snum++)
 		{
-			if(sideRotate[snum].deg != 0.0)
+			if(CubeTransformData::sideRotate[snum].deg != 0.0)
 			{
-				glRotatef(sideRotate[snum].rot[0], sideRotate[snum].rot[1], sideRotate[snum].rot[2], sideRotate[snum].rot[3]);
+				glRotatef(CubeTransformData::sideRotate[snum].rot[0], CubeTransformData::sideRotate[snum].rot[1], CubeTransformData::sideRotate[snum].rot[2], CubeTransformData::sideRotate[snum].rot[3]);
 				
-				glTranslatef(sideRotate[snum].dist[0], sideRotate[snum].dist[1], sideRotate[snum].dist[2]);
-				glRotatef(sideRotate[snum].deg, 0.0, 0.0, 1.0);
-				geometryProvider->renderSide(sideRotate[snum].colors);
-				if(sideRotate[snum].deg>0.0) sideRotate[snum].deg -= rotatingSpeedCurrent;
-				else if(sideRotate[snum].deg<0.0) sideRotate[snum].deg += rotatingSpeed;
+				glTranslatef(CubeTransformData::sideRotate[snum].dist[0], CubeTransformData::sideRotate[snum].dist[1], CubeTransformData::sideRotate[snum].dist[2]);
+				glRotatef(CubeTransformData::sideRotate[snum].deg, 0.0, 0.0, 1.0);
+				geometryProvider->renderSide(CubeTransformData::sideRotate[snum].colors);
+				if(CubeTransformData::sideRotate[snum].deg>0.0) CubeTransformData::sideRotate[snum].deg -= rotatingSpeedCurrent;
+				else if(CubeTransformData::sideRotate[snum].deg<0.0) CubeTransformData::sideRotate[snum].deg += rotatingSpeed;
 
-				if(sideRotate[snum].deg == 0.0) 
+				if(CubeTransformData::sideRotate[snum].deg == 0.0) 
 				{
 					stillRotate = 0;
 					rotating=-1;
@@ -944,7 +889,7 @@ void RubikCube::refreshCube()
 	int k,l=1;
 	for(i=1; i!=7; i++)
 	{
-		if(sideRotate[i-1].deg > 0.0) continue;
+		if(CubeTransformData::sideRotate[i-1].deg > 0.0) continue;
 		if(i==1 && g_vEye.z < 2.5) continue;
 		else if(i==2 && g_vEye.x < 2.5) continue;
 		else if(i==3 && g_vEye.z > 0) continue;
@@ -1020,12 +965,12 @@ void RubikCube::rotateColorSide(int num)
 	{
 		CubeModel::CubeColor color = cubeModel->GetCellColor(cellColors[num].e[i].side, cellColors[num].e[i].place);
 
-		sideRotate[n].colors[i].red = color.Red;
-		sideRotate[n].colors[i].green = color.Green;
-		sideRotate[n].colors[i].blue = color.Blue;
+		CubeTransformData::sideRotate[n].colors[i].red = color.Red;
+		CubeTransformData::sideRotate[n].colors[i].green = color.Green;
+		CubeTransformData::sideRotate[n].colors[i].blue = color.Blue;
 	}
-	if((num%2) != 0) sideRotate[n].deg=-90;
-	else sideRotate[n].deg=90;
+	if((num%2) != 0) CubeTransformData::sideRotate[n].deg=-90;
+	else CubeTransformData::sideRotate[n].deg=90;
 
-	if(num==8 || num==9 || num==14 || num==15) sideRotate[n].deg = -1 * sideRotate[n].deg;
+	if(num==8 || num==9 || num==14 || num==15) CubeTransformData::sideRotate[n].deg = -1 * CubeTransformData::sideRotate[n].deg;
 }
