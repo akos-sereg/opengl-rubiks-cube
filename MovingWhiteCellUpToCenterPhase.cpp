@@ -23,14 +23,14 @@ void MovingWhiteCellUpToCenterPhase::solvePhase(CubeModel* cubeModel)
 		{
 			switch(i)
 			{
-			case 1: cTransform("7j"); break;
-			case 2: cTransform("8j"); break;
-			case 3: cTransform("7b"); break;
-			case 4: cTransform("8b"); break;
+			case 1: cubeModel->getTransformEngine()->cTransform("7j"); break;
+			case 2: cubeModel->getTransformEngine()->cTransform("8j"); break;
+			case 3: cubeModel->getTransformEngine()->cTransform("7b"); break;
+			case 4: cubeModel->getTransformEngine()->cTransform("8b"); break;
 			case 5: break;
 			case 6: 
-				cTransform("8b");
-				cTransform("8b");
+				cubeModel->getTransformEngine()->cTransform("8b");
+				cubeModel->getTransformEngine()->cTransform("8b");
 				break;	
 			}
 			return;

@@ -13,5 +13,6 @@ public:
 private:
 	void executeAll();
 	int executeBottom();
+	CubeModel* cube;
 };
 

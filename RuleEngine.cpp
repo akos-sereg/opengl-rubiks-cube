@@ -96,7 +96,7 @@ void RuleEngine::applySolution(int n, int rotnum)
 		grr=0;
 		if(rules[n].sol[i].side == -1) return;
 		sprintf(cmd, "%d%s", rules[n].sol[i].side, rules[n].sol[i].rotate);
-		cTransform(cmd);			
+		getCube()->getTransformEngine()->cTransform(cmd);			
 		i++;
 	}
 	return;

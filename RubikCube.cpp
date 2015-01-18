@@ -48,12 +48,6 @@ double rotSpeed = 3.0;
 double rotSpeedCurrent = 3.0;
 int rotatingStep=-1;
 int rotating=-1;
-//double arany = 1.0;
-
-//double getArany()
-//{
-//	return arany;
-//}
 
 void setWarning(char* text)
 {
@@ -275,25 +269,25 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			switch(wParam)
 			{
 			case 'M':
-				cTransformN(rand()%16);
+				getCube()->getTransformEngine()->cTransformN(rand()%16);
 				break;
 
 			case '1': 
 				rubikCube.saveCubeColors();
 				step = 0;
 				rotatingStep = 0;
-				stopRotating();
+				getCube()->getTransformEngine()->stopRotating();
 				break;
 
 			case '2': 
 				rubikCube.saveCubeColors();
 				step=0;
 				rotatingStep=0;
-				stopRotating();
+				getCube()->getTransformEngine()->stopRotating();
 				
 				if(solutionStrategy.run())
 				{
-					startRotating();
+					getCube()->getTransformEngine()->startRotating();
 					rubikCube.loadCubeColors();
 
 					rotatingStep = -1;
@@ -313,24 +307,24 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				rotSpeed=1.0;
 				break;
 
-			case 'Q': cTransformN(0); break;
-			case 'W': cTransformN(1); break;
-			case 'E': cTransformN(2); break;
-			case 'R': cTransformN(3); break;
-			case 'T': cTransformN(4); break;
-			case 'Z': cTransformN(5); break;
-			case 'U': cTransformN(6); break;
-			case 'I': cTransformN(7); break;
-			case 'O': cTransformN(8); break;
-			case 'P': cTransformN(9); break;
-			case 'A': cTransformN(10); break;
-			case 'S': cTransformN(11); break;
-			case 'D': cTransformN(12); break;
-			case 'F': cTransformN(13); break;
-			case 'G': cTransformN(14); break;
-			case 'H': cTransformN(15); break;
-			case 'J': cTransformN(16); break;
-			case 'K': cTransformN(17); break;
+			case 'Q': getCube()->getTransformEngine()->cTransformN(0); break;
+			case 'W': getCube()->getTransformEngine()->cTransformN(1); break;
+			case 'E': getCube()->getTransformEngine()->cTransformN(2); break;
+			case 'R': getCube()->getTransformEngine()->cTransformN(3); break;
+			case 'T': getCube()->getTransformEngine()->cTransformN(4); break;
+			case 'Z': getCube()->getTransformEngine()->cTransformN(5); break;
+			case 'U': getCube()->getTransformEngine()->cTransformN(6); break;
+			case 'I': getCube()->getTransformEngine()->cTransformN(7); break;
+			case 'O': getCube()->getTransformEngine()->cTransformN(8); break;
+			case 'P': getCube()->getTransformEngine()->cTransformN(9); break;
+			case 'A': getCube()->getTransformEngine()->cTransformN(10); break;
+			case 'S': getCube()->getTransformEngine()->cTransformN(11); break;
+			case 'D': getCube()->getTransformEngine()->cTransformN(12); break;
+			case 'F': getCube()->getTransformEngine()->cTransformN(13); break;
+			case 'G': getCube()->getTransformEngine()->cTransformN(14); break;
+			case 'H': getCube()->getTransformEngine()->cTransformN(15); break;
+			case 'J': getCube()->getTransformEngine()->cTransformN(16); break;
+			case 'K': getCube()->getTransformEngine()->cTransformN(17); break;
 			case 'B':
 				int s;
 				s = getRuleEngine()->findPattern(ALSO1);
@@ -769,15 +763,15 @@ void RubikCube::render( void )
 	sprintf(warning, "Steps (not optimized): %d / %d", rotatingStep+1, step);
 	getGeometryProvider()->renderTextFull(10.0, 12.0, warning);
 
-	if(rotatingStep == step-1) stopRotating();
-	if(rotating==-1 && getRotating())
+	if(rotatingStep == step-1) getCube()->getTransformEngine()->stopRotating();
+	if(rotating==-1 && getCube()->getTransformEngine()->getRotating())
 	{
-		setRotated(1);
+		getCube()->getTransformEngine()->setRotated(1);
 		rotatingStep++;
-		if(getRotated())
+		if(getCube()->getTransformEngine()->getRotated())
 		{
-			cTransform(history[rotatingStep].step);
-			setRotated(0);
+			getCube()->getTransformEngine()->cTransform(history[rotatingStep].step);
+			getCube()->getTransformEngine()->setRotated(0);
 		}
 	}
 	
@@ -1079,25 +1073,6 @@ void RubikCube::cAddQueue(char *cmd)
 	sprintf(history[step].step, "%s", cmd);
 	step++;
 }
-
-
-int RubikCube::noRotating()
-{
-
-	return stillRotate;
-
-	int snum;
-	for(snum=0; snum!=6; snum++)
-	{
-		if(fabs(sideRotate[snum].deg) < 2.0)
-		{
-			return 1;
-
-		}
-	}
-	return 0;
-}
-
 
 void RubikCube::rotateColorSide(int num)
 {

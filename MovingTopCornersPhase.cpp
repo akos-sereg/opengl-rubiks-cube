@@ -11,6 +11,8 @@ MovingTopCornersPhase::~MovingTopCornersPhase(void)
 
 void MovingTopCornersPhase::solvePhase(CubeModel* cubeModel)
 {
+	cube = cubeModel;
+
 	int iter = 0;
 	while(getRuleEngine()->findPattern(MINTA_FAZIS2) == -1) 
 	{
@@ -38,7 +40,7 @@ void MovingTopCornersPhase::executeAll()
 					for(k=0; k!=4; k++)
 					{
 						if(executeBottom()) break;
-						cTransform("6j");
+						cube->getTransformEngine()->cTransform("6j");
 					}
 				}
 			}

@@ -146,8 +146,13 @@ struct cubeTransform
 	}
 };
 
+CubeTransform::CubeTransform(void)
+{
+	rotated = 0;
+	showRotating = 0;
+}
 
-void cTransformN(int n)
+void CubeTransform::cTransformN(int n)
 {
 	char retval[6];
 	switch(n)
@@ -174,36 +179,32 @@ void cTransformN(int n)
 	cTransform(retval);
 }
 
-int rotated = 0;
-
-void setRotated(int rot) 
+void CubeTransform::setRotated(int rot) 
 {
 	rotated = rot;
 }
 
-int getRotated() 
+int CubeTransform::getRotated() 
 {
 	return rotated;
 }
 
-int showRotating=0;
-
-void startRotating() 
+void CubeTransform::startRotating() 
 {
 	showRotating = 1;
 }
 
-void stopRotating() 
+void CubeTransform::stopRotating() 
 {
 	showRotating = 0;
 }
 
-int getRotating() 
+int CubeTransform::getRotating() 
 {
 	return showRotating;
 }
 
-void cTransform(char *id)
+void CubeTransform::cTransform(char *id)
 {
 	if(!showRotating) getRubikCube()->cAddQueue(id);
 

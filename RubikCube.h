@@ -5,7 +5,6 @@
 
 void setWarning(char* text);
 void setInfo(char *info);
-//double getArany();
 
 using namespace std;
 
@@ -15,6 +14,7 @@ using namespace std;
 #include <stdio.h>
 #include <windows.h>
 #include <mmsystem.h>
+#include <algorithm>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "glut.h"
@@ -48,7 +48,6 @@ class RubikCube
 		void refreshCube(void);
 		void setColorGrid(int lap, int sorszam, double red, double green, double blue);
 		void rotateColorSide(int num);
-		int noRotating();
 		void cAddQueue(char *cmd);
 		void loadCubeColors();
 		void saveCubeColors();

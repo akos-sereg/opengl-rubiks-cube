@@ -1,7 +1,13 @@
-#include "CubeModel.h"
+#include "RubikCube.h"
 
 CubeModel::CubeModel(void)
 {
+	transformEngine = new CubeTransform();
+}
+
+CubeTransform* CubeModel::getTransformEngine(void)
+{
+	return transformEngine;
 }
 
 void CubeModel::SetCellColor(int side, int cellId, const CubeColor color) 

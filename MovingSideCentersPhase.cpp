@@ -12,6 +12,8 @@ MovingSideCentersPhase::~MovingSideCentersPhase(void)
 
 void MovingSideCentersPhase::solvePhase(CubeModel* cubeModel)
 {
+	cube = cubeModel;
+
 	int iter=0;
 
 	while(getRuleEngine()->findPattern(MINTA_FAZIS4) == -1)
@@ -46,7 +48,7 @@ void MovingSideCentersPhase::executeAll()
 			} else 
 			{
 				h++;
-				cTransform("6j");
+				cube->getTransformEngine()->cTransform("6j");
 				if(h>4) {
 					getRuleEngine()->applySolution(find, 0);
 					h = 0;
@@ -56,7 +58,7 @@ void MovingSideCentersPhase::executeAll()
 		}
 		else 
 		{
-			cTransform("6j");
+			cube->getTransformEngine()->cTransform("6j");
 		}
 		
 		if(getRuleEngine()->findPattern(MINTA_FAZIS4) == -1)

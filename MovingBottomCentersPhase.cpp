@@ -12,6 +12,8 @@ MovingBottomCentersPhase::~MovingBottomCentersPhase(void)
 
 void MovingBottomCentersPhase::solvePhase(CubeModel* cubeModel)
 {
+	cube = cubeModel;
+
 	int iter=0;
 
 	while(getRuleEngine()->findPattern(MINTA_FAZIS5) == -1)
@@ -42,6 +44,6 @@ void MovingBottomCentersPhase::executeAll()
 				}
 			}
 		}
-		cTransform("6j");
+		cube->getTransformEngine()->cTransform("6j");
 	}
 }

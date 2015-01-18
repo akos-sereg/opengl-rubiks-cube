@@ -11,6 +11,8 @@ MovingCornerWhiteDownPhase::~MovingCornerWhiteDownPhase(void)
 
 void MovingCornerWhiteDownPhase::solvePhase(CubeModel* cubeModel)
 {
+	cube = cubeModel;
+
 	int iter = 0;
 	while(getRuleEngine()->findPattern(MINTA_FAZIS3) == -1)
 	{
@@ -43,7 +45,7 @@ void MovingCornerWhiteDownPhase::executeAll()
 			if(find != -1) 
 				getRuleEngine()->applySolution(find, 0);
 
-			cTransform("6j");
+			cube->getTransformEngine()->cTransform("6j");
 		}
 	}
 }

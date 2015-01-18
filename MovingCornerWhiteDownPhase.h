@@ -11,5 +11,8 @@ public:
 
 	void solvePhase(CubeModel* cubeModel);
 	void executeAll();
+
+private:
+	CubeModel* cube;
 };
 
