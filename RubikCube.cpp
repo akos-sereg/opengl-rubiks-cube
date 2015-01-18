@@ -53,13 +53,6 @@ struct history
 } history[500];
 
 int closeToPlanet;
-POINT  g_ptLastMousePosit;
-POINT  g_ptCurrentMousePosit;
-bool   g_bMousing = false;
-float  g_fMoveSpeed = 0.6f;
-float g_fMoveSpeed_turn = 1.0f;
-float g_fMoveSpeed_Travel = 2;
-float g_fMoveSpeed_Travel_small = 1.5;
 float speed = 0.0f;
 int changed=0;
 
@@ -349,6 +342,14 @@ RubikCube::RubikCube(void)
 	g_vRight.x = 1.0f; g_vRight.y = 0.0f; g_vRight.z = 0.0f;
 	g_vGravity.x = 0.0f; g_vGravity.z = 0.0f; g_vGravity.z = 0.0f;
 	g_vView.x = -0.66; g_vView.y = -0.28; g_vView.z = -0.69;
+
+	g_ptLastMousePosit;
+	g_ptCurrentMousePosit;
+	g_bMousing = false;
+	g_fMoveSpeed = 0.6f;
+	g_fMoveSpeed_turn = 1.0f;
+	g_fMoveSpeed_Travel = 2;
+	g_fMoveSpeed_Travel_small = 1.5;
 }
 
 void RubikCube::setRotatingStep(int step)

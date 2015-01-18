@@ -71,6 +71,13 @@ class RubikCube
 		vector3f g_vRight;   // Right Vector
 		vector3f g_vGravity;
 		vector3f g_vView;
+		POINT  g_ptLastMousePosit;
+		POINT  g_ptCurrentMousePosit;
+		bool   g_bMousing;
+		float  g_fMoveSpeed;
+		float g_fMoveSpeed_turn;
+		float g_fMoveSpeed_Travel;
+		float g_fMoveSpeed_Travel_small;
 };
 
 CubeModel* getCube();
