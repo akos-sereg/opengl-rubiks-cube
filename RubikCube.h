@@ -65,6 +65,12 @@ class RubikCube
 		int rotatingStep;
 		int rotatingSpeed;
 		int rotatingSpeedCurrent;
+		vector3f g_vEye;
+		vector3f g_vLook; // Look Vector
+		vector3f g_vUp;      // Up Vector
+		vector3f g_vRight;   // Right Vector
+		vector3f g_vGravity;
+		vector3f g_vView;
 };
 
 CubeModel* getCube();

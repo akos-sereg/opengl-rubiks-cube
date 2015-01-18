@@ -46,14 +46,6 @@ struct HelpCommands
 	{""}
 };
 
-
-vector3f g_vEye(10.0, 5.0, 10.0);     // Eye Position
-vector3f g_vLook(-0.66, -0.28, -0.69); // Look Vector
-vector3f g_vUp(0.0f, 1.0f, 0.0f);      // Up Vector
-vector3f g_vRight(1.0f, 0.0f, 0.0f);   // Right Vector
-vector3f g_vGravity(0.0f, 0.0f, 0.0f);
-vector3f g_vView(-0.66, -0.28, -0.69);
-
 int step=0;
 struct history
 {
@@ -147,14 +139,6 @@ struct sideRotate
 		{}
 	}
 };
-
-
-int SGN(float num)
-{
-	if(num == 0) return 0;
-	if(num < 1) return -1;
-	else return 1;
-}
 
 //-----------------------------------------------------------------------------
 // Name: WinMain()
@@ -297,14 +281,6 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			case 'H': getCube()->getTransformEngine()->cTransformN(15); break;
 			case 'J': getCube()->getTransformEngine()->cTransformN(16); break;
 			case 'K': getCube()->getTransformEngine()->cTransformN(17); break;
-			/*case 'B':
-				int s;
-				s = ruleEngine->findPattern(ALSO1);
-				if(s!=-1)
-				{
-					ruleEngine->applySolution(s, 0);
-				}
-				break;*/
 
 			case VK_ESCAPE:
 				PostQuitMessage(0);
@@ -359,14 +335,6 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 	return 0;
 }
 
-
-void inline drawString (char *s)
-{
-	unsigned int i;
-	for (i=0; i<strlen(s); i++)
-		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, s[i]);
-}
-
 RubikCube::RubikCube(void)
 {
 	geometryProvider = new GeometryProvider();
@@ -374,6 +342,13 @@ RubikCube::RubikCube(void)
 	rotatingStep = -1;
 	rotatingSpeed = 3.0;
 	rotatingSpeedCurrent = 3.0;
+
+	g_vEye.x = 10.0; g_vEye.y = 5.0; g_vEye.z = 10.0;
+	g_vLook.x = -0.66; g_vLook.y = -0.28; g_vLook.z = -0.69;
+	g_vUp.x = 0.0f; g_vUp.y = 1.0f; g_vUp.z = 0.0f;
+	g_vRight.x = 1.0f; g_vRight.y = 0.0f; g_vRight.z = 0.0f;
+	g_vGravity.x = 0.0f; g_vGravity.z = 0.0f; g_vGravity.z = 0.0f;
+	g_vView.x = -0.66; g_vView.y = -0.28; g_vView.z = -0.69;
 }
 
 void RubikCube::setRotatingStep(int step)
