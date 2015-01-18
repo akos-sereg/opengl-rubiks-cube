@@ -5,7 +5,7 @@
 
 void setWarning(char* text);
 void setInfo(char *info);
-double getArany();
+//double getArany();
 
 using namespace std;
 

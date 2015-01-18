@@ -124,7 +124,7 @@ void GeometryProvider::renderSide(struct mycolor *colors )
 {
     int i,j,n=0;
 	
-	glTranslatef((-1.0)*getArany(), -1.0*getArany(), -0.25*getArany());
+	glTranslatef((-1.0), -1.0, -0.25);
 	double dst = 0.5;
 
 	
@@ -132,8 +132,8 @@ void GeometryProvider::renderSide(struct mycolor *colors )
 	{
 		glPushMatrix();
 		{
-			glTranslatef(1.0*i*getArany(), (-dst)*getArany(), 0.0*getArany());
-			renderGridColor(0.8*getArany(), colors[n].red, colors[n].green, colors[n].blue);
+			glTranslatef(1.0*i, (-dst), 0.0);
+			renderGridColor(0.8, colors[n].red, colors[n].green, colors[n].blue);
 			n++;
 		}
 		glPopMatrix();
@@ -142,8 +142,8 @@ void GeometryProvider::renderSide(struct mycolor *colors )
 	{
 		glPushMatrix();
 		{
-			glTranslatef(1.0*i*getArany(), (2.0 + dst+0.006)*getArany(), 0.0);
-			renderGridColor(0.8*getArany(), colors[n].red, colors[n].green, colors[n].blue);
+			glTranslatef(1.0*i, (2.0 + dst+0.006), 0.0);
+			renderGridColor(0.8, colors[n].red, colors[n].green, colors[n].blue);
 			n++;
 		}
 		glPopMatrix();
@@ -154,9 +154,9 @@ void GeometryProvider::renderSide(struct mycolor *colors )
 		glPushMatrix();
 		{
 		glRotatef(90.0, 0.0, 0.0, 1.0);
-		glTranslatef(0.0, (dst+0.006)*getArany(), 0.0);
-		renderGridColor(0.8*getArany(), colors[n].red, colors[n].green, colors[n].blue);
-		glTranslatef(0.0, (-dst-0.006)*getArany(), 0.0);
+		glTranslatef(0.0, (dst+0.006), 0.0);
+		renderGridColor(0.8, colors[n].red, colors[n].green, colors[n].blue);
+		glTranslatef(0.0, (-dst-0.006), 0.0);
 		glRotatef(-90.0, 0.0, 0.0, 1.0);
 		
 		n++;
@@ -165,32 +165,32 @@ void GeometryProvider::renderSide(struct mycolor *colors )
 		for(i=0; i!=3; i++)
 		{
 			glTranslatef(0.0, 0.0, 0.0);
-			renderCubeColor(1.0*getArany(), 0.5*getArany());
+			renderCubeColor(1.0, 0.5);
 			glRotatef(90.0, 1.0, 0.0, 0.0);
-			glTranslatef(0.0, (dst+0.006)*getArany(), 0.0);
-			renderGridColor(0.8*getArany(), colors[n].red, colors[n].green, colors[n].blue);
-			glTranslatef(0.0, (-dst-0.006)*getArany(), 0.0);
+			glTranslatef(0.0, (dst+0.006), 0.0);
+			renderGridColor(0.8, colors[n].red, colors[n].green, colors[n].blue);
+			glTranslatef(0.0, (-dst-0.006), 0.0);
 			glRotatef(-90.0, 1.0, 0.0, 0.0);
 			
 			
 			n++;
 
-			glTranslatef(getArany()*1.0, 0.0, 0.0);
+			glTranslatef(1.0, 0.0, 0.0);
 		}
 		
 		glRotatef(90.0, 0.0, 0.0, 1.0);
-		glTranslatef(0.0, (dst-0.006)*getArany(), 0.0);
-		renderGridColor(0.8*getArany(), colors[n].red, colors[n].green, colors[n].blue);
-		glTranslatef(0.0, (-dst+0.006)*getArany(), 0.0);
+		glTranslatef(0.0, (dst-0.006), 0.0);
+		renderGridColor(0.8, colors[n].red, colors[n].green, colors[n].blue);
+		glTranslatef(0.0, (-dst+0.006), 0.0);
 		glRotatef(-90.0, 0.0, 0.0, 1.0);
 		
 		n++;
 
-		glTranslatef(-3.0*getArany(), getArany()*1.0, 0.0);
+		glTranslatef(-3.0, 1.0, 0.0);
 		
 		}
 		glPopMatrix();
-		glTranslatef(0.0, 1.0*getArany(), 0.0);
+		glTranslatef(0.0, 1.0, 0.0);
 		
 	}
 }
@@ -205,7 +205,7 @@ void GeometryProvider::renderLap()
 		{
 			for(j=0; j!=3; j++)
 			{
-				renderCubeColor(0.95*getArany(), 0.5*getArany());
+				renderCubeColor(0.95, 0.5);
 				glTranslatef(0.95, 0.0, 0.0);
 			}
 			glTranslatef(-(3*0.95), 0.95, 0.0);

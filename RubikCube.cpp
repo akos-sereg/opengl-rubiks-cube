@@ -48,12 +48,12 @@ double rotSpeed = 3.0;
 double rotSpeedCurrent = 3.0;
 int rotatingStep=-1;
 int rotating=-1;
-double arany = 1.0;
+//double arany = 1.0;
 
-double getArany()
-{
-	return arany;
-}
+//double getArany()
+//{
+//	return arany;
+//}
 
 void setWarning(char* text)
 {
@@ -722,7 +722,7 @@ void RubikCube::render( void )
 
 	glPushMatrix();
 	{
-		getGeometryProvider()->renderGrid(10*arany, 0.5*arany);
+		getGeometryProvider()->renderGrid(10, 0.5);
 		rubikCube.refreshCube();
 
 		if(!changed) 
@@ -739,7 +739,7 @@ void RubikCube::render( void )
 			{
 				glRotatef(sideRotate[snum].rot[0], sideRotate[snum].rot[1], sideRotate[snum].rot[2], sideRotate[snum].rot[3]);
 				
-				glTranslatef(sideRotate[snum].dist[0]*arany, sideRotate[snum].dist[1]*arany, sideRotate[snum].dist[2]*arany);
+				glTranslatef(sideRotate[snum].dist[0], sideRotate[snum].dist[1], sideRotate[snum].dist[2]);
 				glRotatef(sideRotate[snum].deg, 0.0, 0.0, 1.0);
 				getGeometryProvider()->renderSide(sideRotate[snum].colors);
 				if(sideRotate[snum].deg>0.0) sideRotate[snum].deg -= rotSpeedCurrent;
@@ -865,10 +865,10 @@ void RubikCube::setColorGrid(int lap, int sorszam, double red, double green, dou
 
 	glPushMatrix();
 	{
-		glTranslatef(x*arany, y*arany, z*arany);
+		glTranslatef(x, y, z);
 		glRotatef(fok[0], fok[1], fok[2], fok[3]);
-		getGeometryProvider()->renderGridColor(0.8 * arany, red, green, blue);
-		glTranslatef(-x*arany, -y*arany, -z*arany);
+		getGeometryProvider()->renderGridColor(0.8, red, green, blue);
+		glTranslatef(-x, -y, -z);
 
 	}
 	glPopMatrix();
