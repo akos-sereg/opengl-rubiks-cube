@@ -40,6 +40,11 @@ struct Vertex
 	float x, y, z;
 };
 
+struct cubeSide
+{
+	double deg, degx, degy, degz;
+}; 
+
 class RubikCube
 {
 	public:

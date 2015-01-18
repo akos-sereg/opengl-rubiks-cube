@@ -775,25 +775,18 @@ struct sideCoord
 
 };
 
-
-struct cubeSide
-{
-	double deg;
-	double degx;
-	double degy;
-	double degz;
-} cubeSide[7] = {
-	{0.0,  0.0, 0.0, 0.0},
-	{90.0, 1.0, 0.0, 0.0},
-	{90.0, 0.0, 0.0, 1.0},
-	{90.0, 1.0, 0.0, 0.0},
-	{90.0, 0.0, 0.0, 1.0},
-	{0.0,  0.0, 0.0, 0.0},
-	{0.0,  0.0, 0.0, 0.0}
-};
-
 void RubikCube::setColorGrid(int lap, int sorszam, double red, double green, double blue)
 {
+	cubeSide cubeSide[7] = {
+		{0.0,  0.0, 0.0, 0.0},
+		{90.0, 1.0, 0.0, 0.0},
+		{90.0, 0.0, 0.0, 1.0},
+		{90.0, 1.0, 0.0, 0.0},
+		{90.0, 0.0, 0.0, 1.0},
+		{0.0,  0.0, 0.0, 0.0},
+		{0.0,  0.0, 0.0, 0.0}
+	};
+
 	double x,y,z;
 	double fok[4] = { cubeSide[lap].deg, cubeSide[lap].degx, cubeSide[lap].degy, cubeSide[lap].degz };
 	x = sideCoord[lap][sorszam].x;
