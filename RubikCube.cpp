@@ -5,7 +5,6 @@
 
 SolutionStrategy solutionStrategy;
 CubeModel cube;
-CubeModel oldCube;
 RuleEngine ruleEngine;
 GeometryProvider geometryProvider;
 RubikCube rubikCube;
@@ -13,11 +12,6 @@ RubikCube rubikCube;
 CubeModel* getCube() 
 {
 	return &cube;
-}
-
-CubeModel* getOldCube()
-{
-	return &oldCube;
 }
 
 SolutionStrategy* getSolutionStrategy() 
@@ -1017,12 +1011,11 @@ void RubikCube::refreshCube()
 void RubikCube::saveCubeColors()
 {
 	CubeModel* cubeModel = getCube();
-	CubeModel* oldCubeModel = getOldCube();
-
+	
 	int a,b;
 	for(a=1; a!=7; a++) {
 		for(b=1; b!=10; b++) {
-			oldCubeModel->SetCellColor(a, b, cubeModel->GetCellColor(a, b));
+			oldCube.SetCellColor(a, b, cubeModel->GetCellColor(a, b));
 		}
 	}
 	return;
@@ -1032,13 +1025,12 @@ void RubikCube::saveCubeColors()
 void RubikCube::loadCubeColors()
 {
 	CubeModel* cubeModel = getCube();
-	CubeModel* oldCubeModel = getOldCube();
-
+	
 	int a,b;
 	for(a=1; a!=7; a++) 
 	{
 		for(b=1; b!=10; b++) {
-			cubeModel->SetCellColor(a, b, oldCubeModel->GetCellColor(a, b));
+			cubeModel->SetCellColor(a, b, oldCube.GetCellColor(a, b));
 		}
 	}
 	

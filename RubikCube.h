@@ -54,11 +54,13 @@ class RubikCube
 		void updateViewMatrix( void );
 		void getRealTimeUserInput( void );
 		void render( void );
+
+	private:
+		CubeModel oldCube;
 };
 
 SolutionStrategy* getSolutionStrategy();
 CubeModel* getCube();
-CubeModel* getOldCube();
 RuleEngine* getRuleEngine();
 GeometryProvider* getGeometryProvider();
 RubikCube* getRubikCube();

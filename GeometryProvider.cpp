@@ -161,7 +161,6 @@ void GeometryProvider::renderSide(struct mycolor *colors )
 		
 		n++;
 		
-
 		for(i=0; i!=3; i++)
 		{
 			glTranslatef(0.0, 0.0, 0.0);
