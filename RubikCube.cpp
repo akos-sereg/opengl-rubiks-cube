@@ -5,7 +5,7 @@
 
 SolutionStrategy solutionStrategy;
 CubeModel cube;
-RuleEngine ruleEngine;
+RuleEngine* ruleEngine = new RuleEngine(&cube);
 GeometryProvider geometryProvider;
 RubikCube rubikCube;
 
@@ -21,7 +21,7 @@ SolutionStrategy* getSolutionStrategy()
 
 RuleEngine* getRuleEngine() 
 {
-	return &ruleEngine;
+	return ruleEngine;
 }
 
 GeometryProvider* getGeometryProvider() 

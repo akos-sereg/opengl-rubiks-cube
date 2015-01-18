@@ -32,11 +32,14 @@
 class RuleEngine
 {
 	public:
+		RuleEngine(CubeModel* cubeModel);
 		void applySolution(int n, int rotnum);
 		int sideval(int num);
 		int checkPattern(int n);
 		int rulesLen();
 		int findPattern(int code);
+	private:
+		CubeModel* cube;
 };
 
 struct pattern

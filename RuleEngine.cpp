@@ -1,5 +1,10 @@
 #include "RubikCube.h"
 
+RuleEngine::RuleEngine(CubeModel* cubeModel)
+{
+	cube = cubeModel;
+}
+
 int RuleEngine::rulesLen()
 {
 	int i;
@@ -20,8 +25,6 @@ int RuleEngine::checkPattern(int n)
 		if(rules[n].patt[i].side == -1) return 1;
 		if(rules[n].patt[i].side == OLDAL) checkOldal = 0;
 		else checkOldal = rules[n].patt[i].side;
-
-		CubeModel* cube = getCube();
 
 		if((cube->GetCellColor(checkOldal, rules[n].patt[i].place).Red == rules[n].patt[i].r) &&
 			(cube->GetCellColor(checkOldal, rules[n].patt[i].place).Green == rules[n].patt[i].g) &&
@@ -96,7 +99,7 @@ void RuleEngine::applySolution(int n, int rotnum)
 		grr=0;
 		if(rules[n].sol[i].side == -1) return;
 		sprintf(cmd, "%d%s", rules[n].sol[i].side, rules[n].sol[i].rotate);
-		getCube()->getTransformEngine()->cTransform(cmd);			
+		cube->getTransformEngine()->cTransform(cmd);			
 		i++;
 	}
 	return;
