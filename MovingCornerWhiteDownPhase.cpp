@@ -1,4 +1,4 @@
-#include "RubikCube.h"
+#include "RubikCubeController.h"
 
 MovingCornerWhiteDownPhase::MovingCornerWhiteDownPhase(RuleEngine* engine, CubeModel* cubeModel)
 {

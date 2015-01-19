@@ -1,4 +1,4 @@
-#include "RubikCube.h"
+#include "RubikCubeController.h"
 
 MovingWhiteCellUpToCenterPhase::MovingWhiteCellUpToCenterPhase(RuleEngine *engine, CubeModel* cubeModel)
 {

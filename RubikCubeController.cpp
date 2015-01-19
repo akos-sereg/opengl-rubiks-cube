@@ -1,7 +1,7 @@
 #define STRICT
 #define WIN32_LEAN_AND_MEAN
 
-#include "RubikCube.h"
+#include "RubikCubeController.h"
 
 CubeModel cube;
 SolutionStrategy* solutionStrategy = new SolutionStrategy(new RuleEngine(&cube), &cube);

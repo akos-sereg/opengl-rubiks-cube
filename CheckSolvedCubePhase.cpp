@@ -1,4 +1,4 @@
-#include "RubikCube.h"
+#include "RubikCubeController.h"
 
 CheckSolvedCubePhase::CheckSolvedCubePhase(RuleEngine *engine, CubeModel* cubeModel)
 {

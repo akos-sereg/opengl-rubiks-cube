@@ -1,4 +1,4 @@
-#include "RubikCube.h"
+#include "RubikCubeController.h"
 
 MovingTopCornersPhase::MovingTopCornersPhase(RuleEngine* engine, CubeModel* cubeModel)
 {

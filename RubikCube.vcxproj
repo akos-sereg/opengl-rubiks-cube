@@ -120,7 +120,7 @@
     <ClCompile Include="MovingSideCentersPhase.cpp" />
     <ClCompile Include="MovingTopCornersPhase.cpp" />
     <ClCompile Include="MovingWhiteCellUpToCenterPhase.cpp" />
-    <ClCompile Include="RubikCube.cpp" />
+    <ClCompile Include="RubikCubeController.cpp" />
     <ClCompile Include="RuleEngine.cpp" />
     <ClCompile Include="SolutionStrategy.cpp" />
     <ClCompile Include="vector3f.cpp" />
@@ -146,7 +146,7 @@
     <ClInclude Include="MovingSideCentersPhase.h" />
     <ClInclude Include="MovingTopCornersPhase.h" />
     <ClInclude Include="MovingWhiteCellUpToCenterPhase.h" />
-    <ClInclude Include="RubikCube.h">
+    <ClInclude Include="RubikCubeController.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="RuleEngine.h">
@@ -175,8 +175,8 @@
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RubikCube.matrix4x4f.resources</LogicalName>
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RubikCube.matrix4x4f.resources</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="RubikCube.resX">
-      <DependentUpon>RubikCube.h</DependentUpon>
+    <EmbeddedResource Include="RubikCubeController.resX">
+      <DependentUpon>RubikCubeController.h</DependentUpon>
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RubikCube.RubikCube.resources</LogicalName>
       <LogicalName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RubikCube.RubikCube.resources</LogicalName>
     </EmbeddedResource>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RubikCube.h"
+#include "RubikCubeController.h"
 
 struct mycolor 
 {

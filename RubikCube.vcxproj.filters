@@ -27,9 +27,6 @@
     <ClCompile Include="matrix4x4f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RubikCube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vector3f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,15 +69,15 @@
     <ClCompile Include="CubeTransformData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RubikCubeController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CubeTransform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="matrix4x4f.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RubikCube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vector3f.h">
@@ -128,15 +125,15 @@
     <ClInclude Include="CubeTransformData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RubikCubeController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CubeTransform.resX">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
     <EmbeddedResource Include="matrix4x4f.resX">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RubikCube.resX">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
     <EmbeddedResource Include="vector3f.resX">
@@ -149,6 +146,9 @@
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
     <EmbeddedResource Include="GeometryProvider.resX">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RubikCubeController.resX">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
   </ItemGroup>

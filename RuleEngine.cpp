@@ -1,4 +1,4 @@
-#include "RubikCube.h"
+#include "RubikCubeController.h"
 
 RuleEngine::RuleEngine(CubeModel* cubeModel)
 {
