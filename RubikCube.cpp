@@ -144,28 +144,35 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			switch(wParam)
 			{
 			case 'M':
-				cube.getTransformEngine()->cTransformN(rand()%16);
+				cube.getTransformEngine()->stopRotating();          // to register cTransform
+
+				rubikCube.saveCubeColors();
+				step = 0;                                           // collecting graphical movements from 0 index
+				cube.getTransformEngine()->cTransformN(rand()%16);  // random transformation saved to history
+				rubikCube.loadCubeColors();  
+
+				cube.getTransformEngine()->startRotating();         // enable instant rotation (no graphics movements)
+				rubikCube.setRotatingStep(-1);                      // put history index to -1
 				break;
 
 			case '1': 
 				rubikCube.saveCubeColors();
-				step = 0;
 				rubikCube.setRotatingStep(0);
 				cube.getTransformEngine()->stopRotating();
 				break;
 
 			case '2': 
-				rubikCube.saveCubeColors();
-				step=0;
+				rubikCube.saveCubeColors();                          // save current cube. solutionStrategy will do transformations on it
+				step = 0;                                            // start step count from zero
 				rubikCube.setRotatingStep(0);
-				cube.getTransformEngine()->stopRotating();
+				cube.getTransformEngine()->stopRotating();           // no graphical movements allowed
 				
-				if(solutionStrategy->run())
+				if(solutionStrategy->run())                          // solve cube. this will make transformations on current cube
 				{
-					cube.getTransformEngine()->startRotating();
-					rubikCube.loadCubeColors();
+					cube.getTransformEngine()->startRotating();      // graphics movements are allowed
+					rubikCube.loadCubeColors();                      // restore cube state to the one that should be solved
 
-					rubikCube.setRotatingStep(-1);
+					rubikCube.setRotatingStep(-1);                   // put history pointer back, next one is first one (index 0)
 
 				} else sprintf(msginfo, "Error: unable to solve cube");
 				break;
