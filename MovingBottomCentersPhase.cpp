@@ -1,9 +1,10 @@
 #include "RubikCube.h"
 
 
-MovingBottomCentersPhase::MovingBottomCentersPhase(RuleEngine *engine)
+MovingBottomCentersPhase::MovingBottomCentersPhase(RuleEngine *engine, CubeModel* cubeModel)
 {
 	ruleEngine = engine;
+	cube = cubeModel;
 }
 
 
@@ -11,10 +12,8 @@ MovingBottomCentersPhase::~MovingBottomCentersPhase(void)
 {
 }
 
-void MovingBottomCentersPhase::solvePhase(CubeModel* cubeModel)
+void MovingBottomCentersPhase::solvePhase()
 {
-	cube = cubeModel;
-
 	int iter=0;
 
 	while(ruleEngine->findPattern(MINTA_FAZIS5) == -1)

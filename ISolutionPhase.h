@@ -6,7 +6,7 @@ class ISolutionPhase
 {
 public:
 
-	virtual void solvePhase(CubeModel* cubeModel) = 0;
+	virtual void solvePhase() = 0;
 
 };
 

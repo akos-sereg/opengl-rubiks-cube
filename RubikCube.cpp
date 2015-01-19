@@ -4,13 +4,8 @@
 #include "RubikCube.h"
 
 CubeModel cube;
-SolutionStrategy* solutionStrategy = new SolutionStrategy(new RuleEngine(&cube));
+SolutionStrategy* solutionStrategy = new SolutionStrategy(new RuleEngine(&cube), &cube);
 RubikCube rubikCube;
-
-CubeModel* getCube() 
-{
-	return &cube;
-}
 
 RubikCube* getRubikCube() 
 {
@@ -149,25 +144,25 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			switch(wParam)
 			{
 			case 'M':
-				getCube()->getTransformEngine()->cTransformN(rand()%16);
+				cube.getTransformEngine()->cTransformN(rand()%16);
 				break;
 
 			case '1': 
 				rubikCube.saveCubeColors();
 				step = 0;
 				rubikCube.setRotatingStep(0);
-				getCube()->getTransformEngine()->stopRotating();
+				cube.getTransformEngine()->stopRotating();
 				break;
 
 			case '2': 
 				rubikCube.saveCubeColors();
 				step=0;
 				rubikCube.setRotatingStep(0);
-				getCube()->getTransformEngine()->stopRotating();
+				cube.getTransformEngine()->stopRotating();
 				
 				if(solutionStrategy->run())
 				{
-					getCube()->getTransformEngine()->startRotating();
+					cube.getTransformEngine()->startRotating();
 					rubikCube.loadCubeColors();
 
 					rubikCube.setRotatingStep(-1);
@@ -187,24 +182,24 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				rubikCube.setRotatingSpeed(1.0);
 				break;
 
-			case 'Q': getCube()->getTransformEngine()->cTransformN(0); break;
-			case 'W': getCube()->getTransformEngine()->cTransformN(1); break;
-			case 'E': getCube()->getTransformEngine()->cTransformN(2); break;
-			case 'R': getCube()->getTransformEngine()->cTransformN(3); break;
-			case 'T': getCube()->getTransformEngine()->cTransformN(4); break;
-			case 'Z': getCube()->getTransformEngine()->cTransformN(5); break;
-			case 'U': getCube()->getTransformEngine()->cTransformN(6); break;
-			case 'I': getCube()->getTransformEngine()->cTransformN(7); break;
-			case 'O': getCube()->getTransformEngine()->cTransformN(8); break;
-			case 'P': getCube()->getTransformEngine()->cTransformN(9); break;
-			case 'A': getCube()->getTransformEngine()->cTransformN(10); break;
-			case 'S': getCube()->getTransformEngine()->cTransformN(11); break;
-			case 'D': getCube()->getTransformEngine()->cTransformN(12); break;
-			case 'F': getCube()->getTransformEngine()->cTransformN(13); break;
-			case 'G': getCube()->getTransformEngine()->cTransformN(14); break;
-			case 'H': getCube()->getTransformEngine()->cTransformN(15); break;
-			case 'J': getCube()->getTransformEngine()->cTransformN(16); break;
-			case 'K': getCube()->getTransformEngine()->cTransformN(17); break;
+			case 'Q': cube.getTransformEngine()->cTransformN(0); break;
+			case 'W': cube.getTransformEngine()->cTransformN(1); break;
+			case 'E': cube.getTransformEngine()->cTransformN(2); break;
+			case 'R': cube.getTransformEngine()->cTransformN(3); break;
+			case 'T': cube.getTransformEngine()->cTransformN(4); break;
+			case 'Z': cube.getTransformEngine()->cTransformN(5); break;
+			case 'U': cube.getTransformEngine()->cTransformN(6); break;
+			case 'I': cube.getTransformEngine()->cTransformN(7); break;
+			case 'O': cube.getTransformEngine()->cTransformN(8); break;
+			case 'P': cube.getTransformEngine()->cTransformN(9); break;
+			case 'A': cube.getTransformEngine()->cTransformN(10); break;
+			case 'S': cube.getTransformEngine()->cTransformN(11); break;
+			case 'D': cube.getTransformEngine()->cTransformN(12); break;
+			case 'F': cube.getTransformEngine()->cTransformN(13); break;
+			case 'G': cube.getTransformEngine()->cTransformN(14); break;
+			case 'H': cube.getTransformEngine()->cTransformN(15); break;
+			case 'J': cube.getTransformEngine()->cTransformN(16); break;
+			case 'K': cube.getTransformEngine()->cTransformN(17); break;
 
 			case VK_ESCAPE:
 				PostQuitMessage(0);
@@ -633,15 +628,15 @@ void RubikCube::render( void )
 	sprintf(warning, "Steps (not optimized): %d / %d", rotatingStep+1, step);
 	geometryProvider->renderTextFull(10.0, 12.0, warning);
 
-	if(rotatingStep == step-1) getCube()->getTransformEngine()->stopRotating();
-	if(rotating==-1 && getCube()->getTransformEngine()->getRotating())
+	if(rotatingStep == step-1) cube.getTransformEngine()->stopRotating();
+	if(rotating==-1 &&cube.getTransformEngine()->getRotating())
 	{
-		getCube()->getTransformEngine()->setRotated(1);
+		cube.getTransformEngine()->setRotated(1);
 		rotatingStep++;
-		if(getCube()->getTransformEngine()->getRotated())
+		if(cube.getTransformEngine()->getRotated())
 		{
-			getCube()->getTransformEngine()->cTransform(history[rotatingStep].step);
-			getCube()->getTransformEngine()->setRotated(0);
+			cube.getTransformEngine()->cTransform(history[rotatingStep].step);
+			cube.getTransformEngine()->setRotated(0);
 		}
 	}
 	
@@ -689,8 +684,6 @@ void RubikCube::setColorGrid(int lap, int sorszam, double red, double green, dou
 
 void RubikCube::refreshCube()
 {
-	CubeModel* cubeModel = getCube();
-
 	int i;
 	int j;
 	int k,l=1;
@@ -717,19 +710,17 @@ void RubikCube::refreshCube()
 				if(!l) continue;
 			}
 
-			setColorGrid(i, j, cubeModel->GetCellColor(i, j).Red, cubeModel->GetCellColor(i, j).Green, cubeModel->GetCellColor(i, j).Blue);
+			setColorGrid(i, j, cube.GetCellColor(i, j).Red, cube.GetCellColor(i, j).Green, cube.GetCellColor(i, j).Blue);
 		}
 	}
 }
 
 void RubikCube::saveCubeColors()
 {
-	CubeModel* cubeModel = getCube();
-	
 	int a,b;
 	for(a=1; a!=7; a++) {
 		for(b=1; b!=10; b++) {
-			oldCube.SetCellColor(a, b, cubeModel->GetCellColor(a, b));
+			oldCube.SetCellColor(a, b, cube.GetCellColor(a, b));
 		}
 	}
 	return;
@@ -738,13 +729,11 @@ void RubikCube::saveCubeColors()
 
 void RubikCube::loadCubeColors()
 {
-	CubeModel* cubeModel = getCube();
-	
 	int a,b;
 	for(a=1; a!=7; a++) 
 	{
 		for(b=1; b!=10; b++) {
-			cubeModel->SetCellColor(a, b, oldCube.GetCellColor(a, b));
+			cube.SetCellColor(a, b, oldCube.GetCellColor(a, b));
 		}
 	}
 	
@@ -766,11 +755,9 @@ void RubikCube::rotateColorSide(int num)
 	int i;
 	int n = num/2;
 	
-	CubeModel* cubeModel = getCube();
-	
 	for(i=0; i!=21; i++)
 	{
-		CubeModel::CubeColor color = cubeModel->GetCellColor(CubeTransformData::cellColors[num].e[i].side, CubeTransformData::cellColors[num].e[i].place);
+		CubeModel::CubeColor color = cube.GetCellColor(CubeTransformData::cellColors[num].e[i].side, CubeTransformData::cellColors[num].e[i].place);
 
 		CubeTransformData::sideRotate[n].colors[i].red = color.Red;
 		CubeTransformData::sideRotate[n].colors[i].green = color.Green;

@@ -1,8 +1,9 @@
 #include "RubikCube.h"
 
-MovingBottomCornersPhase::MovingBottomCornersPhase(RuleEngine* engine)
+MovingBottomCornersPhase::MovingBottomCornersPhase(RuleEngine* engine, CubeModel* cubeModel)
 {
 	ruleEngine = engine;
+	cube = cubeModel;
 }
 
 
@@ -10,7 +11,7 @@ MovingBottomCornersPhase::~MovingBottomCornersPhase(void)
 {
 }
 
-void MovingBottomCornersPhase::solvePhase(CubeModel* cubeModel)
+void MovingBottomCornersPhase::solvePhase()
 {
 	int i;
 	int kesz;
@@ -61,7 +62,6 @@ void MovingBottomCornersPhase::solvePhase(CubeModel* cubeModel)
 
 double MovingBottomCornersPhase::sarokChkSum(int num)
 {
-	CubeModel* cube = getCube();
 	double retval;
 	double ar, ag, ab, br, bg, bb, cr, cg, cb;
 	if(num==1)
@@ -111,7 +111,6 @@ double MovingBottomCornersPhase::sarokChkSum(int num)
 
 double MovingBottomCornersPhase::sarokPosChkSum(int num)
 {
-	CubeModel* cube = getCube();
 	double retval;
 	double ar, ag, ab, br, bg, bb, cr, cg, cb;
 	if(num==1)

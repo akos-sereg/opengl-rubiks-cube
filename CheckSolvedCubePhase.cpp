@@ -1,8 +1,9 @@
 #include "RubikCube.h"
 
-CheckSolvedCubePhase::CheckSolvedCubePhase(RuleEngine *engine)
+CheckSolvedCubePhase::CheckSolvedCubePhase(RuleEngine *engine, CubeModel* cubeModel)
 {
 	ruleEngine = engine;
+	cube = cubeModel;
 }
 
 
@@ -10,7 +11,7 @@ CheckSolvedCubePhase::~CheckSolvedCubePhase(void)
 {
 }
 
-void CheckSolvedCubePhase::solvePhase(CubeModel* cubeModel)
+void CheckSolvedCubePhase::solvePhase()
 {
 	int find;
 

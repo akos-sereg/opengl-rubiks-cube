@@ -1,8 +1,9 @@
 #include "RubikCube.h"
 
-MovingWhiteCellUpToCenterPhase::MovingWhiteCellUpToCenterPhase(RuleEngine *engine)
+MovingWhiteCellUpToCenterPhase::MovingWhiteCellUpToCenterPhase(RuleEngine *engine, CubeModel* cubeModel)
 {
 	ruleEngine = engine;
+	cube = cubeModel;
 }
 
 
@@ -10,7 +11,7 @@ MovingWhiteCellUpToCenterPhase::~MovingWhiteCellUpToCenterPhase(void)
 {
 }
 
-void MovingWhiteCellUpToCenterPhase::solvePhase(CubeModel* cubeModel) 
+void MovingWhiteCellUpToCenterPhase::solvePhase() 
 {
 	setInfo("Running Phase 1");
 
@@ -18,20 +19,20 @@ void MovingWhiteCellUpToCenterPhase::solvePhase(CubeModel* cubeModel)
 	
 	for(i=1; i!=7; i++)
 	{
-		if((int)cubeModel->GetCellColor(i, 5).Red == 1 &&
-			(int)cubeModel->GetCellColor(i, 5).Green == 1 &&
-			(int)cubeModel->GetCellColor(i, 5).Blue == 1)
+		if((int)cube->GetCellColor(i, 5).Red == 1 &&
+			(int)cube->GetCellColor(i, 5).Green == 1 &&
+			(int)cube->GetCellColor(i, 5).Blue == 1)
 		{
 			switch(i)
 			{
-			case 1: cubeModel->getTransformEngine()->cTransform("7j"); break;
-			case 2: cubeModel->getTransformEngine()->cTransform("8j"); break;
-			case 3: cubeModel->getTransformEngine()->cTransform("7b"); break;
-			case 4: cubeModel->getTransformEngine()->cTransform("8b"); break;
+			case 1: cube->getTransformEngine()->cTransform("7j"); break;
+			case 2: cube->getTransformEngine()->cTransform("8j"); break;
+			case 3: cube->getTransformEngine()->cTransform("7b"); break;
+			case 4: cube->getTransformEngine()->cTransform("8b"); break;
 			case 5: break;
 			case 6: 
-				cubeModel->getTransformEngine()->cTransform("8b");
-				cubeModel->getTransformEngine()->cTransform("8b");
+				cube->getTransformEngine()->cTransform("8b");
+				cube->getTransformEngine()->cTransform("8b");
 				break;	
 			}
 			return;

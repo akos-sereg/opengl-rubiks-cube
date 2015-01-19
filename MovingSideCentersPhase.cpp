@@ -1,20 +1,18 @@
 #include "RubikCube.h"
 
 
-MovingSideCentersPhase::MovingSideCentersPhase(RuleEngine* engine)
+MovingSideCentersPhase::MovingSideCentersPhase(RuleEngine* engine, CubeModel* cubeModel)
 {
 	ruleEngine = engine;
+	cube = cubeModel;
 }
-
 
 MovingSideCentersPhase::~MovingSideCentersPhase(void)
 {
 }
 
-void MovingSideCentersPhase::solvePhase(CubeModel* cubeModel)
+void MovingSideCentersPhase::solvePhase()
 {
-	cube = cubeModel;
-
 	int iter=0;
 
 	while(ruleEngine->findPattern(MINTA_FAZIS4) == -1)

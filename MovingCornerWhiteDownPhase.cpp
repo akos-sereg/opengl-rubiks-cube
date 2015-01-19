@@ -1,8 +1,9 @@
 #include "RubikCube.h"
 
-MovingCornerWhiteDownPhase::MovingCornerWhiteDownPhase(RuleEngine* engine)
+MovingCornerWhiteDownPhase::MovingCornerWhiteDownPhase(RuleEngine* engine, CubeModel* cubeModel)
 {
 	ruleEngine = engine;
+	cube = cubeModel;
 }
 
 
@@ -10,10 +11,8 @@ MovingCornerWhiteDownPhase::~MovingCornerWhiteDownPhase(void)
 {
 }
 
-void MovingCornerWhiteDownPhase::solvePhase(CubeModel* cubeModel)
+void MovingCornerWhiteDownPhase::solvePhase()
 {
-	cube = cubeModel;
-
 	int iter = 0;
 	while(ruleEngine->findPattern(MINTA_FAZIS3) == -1)
 	{

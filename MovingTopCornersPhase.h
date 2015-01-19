@@ -6,9 +6,9 @@
 class MovingTopCornersPhase: public ISolutionPhase
 {
 public:
-	MovingTopCornersPhase(RuleEngine* engine);
+	MovingTopCornersPhase(RuleEngine* engine, CubeModel* cubeModel);
 	~MovingTopCornersPhase(void);
-	void solvePhase(CubeModel* cubeModel);
+	void solvePhase();
 
 private:
 	void executeAll();

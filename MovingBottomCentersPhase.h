@@ -6,10 +6,10 @@
 class MovingBottomCentersPhase: public ISolutionPhase
 {
 public:
-	MovingBottomCentersPhase(RuleEngine* engine);
+	MovingBottomCentersPhase(RuleEngine* engine, CubeModel* cubeModel);
 	~MovingBottomCentersPhase(void);
 
-	void solvePhase(CubeModel* cubeModel);
+	void solvePhase();
 	void executeAll();
 
 private:

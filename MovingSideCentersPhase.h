@@ -6,10 +6,10 @@
 class MovingSideCentersPhase: public ISolutionPhase
 {
 public:
-	MovingSideCentersPhase(RuleEngine* engine);
+	MovingSideCentersPhase(RuleEngine* engine, CubeModel* cubeModel);
 	~MovingSideCentersPhase(void);
 
-	void solvePhase(CubeModel* cubeModel);
+	void solvePhase();
 	void executeAll();
 
 private:

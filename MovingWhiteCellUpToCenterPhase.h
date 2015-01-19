@@ -7,11 +7,12 @@
 class MovingWhiteCellUpToCenterPhase: public ISolutionPhase
 {
 public:
-	MovingWhiteCellUpToCenterPhase(RuleEngine *engine);
+	MovingWhiteCellUpToCenterPhase(RuleEngine *engine, CubeModel* cubeModel);
 	~MovingWhiteCellUpToCenterPhase(void);
-	void solvePhase(CubeModel* cubeModel);
+	void solvePhase();
 
 private:
 	RuleEngine* ruleEngine;
+	CubeModel* cube;
 };
 
