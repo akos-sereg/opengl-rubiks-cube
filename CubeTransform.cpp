@@ -63,7 +63,7 @@ int CubeTransform::getRotating()
 
 void CubeTransform::cTransform(char *id)
 {
-	if(!showRotating) getRubikCube()->cAddQueue(id);
+	if(!showRotating) getRubikCubeController()->cAddQueue(id);
 
 	CubeModel tempCube;
 
@@ -89,7 +89,7 @@ void CubeTransform::cTransform(char *id)
 
 	if(showRotating == 1) 
 	{	
-		getRubikCube()->rotateColorSide(transid);
+		getRubikCubeController()->rotateColorSide(transid);
 	}
 	
 	int side, cellId;

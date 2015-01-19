@@ -5,11 +5,11 @@
 
 CubeModel cube;
 SolutionStrategy* solutionStrategy = new SolutionStrategy(new RuleEngine(&cube), &cube);
-RubikCube rubikCube;
+RubikCubeController rubikCubeController;
 
-RubikCube* getRubikCube() 
+RubikCubeController* getRubikCubeController() 
 {
-	return &rubikCube;
+	return &rubikCubeController;
 }
 
 char warning[256];
@@ -95,7 +95,7 @@ int WINAPI WinMain( HINSTANCE hInstance,
 	ShowWindow( g_hWnd, nCmdShow );
 	UpdateWindow( g_hWnd );
 
-	rubikCube.init();
+	rubikCubeController.init();
 
 	while( uMsg.message != WM_QUIT )
 	{
@@ -111,11 +111,11 @@ int WINAPI WinMain( HINSTANCE hInstance,
 			g_dLastTime    = g_dCurrentTime;
 
 			//_sleep(40);
-			rubikCube.render();
+			rubikCubeController.render();
 		}
 	}
 
-	rubikCube.shutDown(); 
+	rubikCubeController.shutDown(); 
 
 	UnregisterClass( "MY_WINDOWS_CLASS", winClass.hInstance );
 
@@ -141,41 +141,41 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			case 'M':
 				cube.getTransformEngine()->stopRotating();          // to register cTransform
 
-				rubikCube.saveCubeColors();
+				rubikCubeController.saveCubeColors();
 				step = 0;                                           // collecting graphical movements from 0 index
 				cube.getTransformEngine()->cTransformN(rand()%16);  // random transformation saved to history
-				rubikCube.loadCubeColors();  
+				rubikCubeController.loadCubeColors();  
 
 				cube.getTransformEngine()->startRotating();         // enable instant rotation (no graphics movements)
-				rubikCube.setRotatingStep(-1);                      // put history index to -1
+				rubikCubeController.setRotatingStep(-1);            // put history index to -1
 				break;
 
 			case '2': 
-				rubikCube.saveCubeColors();                          // save current cube. solutionStrategy will do transformations on it
+				rubikCubeController.saveCubeColors();                // save current cube. solutionStrategy will do transformations on it
 				step = 0;                                            // start step count from zero
-				rubikCube.setRotatingStep(0);
+				rubikCubeController.setRotatingStep(0);
 				cube.getTransformEngine()->stopRotating();           // no graphical movements allowed
 				
 				if(solutionStrategy->run())                          // solve cube. this will make transformations on current cube
 				{
 					cube.getTransformEngine()->startRotating();      // graphics movements are allowed
-					rubikCube.loadCubeColors();                      // restore cube state to the one that should be solved
+					rubikCubeController.loadCubeColors();            // restore cube state to the one that should be solved
 
-					rubikCube.setRotatingStep(-1);                   // put history pointer back, next one is first one (index 0)
+					rubikCubeController.setRotatingStep(-1);         // put history pointer back, next one is first one (index 0)
 
 				} else sprintf(warning, "Error: unable to solve cube");
 				break;
 			case '9':
-				rubikCube.setRotatingSpeed(10.0);
+				rubikCubeController.setRotatingSpeed(10.0);
 				break;
 			case '8':
-				rubikCube.setRotatingSpeed(6.0);
+				rubikCubeController.setRotatingSpeed(6.0);
 				break;
 			case '7':
-				rubikCube.setRotatingSpeed(3.0);
+				rubikCubeController.setRotatingSpeed(3.0);
 				break;
 			case '6':
-				rubikCube.setRotatingSpeed(1.0);
+				rubikCubeController.setRotatingSpeed(1.0);
 				break;
 
 			case 'Q': cube.getTransformEngine()->cTransformN(0); break;
@@ -250,7 +250,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 	return 0;
 }
 
-RubikCube::RubikCube(void)
+RubikCubeController::RubikCubeController(void)
 {
 	geometryProvider = new GeometryProvider();
 	rotating = -1;
@@ -275,12 +275,12 @@ RubikCube::RubikCube(void)
 	g_fMoveSpeed_Travel_small = 1.5;
 }
 
-void RubikCube::setRotatingStep(int step)
+void RubikCubeController::setRotatingStep(int step)
 {
 	rotatingStep = step;
 }
 
-void RubikCube::setRotatingSpeed(int speed) 
+void RubikCubeController::setRotatingSpeed(int speed) 
 {
 	rotatingSpeed = speed;
 }
@@ -289,7 +289,7 @@ void RubikCube::setRotatingSpeed(int speed)
 // Name: init()
 // Desc: 
 //-----------------------------------------------------------------------------
-void RubikCube::init( void )
+void RubikCubeController::init( void )
 {
 	GLuint PixelFormat;
 
@@ -334,7 +334,7 @@ void RubikCube::init( void )
 //       . = Dot-product operation
 //
 //-----------------------------------------------------------------------------
-void RubikCube::updateViewMatrix( void )
+void RubikCubeController::updateViewMatrix( void )
 {
 	matrix4x4f view;
 	view.identity();
@@ -377,7 +377,7 @@ void RubikCube::updateViewMatrix( void )
 // Name: getRealTimeUserInput()
 // Desc: 
 //-----------------------------------------------------------------------------
-void RubikCube::getRealTimeUserInput( void )
+void RubikCubeController::getRealTimeUserInput( void )
 {
 	// Mouse input
 	POINT mousePosit;
@@ -507,7 +507,7 @@ void RubikCube::getRealTimeUserInput( void )
 // Name: shutDown()
 // Desc: 
 //-----------------------------------------------------------------------------
-void RubikCube::shutDown( void )   
+void RubikCubeController::shutDown( void )   
 {
 	if( g_hRC != NULL )
 	{
@@ -523,7 +523,7 @@ void RubikCube::shutDown( void )
 	}
 }
 
-void RubikCube::render( void )
+void RubikCubeController::render( void )
 {
 	Vertex g_lineVertices[] =
 	{
@@ -536,11 +536,11 @@ void RubikCube::render( void )
 	};
 
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-	rubikCube.getRealTimeUserInput();
+	getRealTimeUserInput();
 
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity();
-	rubikCube.updateViewMatrix();
+	updateViewMatrix();
 	
 	glDisable( GL_BLEND);
 	glEnable( GL_DEPTH_TEST );
@@ -578,7 +578,7 @@ void RubikCube::render( void )
 	glPushMatrix();
 	{
 		geometryProvider->renderGrid(10, 0.5);
-		rubikCube.refreshCube();
+		refreshCube();
 
 		if(!changed) 
 		{
@@ -648,7 +648,7 @@ void RubikCube::render( void )
 	SwapBuffers( g_hDC );
 }
 
-void RubikCube::setColorGrid(int lap, int sorszam, double red, double green, double blue)
+void RubikCubeController::setColorGrid(int lap, int sorszam, double red, double green, double blue)
 {
 	cubeSide cubeSide[7] = {
 		{0.0,  0.0, 0.0, 0.0},
@@ -678,7 +678,7 @@ void RubikCube::setColorGrid(int lap, int sorszam, double red, double green, dou
 	glPopMatrix();
 }
 
-void RubikCube::refreshCube()
+void RubikCubeController::refreshCube()
 {
 	int i;
 	int j;
@@ -711,7 +711,7 @@ void RubikCube::refreshCube()
 	}
 }
 
-void RubikCube::saveCubeColors()
+void RubikCubeController::saveCubeColors()
 {
 	int a,b;
 	for(a=1; a!=7; a++) {
@@ -723,7 +723,7 @@ void RubikCube::saveCubeColors()
 
 }
 
-void RubikCube::loadCubeColors()
+void RubikCubeController::loadCubeColors()
 {
 	int a,b;
 	for(a=1; a!=7; a++) 
@@ -740,13 +740,13 @@ void RubikCube::loadCubeColors()
 }
 
 
-void RubikCube::cAddQueue(char *cmd)
+void RubikCubeController::cAddQueue(char *cmd)
 {
 	sprintf(history[step].step, "%s", cmd);
 	step++;
 }
 
-void RubikCube::rotateColorSide(int num)
+void RubikCubeController::rotateColorSide(int num)
 {
 	int i;
 	int n = num/2;

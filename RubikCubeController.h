@@ -45,10 +45,10 @@ struct cubeSide
 	double deg, degx, degy, degz;
 }; 
 
-class RubikCube
+class RubikCubeController
 {
 	public:
-		RubikCube(void);
+		RubikCubeController(void);
 		void init(void);
 		void shutDown(void);
 		void refreshCube(void);
@@ -86,7 +86,7 @@ class RubikCube
 		int stillRotate;
 };
 
-RubikCube* getRubikCube();
+RubikCubeController* getRubikCubeController();
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
