@@ -155,12 +155,6 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				rubikCube.setRotatingStep(-1);                      // put history index to -1
 				break;
 
-			case '1': 
-				rubikCube.saveCubeColors();
-				rubikCube.setRotatingStep(0);
-				cube.getTransformEngine()->stopRotating();
-				break;
-
 			case '2': 
 				rubikCube.saveCubeColors();                          // save current cube. solutionStrategy will do transformations on it
 				step = 0;                                            // start step count from zero
