@@ -15,7 +15,7 @@ void CheckSolvedCubePhase::solvePhase()
 {
 	int find;
 
-	while(ruleEngine->findPattern(KIRAKOTT) == -1)
+	while(ruleEngine->findPattern(SOLVEDCUBE) == -1)
 	{
 		find = ruleEngine->findPattern(FINISH);
 		if(find == -1) find = ruleEngine->findPattern(FINISH_RESC);

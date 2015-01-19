@@ -15,7 +15,7 @@ void MovingSideCentersPhase::solvePhase()
 {
 	int iter=0;
 
-	while(ruleEngine->findPattern(MINTA_FAZIS4) == -1)
+	while(ruleEngine->findPattern(PATTERN_PHASE4) == -1)
 	{
 		executeAll();
 		iter++;
@@ -31,13 +31,13 @@ void MovingSideCentersPhase::executeAll()
 	for(iteration=0; iteration!=15; iteration++)
 	{
 
-		if(ruleEngine->findPattern(MINTA_FAZIS3) == -1)
+		if(ruleEngine->findPattern(PATTERN_PHASE3) == -1)
 		{
 			setWarning("Phase 3 (prerequisite) failed");
 			return;
 		}
 		
-		find = ruleEngine->findPattern(NAGYT_KIST);
+		find = ruleEngine->findPattern(BIGT_SMALLT);
 		if(find != -1) 
 		{
 			if(rules[find].elofeltetel[0] != RESCUE) 
@@ -60,7 +60,7 @@ void MovingSideCentersPhase::executeAll()
 			cube->getTransformEngine()->cTransform("6j");
 		}
 		
-		if(ruleEngine->findPattern(MINTA_FAZIS4) == -1)
+		if(ruleEngine->findPattern(PATTERN_PHASE4) == -1)
 			setWarning("Phase 4 failed");
 	}
 }

@@ -37,11 +37,11 @@ void MovingBottomCornersPhase::solvePhase()
 
 		switch(fix) 
 		{
-			case 1: find = ruleEngine->findPattern(SARKOK1);break;
-			case 2: find = ruleEngine->findPattern(SARKOK2);break;
-			case 3: find = ruleEngine->findPattern(SARKOK3);break;
-			case 4: find = ruleEngine->findPattern(SARKOK4);break;
-			default: find = ruleEngine->findPattern(SARKOK1);break;
+			case 1: find = ruleEngine->findPattern(CORNERS1);break;
+			case 2: find = ruleEngine->findPattern(CORNERS2);break;
+			case 3: find = ruleEngine->findPattern(CORNERS3);break;
+			case 4: find = ruleEngine->findPattern(CORNERS4);break;
+			default: find = ruleEngine->findPattern(CORNERS1);break;
 		}
 
 		ruleEngine->applySolution(find, 0);

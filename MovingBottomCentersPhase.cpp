@@ -16,7 +16,7 @@ void MovingBottomCentersPhase::solvePhase()
 {
 	int iter=0;
 
-	while(ruleEngine->findPattern(MINTA_FAZIS5) == -1)
+	while(ruleEngine->findPattern(PATTERN_PHASE5) == -1)
 	{
 		executeAll();
 		iter++;
@@ -29,16 +29,16 @@ void MovingBottomCentersPhase::executeAll()
 	int s;
 	int i,j;
 
-	if(ruleEngine->findPattern(MINTA_FAZIS5) != -1) return;
+	if(ruleEngine->findPattern(PATTERN_PHASE5) != -1) return;
 	for(j=0; j!=10; j++)
 	{
 		for(i=0; i!=10; i++)
 		{
-			s = ruleEngine->findPattern(ALSO1);
+			s = ruleEngine->findPattern(BOTTOM1);
 			if(s!=-1)
 			{
 				ruleEngine->applySolution(s, 0);
-				if(ruleEngine->findPattern(MINTA_FAZIS5) != -1)
+				if(ruleEngine->findPattern(PATTERN_PHASE5) != -1)
 				{
 					return;
 				}

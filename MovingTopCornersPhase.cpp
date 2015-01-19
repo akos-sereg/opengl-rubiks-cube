@@ -14,7 +14,7 @@ MovingTopCornersPhase::~MovingTopCornersPhase(void)
 void MovingTopCornersPhase::solvePhase()
 {
 	int iter = 0;
-	while(ruleEngine->findPattern(MINTA_FAZIS2) == -1) 
+	while(ruleEngine->findPattern(PATTERN_PHASE2) == -1) 
 	{
 		executeAll();
 
@@ -31,7 +31,7 @@ void MovingTopCornersPhase::executeAll()
 		if(executeBottom()) continue;
 		for(i=0; i!=ruleEngine->rulesLen();  i++)
 		{
-			if(rules[i].group == FEHERET_ALULRA)
+			if(rules[i].group == WHITE_TO_BOTTOM)
 			{
 				if(ruleEngine->checkPattern(i)) 
 				{	
@@ -49,7 +49,7 @@ void MovingTopCornersPhase::executeAll()
 
 	for(i=0; i!=ruleEngine->rulesLen(); i++)
 	{
-		if(rules[i].group == MINTA_FAZIS2) 
+		if(rules[i].group == PATTERN_PHASE2) 
 			if(!ruleEngine->checkPattern(i)) setWarning("Error: phase 2 was not successful. Rule set should be extended to cover this situation.");
 	}
 }
@@ -59,7 +59,7 @@ int MovingTopCornersPhase::executeBottom()
 	int i=0;
 	for(i=0; i!=ruleEngine->rulesLen(); i++)
 	{
-		if(rules[i].group == MINTA_KORONA_FELPORGET)
+		if(rules[i].group == PATTERN_CROWN_MOVEUP)
 		{
 			if(ruleEngine->checkPattern(i))
 			{

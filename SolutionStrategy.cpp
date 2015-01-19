@@ -24,7 +24,7 @@ int SolutionStrategy::run()
 		currentPhase->solvePhase();
 	}
 
-	if(ruleEngine->findPattern(MINTA_FAZIS5) == -1) return 0;
+	if(ruleEngine->findPattern(PATTERN_PHASE5) == -1) return 0;
 
 	return 1;
 }
