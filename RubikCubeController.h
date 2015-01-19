@@ -4,7 +4,6 @@
 #define _RUBIKCUBE_H_INCLUDED_
 
 void setWarning(char* text);
-void setInfo(char *info);
 
 using namespace std;
 

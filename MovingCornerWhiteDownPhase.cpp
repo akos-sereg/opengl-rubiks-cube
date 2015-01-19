@@ -29,7 +29,7 @@ void MovingCornerWhiteDownPhase::executeAll()
 	int find2;
 	if(ruleEngine->findPattern(MINTA_FAZIS2) == -1) 
 	{
-		setInfo("Second phase (prerequisite) is not complete. Please extend rule base to cover this situation.");
+		setWarning("Second phase (prerequisite) is not complete. Please extend rule base to cover this situation.");
 		return;
 	}
 	

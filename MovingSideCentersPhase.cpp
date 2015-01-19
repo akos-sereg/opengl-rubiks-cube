@@ -33,7 +33,7 @@ void MovingSideCentersPhase::executeAll()
 
 		if(ruleEngine->findPattern(MINTA_FAZIS3) == -1)
 		{
-			setInfo("Phase 3 (prerequisite) failed");
+			setWarning("Phase 3 (prerequisite) failed");
 			return;
 		}
 		
@@ -61,8 +61,6 @@ void MovingSideCentersPhase::executeAll()
 		}
 		
 		if(ruleEngine->findPattern(MINTA_FAZIS4) == -1)
-			setInfo("Phase 4 failed");
-		else
-			setInfo("Phase 4 succeeded");
+			setWarning("Phase 4 failed");
 	}
 }

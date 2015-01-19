@@ -12,16 +12,11 @@ RubikCube* getRubikCube()
 	return &rubikCube;
 }
 
-char msginfo[256], warning[256];
+char warning[256];
 
 void setWarning(char* text)
 {
 	sprintf(warning, text);
-}
-
-void setInfo(char *text) 
-{
-	sprintf(msginfo, text);
 }
 
 struct HelpCommands
@@ -168,7 +163,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 
 					rubikCube.setRotatingStep(-1);                   // put history pointer back, next one is first one (index 0)
 
-				} else sprintf(msginfo, "Error: unable to solve cube");
+				} else sprintf(warning, "Error: unable to solve cube");
 				break;
 			case '9':
 				rubikCube.setRotatingSpeed(10.0);

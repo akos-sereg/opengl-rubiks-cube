@@ -22,6 +22,4 @@ void CheckSolvedCubePhase::solvePhase()
 		if(find != -1)
 			ruleEngine->applySolution(find, 0);
 	} 
-
-	setInfo("Cube solved");
 }

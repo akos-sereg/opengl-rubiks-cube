@@ -13,8 +13,6 @@ MovingWhiteCellUpToCenterPhase::~MovingWhiteCellUpToCenterPhase(void)
 
 void MovingWhiteCellUpToCenterPhase::solvePhase() 
 {
-	setInfo("Running Phase 1");
-
 	int i;
 	
 	for(i=1; i!=7; i++)
