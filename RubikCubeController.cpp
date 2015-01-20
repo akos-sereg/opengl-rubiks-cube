@@ -12,26 +12,7 @@ RubikCubeController* getRubikCubeController()
 	return &rubikCubeController;
 }
 
-struct HelpCommands
-{
-	char *line;
-} info[] = {
-	{"q,w,e,r,t,z,u,i,o,p,a,s,d,f,g,h,j,k: Rotate commands"},
-	{"m: Rotate randomly"},
-	{"2: Solve Cube (animated)"},
-	{"6,7,8,9: Speed - slower->faster"},
-	{"F3: Move towards"},
-	{"F4: Move backwards"},
-	{"Up, down, left, right: Change moving direction"},
-	{"Space: Stop"},
-	{""}
-};
-
 int step=0;
-struct history
-{
-	char step[16];
-} history[500];
 
 float speed = 0.0f;
 int changed=0;
@@ -635,6 +616,18 @@ void RubikCubeController::render( void )
 	
 	i=0;
 	glColor3f(1.0, 1.0, 1.0);
+
+	HelpCommands info[] = {
+		{"q,w,e,r,t,z,u,i,o,p,a,s,d,f,g,h,j,k: Rotate commands"},
+		{"m: Rotate randomly"},
+		{"2: Solve Cube (animated)"},
+		{"6,7,8,9: Speed - slower->faster"},
+		{"F3: Move towards"},
+		{"F4: Move backwards"},
+		{"Up, down, left, right: Change moving direction"},
+		{"Space: Stop"},
+		{""}
+	};
 	while(strlen(info[i].line))
 	{
 		sprintf(warning, "%s", info[i].line);

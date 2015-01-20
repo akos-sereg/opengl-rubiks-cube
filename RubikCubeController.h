@@ -43,6 +43,16 @@ struct cubeSide
 	double deg, degx, degy, degz;
 }; 
 
+struct HelpCommands
+{
+	char *line;
+};
+
+struct history
+{
+	char step[16];
+};
+
 class RubikCubeController
 {
 	public:
@@ -84,6 +94,7 @@ class RubikCubeController
 		float g_fMoveSpeed_Travel_small;
 		int stillRotate;
 		char warning[256];                            // Warning message to be displayed on screen (bottom right, above commands)
+		history history[500];                         // Rotate command queue
 };
 
 RubikCubeController* getRubikCubeController();
