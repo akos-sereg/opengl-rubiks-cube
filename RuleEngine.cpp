@@ -41,18 +41,18 @@ int RuleEngine::checkPattern(int n)
 					continue;
 				}
 
-				int szerepel = 0;
+				int exists = 0;
 				int j, index;
 				
 				for(j=0; j!=pseudoC; j++)
 					if(pseudoColor[j][3] == rules[n].patt[i].r) 
 					{ 
-						szerepel=1; index=j; 
+						exists=1; index=j; 
 					
 					}
 				
 
-				if(!szerepel)
+				if(!exists)
 				{
 					int k;
 					for(k=0; k!=pseudoC; k++)
