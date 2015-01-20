@@ -52,15 +52,15 @@ class RubikCubeController
 		void refreshCube(void);
 		void setColorGrid(int lap, int sorszam, double red, double green, double blue);
 		void rotateColorSide(int num);
-		void cAddQueue(char *cmd);
-		void loadCubeColors();
-		void saveCubeColors();
+		void cAddQueue(char *cmd);                    // Add rotate command to queue
+		void loadCubeColors();                        // Restore saved cube (from in-memory oldCube)
+		void saveCubeColors();                        // Save active cube's state into in-memory oldCube
 		void updateViewMatrix( void );
-		void getRealTimeUserInput( void );
-		void render( void );
-		void setRotatingStep(int step);
-		void setRotatingSpeed(int rotatingSpeed);
-		void setWarning(char* text);
+		void getRealTimeUserInput( void );            // Get mouse and keyboard input while traveling
+		void render( void );                          // Render screen
+		void setRotatingStep(int step);               // Set queue pointer - animation will be started by pulling the next item from queue
+		void setRotatingSpeed(int rotatingSpeed);     // Increase or decrease rotating speed
+		void setWarning(char* text);                  // Set warning message to be displayed on the top-left of the screen
 
 	private:
 		CubeModel oldCube;                            // Temporary cube we can work on
