@@ -57,6 +57,7 @@ class RubikCubeController
 {
 	public:
 		RubikCubeController(void);
+		CubeModel* getCube();
 		void init(void);
 		void shutDown(void);
 		void refreshCube(void);
@@ -75,6 +76,7 @@ class RubikCubeController
 		void setStepCount(int step);                       // Set the number of valid commands in rotation command queue
 
 	private:
+		CubeModel cube;                               // Active cube we are working on
 		CubeModel oldCube;                            // Temporary cube we can work on
 		GeometryProvider* geometryProvider;           // Provides rendering functions
 		int rotating;

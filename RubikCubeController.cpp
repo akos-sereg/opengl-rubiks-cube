@@ -3,9 +3,8 @@
 
 #include "RubikCubeController.h"
 
-CubeModel cube;
-SolutionStrategy* solutionStrategy = new SolutionStrategy(new RuleEngine(&cube), &cube);
 RubikCubeController rubikCubeController;
+SolutionStrategy* solutionStrategy = new SolutionStrategy(new RuleEngine(rubikCubeController.getCube()), rubikCubeController.getCube());
 
 RubikCubeController* getRubikCubeController() 
 {
@@ -107,14 +106,16 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			switch(wParam)
 			{
 			case 'M':
-				cube.getTransformEngine()->stopRotating();          // to register cTransform
+				rubikCubeController.getCube()
+					->getTransformEngine()->stopRotating();         // to register cTransform
 
 				rubikCubeController.saveCubeColors();
 				rubikCubeController.setStepCount(0);                // collecting graphical movements from 0 index
-				cube.getTransformEngine()->cTransformN(rand()%16);  // random transformation saved to history
+				rubikCubeController.getCube()->getTransformEngine()->cTransformN(rand()%16);  // random transformation saved to history
 				rubikCubeController.loadCubeColors();  
 
-				cube.getTransformEngine()->startRotating();         // enable instant rotation (no graphics movements)
+				rubikCubeController.getCube()
+					->getTransformEngine()->startRotating();        // enable instant rotation (no graphics movements)
 				rubikCubeController.setRotatingStep(-1);            // put history index to -1
 				break;
 
@@ -122,11 +123,12 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				rubikCubeController.saveCubeColors();                // save current cube. solutionStrategy will do transformations on it
 				rubikCubeController.setStepCount(0);                 // start step count from zero
 				rubikCubeController.setRotatingStep(0);
-				cube.getTransformEngine()->stopRotating();           // no graphical movements allowed
+				rubikCubeController.getCube()
+					->getTransformEngine()->stopRotating();          // no graphical movements allowed
 				
 				if(solutionStrategy->run())                          // solve cube. this will make transformations on current cube
 				{
-					cube.getTransformEngine()->startRotating();      // graphics movements are allowed
+					rubikCubeController.getCube()->getTransformEngine()->startRotating();      // graphics movements are allowed
 					rubikCubeController.loadCubeColors();            // restore cube state to the one that should be solved
 
 					rubikCubeController.setRotatingStep(-1);         // put history pointer back, next one is first one (index 0)
@@ -146,24 +148,24 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				rubikCubeController.setRotatingSpeed(1.0);
 				break;
 
-			case 'Q': cube.getTransformEngine()->cTransformN(0); break;
-			case 'W': cube.getTransformEngine()->cTransformN(1); break;
-			case 'E': cube.getTransformEngine()->cTransformN(2); break;
-			case 'R': cube.getTransformEngine()->cTransformN(3); break;
-			case 'T': cube.getTransformEngine()->cTransformN(4); break;
-			case 'Z': cube.getTransformEngine()->cTransformN(5); break;
-			case 'U': cube.getTransformEngine()->cTransformN(6); break;
-			case 'I': cube.getTransformEngine()->cTransformN(7); break;
-			case 'O': cube.getTransformEngine()->cTransformN(8); break;
-			case 'P': cube.getTransformEngine()->cTransformN(9); break;
-			case 'A': cube.getTransformEngine()->cTransformN(10); break;
-			case 'S': cube.getTransformEngine()->cTransformN(11); break;
-			case 'D': cube.getTransformEngine()->cTransformN(12); break;
-			case 'F': cube.getTransformEngine()->cTransformN(13); break;
-			case 'G': cube.getTransformEngine()->cTransformN(14); break;
-			case 'H': cube.getTransformEngine()->cTransformN(15); break;
-			case 'J': cube.getTransformEngine()->cTransformN(16); break;
-			case 'K': cube.getTransformEngine()->cTransformN(17); break;
+			case 'Q': rubikCubeController.getCube()->getTransformEngine()->cTransformN(0); break;
+			case 'W': rubikCubeController.getCube()->getTransformEngine()->cTransformN(1); break;
+			case 'E': rubikCubeController.getCube()->getTransformEngine()->cTransformN(2); break;
+			case 'R': rubikCubeController.getCube()->getTransformEngine()->cTransformN(3); break;
+			case 'T': rubikCubeController.getCube()->getTransformEngine()->cTransformN(4); break;
+			case 'Z': rubikCubeController.getCube()->getTransformEngine()->cTransformN(5); break;
+			case 'U': rubikCubeController.getCube()->getTransformEngine()->cTransformN(6); break;
+			case 'I': rubikCubeController.getCube()->getTransformEngine()->cTransformN(7); break;
+			case 'O': rubikCubeController.getCube()->getTransformEngine()->cTransformN(8); break;
+			case 'P': rubikCubeController.getCube()->getTransformEngine()->cTransformN(9); break;
+			case 'A': rubikCubeController.getCube()->getTransformEngine()->cTransformN(10); break;
+			case 'S': rubikCubeController.getCube()->getTransformEngine()->cTransformN(11); break;
+			case 'D': rubikCubeController.getCube()->getTransformEngine()->cTransformN(12); break;
+			case 'F': rubikCubeController.getCube()->getTransformEngine()->cTransformN(13); break;
+			case 'G': rubikCubeController.getCube()->getTransformEngine()->cTransformN(14); break;
+			case 'H': rubikCubeController.getCube()->getTransformEngine()->cTransformN(15); break;
+			case 'J': rubikCubeController.getCube()->getTransformEngine()->cTransformN(16); break;
+			case 'K': rubikCubeController.getCube()->getTransformEngine()->cTransformN(17); break;
 
 			case VK_ESCAPE:
 				PostQuitMessage(0);
@@ -216,6 +218,11 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 	}
 
 	return 0;
+}
+
+CubeModel* RubikCubeController::getCube()
+{
+	return &cube;
 }
 
 RubikCubeController::RubikCubeController(void)
