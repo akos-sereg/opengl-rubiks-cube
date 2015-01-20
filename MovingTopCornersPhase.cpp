@@ -50,7 +50,7 @@ void MovingTopCornersPhase::executeAll()
 	for(i=0; i!=ruleEngine->rulesLen(); i++)
 	{
 		if(rules[i].group == PATTERN_PHASE2) 
-			if(!ruleEngine->checkPattern(i)) setWarning("Error: phase 2 was not successful. Rule set should be extended to cover this situation.");
+			if(!ruleEngine->checkPattern(i)) getRubikCubeController()->setWarning("Error: phase 2 was not successful. Rule set should be extended to cover this situation.");
 	}
 }
 
@@ -65,10 +65,10 @@ int MovingTopCornersPhase::executeBottom()
 			{
 				char buff[256];
 				sprintf(buff, "%d true", i);
-				setWarning(buff);
+				getRubikCubeController()->setWarning(buff);
 				ruleEngine->applySolution(i,0);
 				return 1; 
-			} else setWarning("");
+			} else getRubikCubeController()->setWarning("");
 		}
 	}
 	return 0; 

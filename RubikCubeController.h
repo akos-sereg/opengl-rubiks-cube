@@ -3,8 +3,6 @@
 #ifndef _RUBIKCUBE_H_INCLUDED_
 #define _RUBIKCUBE_H_INCLUDED_
 
-void setWarning(char* text);
-
 using namespace std;
 
 #include <list>
@@ -62,18 +60,19 @@ class RubikCubeController
 		void render( void );
 		void setRotatingStep(int step);
 		void setRotatingSpeed(int rotatingSpeed);
+		void setWarning(char* text);
 
 	private:
-		CubeModel oldCube;
-		GeometryProvider* geometryProvider;
+		CubeModel oldCube;                            // Temporary cube we can work on
+		GeometryProvider* geometryProvider;           // Provides rendering functions
 		int rotating;
 		int rotatingStep;
 		int rotatingSpeed;
 		int rotatingSpeedCurrent;
 		vector3f g_vEye;
-		vector3f g_vLook; // Look Vector
-		vector3f g_vUp;      // Up Vector
-		vector3f g_vRight;   // Right Vector
+		vector3f g_vLook;                             // Look Vector
+		vector3f g_vUp;                               // Up Vector
+		vector3f g_vRight;                            // Right Vector
 		vector3f g_vGravity;
 		vector3f g_vView;
 		POINT  g_ptLastMousePosit;
@@ -84,6 +83,7 @@ class RubikCubeController
 		float g_fMoveSpeed_Travel;
 		float g_fMoveSpeed_Travel_small;
 		int stillRotate;
+		char warning[256];                            // Warning message to be displayed on screen (bottom right, above commands)
 };
 
 RubikCubeController* getRubikCubeController();

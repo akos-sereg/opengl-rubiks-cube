@@ -12,13 +12,6 @@ RubikCubeController* getRubikCubeController()
 	return &rubikCubeController;
 }
 
-char warning[256];
-
-void setWarning(char* text)
-{
-	sprintf(warning, text);
-}
-
 struct HelpCommands
 {
 	char *line;
@@ -162,7 +155,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 
 					rubikCubeController.setRotatingStep(-1);         // put history pointer back, next one is first one (index 0)
 
-				} else sprintf(warning, "Error: unable to solve cube");
+				} else rubikCubeController.setWarning("Error: unable to solve cube");
 				break;
 			case '9':
 				rubikCubeController.setRotatingSpeed(10.0);
@@ -272,6 +265,11 @@ RubikCubeController::RubikCubeController(void)
 	g_fMoveSpeed_turn = 1.0f;
 	g_fMoveSpeed_Travel = 2;
 	g_fMoveSpeed_Travel_small = 1.5;
+}
+
+void RubikCubeController::setWarning(char* text)
+{
+	sprintf(warning, text);
 }
 
 void RubikCubeController::setRotatingStep(int step)

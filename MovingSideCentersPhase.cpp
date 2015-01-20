@@ -33,7 +33,7 @@ void MovingSideCentersPhase::executeAll()
 
 		if(ruleEngine->findPattern(PATTERN_PHASE3) == -1)
 		{
-			setWarning("Phase 3 (prerequisite) failed");
+			getRubikCubeController()->setWarning("Phase 3 (prerequisite) failed");
 			return;
 		}
 		
@@ -61,6 +61,6 @@ void MovingSideCentersPhase::executeAll()
 		}
 		
 		if(ruleEngine->findPattern(PATTERN_PHASE4) == -1)
-			setWarning("Phase 4 failed");
+			getRubikCubeController()->setWarning("Phase 4 failed");
 	}
 }

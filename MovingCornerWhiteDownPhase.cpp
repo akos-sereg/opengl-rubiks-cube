@@ -29,7 +29,7 @@ void MovingCornerWhiteDownPhase::executeAll()
 	int find2;
 	if(ruleEngine->findPattern(PATTERN_PHASE2) == -1) 
 	{
-		setWarning("Second phase (prerequisite) is not complete. Please extend rule base to cover this situation.");
+		getRubikCubeController()->setWarning("Second phase (prerequisite) is not complete. Please extend rule base to cover this situation.");
 		return;
 	}
 	
