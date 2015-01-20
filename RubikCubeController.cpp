@@ -12,11 +12,6 @@ RubikCubeController* getRubikCubeController()
 	return &rubikCubeController;
 }
 
-int step=0;
-
-float speed = 0.0f;
-int changed=0;
-
 HWND  g_hWnd = NULL;
 HDC   g_hDC  = NULL;
 HGLRC g_hRC  = NULL;
@@ -115,7 +110,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				cube.getTransformEngine()->stopRotating();          // to register cTransform
 
 				rubikCubeController.saveCubeColors();
-				step = 0;                                           // collecting graphical movements from 0 index
+				rubikCubeController.setStepCount(0);                // collecting graphical movements from 0 index
 				cube.getTransformEngine()->cTransformN(rand()%16);  // random transformation saved to history
 				rubikCubeController.loadCubeColors();  
 
@@ -125,7 +120,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 
 			case '2': 
 				rubikCubeController.saveCubeColors();                // save current cube. solutionStrategy will do transformations on it
-				step = 0;                                            // start step count from zero
+				rubikCubeController.setStepCount(0);                 // start step count from zero
 				rubikCubeController.setRotatingStep(0);
 				cube.getTransformEngine()->stopRotating();           // no graphical movements allowed
 				
@@ -175,7 +170,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				break;
 
 			case VK_SPACE:
-				speed = 0;
+				rubikCubeController.setTravelSpeed(0);
 				break;
 
 			case VK_F1:
@@ -231,6 +226,9 @@ RubikCubeController::RubikCubeController(void)
 	rotatingSpeed = 3.0;
 	rotatingSpeedCurrent = 3.0;
 	stillRotate = 0;
+	changed = 0;
+	speed = 0.0f;
+	step = 0;
 
 	g_vEye.x = 10.0; g_vEye.y = 5.0; g_vEye.z = 10.0;
 	g_vLook.x = -0.66; g_vLook.y = -0.28; g_vLook.z = -0.69;
@@ -248,6 +246,11 @@ RubikCubeController::RubikCubeController(void)
 	g_fMoveSpeed_Travel_small = 1.5;
 }
 
+void RubikCubeController::setTravelSpeed(float travelSpeed)
+{
+	speed = travelSpeed;
+}
+
 void RubikCubeController::setWarning(char* text)
 {
 	sprintf(warning, text);
@@ -256,6 +259,11 @@ void RubikCubeController::setWarning(char* text)
 void RubikCubeController::setRotatingStep(int step)
 {
 	rotatingStep = step;
+}
+
+void RubikCubeController::setStepCount(int stepCount)
+{
+	step = stepCount;
 }
 
 void RubikCubeController::setRotatingSpeed(int speed) 

@@ -71,6 +71,8 @@ class RubikCubeController
 		void setRotatingStep(int step);               // Set queue pointer - animation will be started by pulling the next item from queue
 		void setRotatingSpeed(int rotatingSpeed);     // Increase or decrease rotating speed
 		void setWarning(char* text);                  // Set warning message to be displayed on the top-left of the screen
+		void setTravelSpeed(float speed);             // Set traveling speed
+		void setStepCount(int step);                       // Set the number of valid commands in rotation command queue
 
 	private:
 		CubeModel oldCube;                            // Temporary cube we can work on
@@ -95,6 +97,9 @@ class RubikCubeController
 		int stillRotate;
 		char warning[256];                            // Warning message to be displayed on screen (bottom right, above commands)
 		history history[500];                         // Rotate command queue
+		int changed;
+		float speed;                                  // Traveling speed
+		int step;                                     // Number of valid items in rotation command queue
 };
 
 RubikCubeController* getRubikCubeController();
