@@ -16,10 +16,10 @@
 #define PATTERN_PHASE4			9
 #define BOTTOM1					10
 #define PATTERN_PHASE5			11
-#define CORNERS1					12
-#define CORNERS2					13
-#define CORNERS3					14
-#define CORNERS4					15
+#define CORNERS1				12
+#define CORNERS2				13
+#define CORNERS3				14
+#define CORNERS4				15
 #define FINISH					16
 #define SOLVEDCUBE				17
 #define FINISH_RESC				18
@@ -33,7 +33,6 @@ class RuleEngine
 	public:
 		RuleEngine(CubeModel* cubeModel);
 		void applySolution(int n, int rotnum);
-		int sideval(int num);
 		int checkPattern(int n);
 		int rulesLen();
 		int findPattern(int code);

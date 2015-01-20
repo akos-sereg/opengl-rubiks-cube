@@ -17,18 +17,18 @@ int RuleEngine::checkPattern(int n)
 	int i=0;
 	double pseudoColor[10][4];
 	int pseudoC=0;
-	int checkOldal;
+	int checkSide;
 
 
 	while(rules[n].patt[i].side != -1)
 	{
 		if(rules[n].patt[i].side == -1) return 1;
-		if(rules[n].patt[i].side == OLDAL) checkOldal = 0;
-		else checkOldal = rules[n].patt[i].side;
+		if(rules[n].patt[i].side == OLDAL) checkSide = 0;
+		else checkSide = rules[n].patt[i].side;
 
-		if((cube->GetCellColor(checkOldal, rules[n].patt[i].place).Red == rules[n].patt[i].r) &&
-			(cube->GetCellColor(checkOldal, rules[n].patt[i].place).Green == rules[n].patt[i].g) &&
-			(cube->GetCellColor(checkOldal, rules[n].patt[i].place).Blue == rules[n].patt[i].b))
+		if((cube->GetCellColor(checkSide, rules[n].patt[i].place).Red == rules[n].patt[i].r) &&
+			(cube->GetCellColor(checkSide, rules[n].patt[i].place).Green == rules[n].patt[i].g) &&
+			(cube->GetCellColor(checkSide, rules[n].patt[i].place).Blue == rules[n].patt[i].b))
 		{
 			
 		} else 
@@ -57,23 +57,23 @@ int RuleEngine::checkPattern(int n)
 					int k;
 					for(k=0; k!=pseudoC; k++)
 					{
-						if((pseudoColor[k][0] == cube->GetCellColor(checkOldal, rules[n].patt[i].place).Red) &&
-							(pseudoColor[k][1] == cube->GetCellColor(checkOldal, rules[n].patt[i].place).Green) &&
-							(pseudoColor[k][2] == cube->GetCellColor(checkOldal, rules[n].patt[i].place).Blue))
+						if((pseudoColor[k][0] == cube->GetCellColor(checkSide, rules[n].patt[i].place).Red) &&
+							(pseudoColor[k][1] == cube->GetCellColor(checkSide, rules[n].patt[i].place).Green) &&
+							(pseudoColor[k][2] == cube->GetCellColor(checkSide, rules[n].patt[i].place).Blue))
 						{ return 0; }
 
 
 					}
-					pseudoColor[pseudoC][0] = cube->GetCellColor(checkOldal, rules[n].patt[i].place).Red;
-					pseudoColor[pseudoC][1] = cube->GetCellColor(checkOldal, rules[n].patt[i].place).Green;
-					pseudoColor[pseudoC][2] = cube->GetCellColor(checkOldal, rules[n].patt[i].place).Blue;
+					pseudoColor[pseudoC][0] = cube->GetCellColor(checkSide, rules[n].patt[i].place).Red;
+					pseudoColor[pseudoC][1] = cube->GetCellColor(checkSide, rules[n].patt[i].place).Green;
+					pseudoColor[pseudoC][2] = cube->GetCellColor(checkSide, rules[n].patt[i].place).Blue;
 					pseudoColor[pseudoC][3] = rules[n].patt[i].r;
 					pseudoC++;
 				} else
 				{
-					if((cube->GetCellColor(checkOldal, rules[n].patt[i].place).Red == pseudoColor[index][0]) &&
-						(cube->GetCellColor(checkOldal, rules[n].patt[i].place).Green == pseudoColor[index][1]) &&
-						(cube->GetCellColor(checkOldal, rules[n].patt[i].place).Blue == pseudoColor[index][2]))
+					if((cube->GetCellColor(checkSide, rules[n].patt[i].place).Red == pseudoColor[index][0]) &&
+						(cube->GetCellColor(checkSide, rules[n].patt[i].place).Green == pseudoColor[index][1]) &&
+						(cube->GetCellColor(checkSide, rules[n].patt[i].place).Blue == pseudoColor[index][2]))
 					{
 					
 					} else return 0;
@@ -117,9 +117,3 @@ int RuleEngine::findPattern(int code)
 	}
 	return -1;
 }
-
-int RuleEngine::sideval(int num)
-{
-	return num;
-}
-

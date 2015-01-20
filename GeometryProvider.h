@@ -31,7 +31,7 @@ class GeometryProvider
 		void renderCubeColor( GLdouble dSize, double color);
 		void renderTextFull(float x, float y, char *str);
 		void renderSide(struct mycolor *colors);
-		void renderLap();
+		void renderSideCells();
 		void renderGrid(float y, float range);
 
 	private:

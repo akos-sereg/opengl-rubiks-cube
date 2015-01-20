@@ -40,7 +40,6 @@ struct history
 	char step[16];
 } history[500];
 
-int closeToPlanet;
 float speed = 0.0f;
 int changed=0;
 
@@ -556,10 +555,10 @@ void RubikCubeController::render( void )
 		if((rotating < 4 || rotating>5) && rotating!=8) glRotatef(CubeTransformData::showLap[rotating].deg, 0.0, 1.0, 0.0);
 		else glRotatef(CubeTransformData::showLap[rotating].deg, 1.0, 0.0, 0.0);
 		glTranslatef(CubeTransformData::showLap[rotating].x1, CubeTransformData::showLap[rotating].y1, CubeTransformData::showLap[rotating].z1);
-		geometryProvider->renderLap();
+		geometryProvider->renderSideCells();
 		glTranslatef(-CubeTransformData::showLap[rotating].x1, -CubeTransformData::showLap[rotating].y1, -CubeTransformData::showLap[rotating].z1);
 		glTranslatef(CubeTransformData::showLap[rotating].x2, CubeTransformData::showLap[rotating].y2, CubeTransformData::showLap[rotating].z2);
-		geometryProvider->renderLap();
+		geometryProvider->renderSideCells();
 		glTranslatef(-CubeTransformData::showLap[rotating].x2, -CubeTransformData::showLap[rotating].y2, -CubeTransformData::showLap[rotating].z2);
 		if((rotating < 4 || rotating > 5) && rotating != 8) glRotatef(-CubeTransformData::showLap[rotating].deg, 0.0, 1.0, 0.0);
 		else glRotatef(-CubeTransformData::showLap[rotating].deg, 1.0, 0.0, 0.0);
@@ -568,7 +567,7 @@ void RubikCubeController::render( void )
 		glTranslatef(0.52, 0.55, 0.52);
 		for(i=0; i!=3; i++)
 		{
-			geometryProvider->renderLap();
+			geometryProvider->renderSideCells();
 			glTranslatef(0.0, 0.0, 0.98);
 		}
 		glTranslatef(0.0, 0.0, -(3*0.98));
@@ -713,9 +712,8 @@ void RubikCubeController::refreshCube()
 
 void RubikCubeController::saveCubeColors()
 {
-	int a,b;
-	for(a=1; a!=7; a++) {
-		for(b=1; b!=10; b++) {
+	for(int a=1; a!=7; a++) {
+		for(int b=1; b!=10; b++) {
 			oldCube.SetCellColor(a, b, cube.GetCellColor(a, b));
 		}
 	}
@@ -725,17 +723,13 @@ void RubikCubeController::saveCubeColors()
 
 void RubikCubeController::loadCubeColors()
 {
-	int a,b;
-	for(a=1; a!=7; a++) 
+	for(int a=1; a!=7; a++) 
 	{
-		for(b=1; b!=10; b++) {
+		for(int b=1; b!=10; b++) {
 			cube.SetCellColor(a, b, oldCube.GetCellColor(a, b));
 		}
 	}
 	
-
-	int c = 2;
-
 	return;
 }
 
@@ -759,8 +753,8 @@ void RubikCubeController::rotateColorSide(int num)
 		CubeTransformData::sideRotate[n].colors[i].green = color.Green;
 		CubeTransformData::sideRotate[n].colors[i].blue = color.Blue;
 	}
-	if((num%2) != 0) CubeTransformData::sideRotate[n].deg=-90;
-	else CubeTransformData::sideRotate[n].deg=90;
+	if((num%2) != 0) CubeTransformData::sideRotate[n].deg = -90;
+	else CubeTransformData::sideRotate[n].deg = 90;
 
 	if(num==8 || num==9 || num==14 || num==15) CubeTransformData::sideRotate[n].deg = -1 * CubeTransformData::sideRotate[n].deg;
 }
