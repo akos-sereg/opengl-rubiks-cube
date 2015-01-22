@@ -16,10 +16,6 @@ SolutionStrategy* getSolutionStrategy()
 	return solutionStrategy;
 }
 
-HWND  g_hWnd = NULL;
-HDC   g_hDC  = NULL;
-HGLRC g_hRC  = NULL;
-
 float  g_fElpasedTime;
 double g_dCurrentTime;
 double g_dLastTime;
@@ -31,6 +27,10 @@ double g_fSpeedmodifier = 0.0001f;
 // Desc: The application's entry point
 //-----------------------------------------------------------------------------
 #ifdef MODE_OPENGL
+
+HWND  g_hWnd = NULL;
+HDC   g_hDC  = NULL;
+HGLRC g_hRC  = NULL;
 
 int WINAPI WinMain( HINSTANCE hInstance,
 				   HINSTANCE hPrevInstance,
@@ -257,8 +257,8 @@ RubikCubeController::RubikCubeController(void)
 	g_vGravity.x = 0.0f; g_vGravity.z = 0.0f; g_vGravity.z = 0.0f;
 	g_vView.x = -0.66; g_vView.y = -0.28; g_vView.z = -0.69;
 
-	g_ptLastMousePosit;
-	g_ptCurrentMousePosit;
+	/*g_ptLastMousePosit;
+	g_ptCurrentMousePosit;*/
 	g_bMousing = false;
 	g_fMoveSpeed = 0.6f;
 	g_fMoveSpeed_turn = 1.0f;

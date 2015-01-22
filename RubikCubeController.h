@@ -12,12 +12,13 @@ using namespace std;
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <windows.h>
-#include <mmsystem.h>
 #include <algorithm>
-#include <timeapi.h>
 
 #ifdef MODE_OPENGL
+
+#include <windows.h>
+#include <mmsystem.h>
+#include <timeapi.h>
 
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -91,6 +92,8 @@ class RubikCubeController
 		CubeModel oldCube;                            // Temporary cube we can work on
 #ifdef MODE_OPENGL
 		GeometryProvider* geometryProvider;           // Provides rendering functions
+		POINT  g_ptLastMousePosit;
+		POINT  g_ptCurrentMousePosit;
 #endif
 		int rotating;
 		int rotatingStep;
@@ -102,8 +105,6 @@ class RubikCubeController
 		vector3f g_vRight;                            // Right Vector
 		vector3f g_vGravity;
 		vector3f g_vView;
-		POINT  g_ptLastMousePosit;
-		POINT  g_ptCurrentMousePosit;
 		bool   g_bMousing;
 		float  g_fMoveSpeed;
 		float g_fMoveSpeed_turn;
@@ -120,7 +121,11 @@ class RubikCubeController
 RubikCubeController* getRubikCubeController();
 SolutionStrategy* getSolutionStrategy();
 
+#ifdef MODE_OPENGL
+
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+#endif
 
 #endif
