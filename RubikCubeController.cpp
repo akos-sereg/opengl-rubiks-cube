@@ -11,6 +11,11 @@ RubikCubeController* getRubikCubeController()
 	return &rubikCubeController;
 }
 
+SolutionStrategy* getSolutionStrategy() 
+{
+	return solutionStrategy;
+}
+
 HWND  g_hWnd = NULL;
 HDC   g_hDC  = NULL;
 HGLRC g_hRC  = NULL;
@@ -25,6 +30,8 @@ double g_fSpeedmodifier = 0.0001f;
 // Name: WinMain()
 // Desc: The application's entry point
 //-----------------------------------------------------------------------------
+#ifdef MODE_OPENGL
+
 int WINAPI WinMain( HINSTANCE hInstance,
 				   HINSTANCE hPrevInstance,
 				   LPSTR     lpCmdLine,
@@ -89,6 +96,8 @@ int WINAPI WinMain( HINSTANCE hInstance,
 
 	return uMsg.wParam;
 }
+
+#endif
 
 //-----------------------------------------------------------------------------
 // Name: WindowProc()
@@ -266,6 +275,11 @@ void RubikCubeController::setWarning(char* text)
 void RubikCubeController::setRotatingStep(int step)
 {
 	rotatingStep = step;
+}
+
+int RubikCubeController::getStepCount()
+{
+	return step;
 }
 
 void RubikCubeController::setStepCount(int stepCount)

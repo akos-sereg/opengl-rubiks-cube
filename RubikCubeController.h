@@ -5,6 +5,9 @@
 
 using namespace std;
 
+#define MODE_OPENGL
+//#define MODE_COMMAND_LINE
+
 #include <list>
 #include <stdlib.h>
 #include <string.h>
@@ -73,7 +76,8 @@ class RubikCubeController
 		void setRotatingSpeed(int rotatingSpeed);     // Increase or decrease rotating speed
 		void setWarning(char* text);                  // Set warning message to be displayed on the top-left of the screen
 		void setTravelSpeed(float speed);             // Set traveling speed
-		void setStepCount(int step);                       // Set the number of valid commands in rotation command queue
+		void setStepCount(int step);                  // Set the number of valid commands in rotation command queue
+		int getStepCount();
 
 	private:
 		CubeModel cube;                               // Active cube we are working on
@@ -105,6 +109,7 @@ class RubikCubeController
 };
 
 RubikCubeController* getRubikCubeController();
+SolutionStrategy* getSolutionStrategy();
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);

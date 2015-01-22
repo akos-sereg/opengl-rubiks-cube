@@ -123,6 +123,7 @@
     <ClCompile Include="RubikCubeController.cpp" />
     <ClCompile Include="RuleEngine.cpp" />
     <ClCompile Include="SolutionStrategy.cpp" />
+    <ClCompile Include="TestRunner.cpp" />
     <ClCompile Include="vector3f.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="SolutionStrategy.h">
       <FileType>CppClass</FileType>
     </ClInclude>
+    <ClInclude Include="TestRunner.h" />
     <ClInclude Include="vector3f.h">
       <FileType>CppClass</FileType>
     </ClInclude>
