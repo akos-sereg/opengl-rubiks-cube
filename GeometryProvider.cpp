@@ -1,5 +1,7 @@
 #include "RubikCubeController.h"
 
+#ifdef MODE_OPENGL
+
 //-----------------------------------------------------------------------------
 // Name: beginRenderText()
 // Desc: Utility function for using the bitmap-based character fonts defined 
@@ -296,3 +298,5 @@ void GeometryProvider::renderGrid(float y, float range)
 }
 
 
+
+#endif

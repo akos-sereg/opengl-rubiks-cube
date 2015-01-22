@@ -99,6 +99,7 @@ int WINAPI WinMain( HINSTANCE hInstance,
 
 #endif
 
+#ifdef MODE_OPENGL
 //-----------------------------------------------------------------------------
 // Name: WindowProc()
 // Desc: The window's message handler
@@ -195,7 +196,6 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			}
 		}
 		break;
-
 	case WM_SIZE:
 		{
 			int nWidth  = LOWORD(lParam); 
@@ -208,7 +208,6 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 
 		}
 		break;
-
 	case WM_CLOSE:
 		{
 			PostQuitMessage(0); 
@@ -230,6 +229,8 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 	return 0;
 }
 
+#endif
+
 CubeModel* RubikCubeController::getCube()
 {
 	return &cube;
@@ -237,7 +238,9 @@ CubeModel* RubikCubeController::getCube()
 
 RubikCubeController::RubikCubeController(void)
 {
+#ifdef MODE_OPENGL
 	geometryProvider = new GeometryProvider();
+#endif
 	rotating = -1;
 	rotatingStep = -1;
 	rotatingSpeed = 3.0;
@@ -297,8 +300,10 @@ void RubikCubeController::setRotatingSpeed(int speed)
 // Name: init()
 // Desc: 
 //-----------------------------------------------------------------------------
+
 void RubikCubeController::init( void )
 {
+#ifdef MODE_OPENGL
 	GLuint PixelFormat;
 
 	PIXELFORMATDESCRIPTOR pfd;
@@ -320,6 +325,7 @@ void RubikCubeController::init( void )
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
 	gluPerspective( 45.0f, 800.0f / 600.0f, 3.0f, 100.0f);
+#endif
 
 }
 
@@ -377,7 +383,9 @@ void RubikCubeController::updateViewMatrix( void )
 	view.m[14] =  vector3f::dotProduct(g_vView, g_vEye);
 	view.m[15] =  1.0f;
 
+#ifdef MODE_OPENGL
 	glMultMatrixf( view.m );
+#endif
 }
 
 
@@ -387,6 +395,7 @@ void RubikCubeController::updateViewMatrix( void )
 //-----------------------------------------------------------------------------
 void RubikCubeController::getRealTimeUserInput( void )
 {
+#ifdef MODE_OPENGL
 	// Mouse input
 	POINT mousePosit;
 	GetCursorPos( &mousePosit );
@@ -507,6 +516,7 @@ void RubikCubeController::getRealTimeUserInput( void )
 	// End Key - View elevates down
 	if( keys[VK_END] & 0x80 )
 		g_vEye.y -= g_fMoveSpeed*g_fElpasedTime;
+#endif
 }
 
 
@@ -517,6 +527,7 @@ void RubikCubeController::getRealTimeUserInput( void )
 //-----------------------------------------------------------------------------
 void RubikCubeController::shutDown( void )   
 {
+#ifdef MODE_OPENGL
 	if( g_hRC != NULL )
 	{
 		wglMakeCurrent( NULL, NULL );
@@ -529,10 +540,12 @@ void RubikCubeController::shutDown( void )
 		ReleaseDC( g_hWnd, g_hDC );
 		g_hDC = NULL;
 	}
+#endif
 }
 
 void RubikCubeController::render( void )
 {
+#ifdef MODE_OPENGL
 	Vertex g_lineVertices[] =
 	{
 		{ 255,   0,   0, 255,  0.0f, 0.1f, 0.0f }, // red   = +x Axis (x)
@@ -666,6 +679,7 @@ void RubikCubeController::render( void )
 	}
 
 	SwapBuffers( g_hDC );
+#endif
 }
 
 void RubikCubeController::setColorGrid(int lap, int sorszam, double red, double green, double blue)
@@ -686,7 +700,7 @@ void RubikCubeController::setColorGrid(int lap, int sorszam, double red, double 
 	y = CubeTransformData::sideCoordinates[lap][sorszam].y;
 	z = CubeTransformData::sideCoordinates[lap][sorszam].z;
 
-
+#ifdef MODE_OPENGL
 	glPushMatrix();
 	{
 		glTranslatef(x, y, z);
@@ -696,6 +710,7 @@ void RubikCubeController::setColorGrid(int lap, int sorszam, double red, double 
 
 	}
 	glPopMatrix();
+#endif
 }
 
 void RubikCubeController::refreshCube()

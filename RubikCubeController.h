@@ -15,10 +15,16 @@ using namespace std;
 #include <windows.h>
 #include <mmsystem.h>
 #include <algorithm>
-#include <time.h>
+#include <timeapi.h>
+
+#ifdef MODE_OPENGL
+
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "glut.h"
+
+#endif
+
 #include "CubeTransformData.h"
 #include "ISolutionPhase.h"
 #include "MovingWhiteCellUpToCenterPhase.h"
@@ -83,7 +89,9 @@ class RubikCubeController
 	private:
 		CubeModel cube;                               // Active cube we are working on
 		CubeModel oldCube;                            // Temporary cube we can work on
+#ifdef MODE_OPENGL
 		GeometryProvider* geometryProvider;           // Provides rendering functions
+#endif
 		int rotating;
 		int rotatingStep;
 		int rotatingSpeed;
