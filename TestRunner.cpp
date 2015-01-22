@@ -1,5 +1,4 @@
 #include "RubikCubeController.h"
-#include <time.h>
 
 #ifdef MODE_COMMAND_LINE
 
@@ -10,7 +9,7 @@ int main()
 	getRubikCubeController()->render();
 
 	// Random rotate
-	srand (time(NULL));
+	srand (timeGetTime());
 	for (int i=0; i!=50; i++) {
 		getRubikCubeController()->getCube()
 			->getTransformEngine()->stopRotating();         // to register cTransform

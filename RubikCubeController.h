@@ -15,6 +15,7 @@ using namespace std;
 #include <windows.h>
 #include <mmsystem.h>
 #include <algorithm>
+#include <time.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "glut.h"

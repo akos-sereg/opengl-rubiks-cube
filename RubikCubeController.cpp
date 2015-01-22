@@ -115,6 +115,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			switch(wParam)
 			{
 			case 'M':
+				srand (timeGetTime());
 				rubikCubeController.getCube()
 					->getTransformEngine()->stopRotating();         // to register cTransform
 
