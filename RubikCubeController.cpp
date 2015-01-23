@@ -769,7 +769,6 @@ void RubikCubeController::loadCubeColors()
 	return;
 }
 
-
 void RubikCubeController::cAddQueue(char *cmd)
 {
 	sprintf(history[step].step, "%s", cmd);

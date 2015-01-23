@@ -7,7 +7,7 @@ RuleEngine::RuleEngine(CubeModel* cubeModel)
 
 int RuleEngine::rulesLen()
 {
-	int i;
+	int i = 0;
 	while(rules[i].group != ENDRULE) i++;
 	return i;
 }
@@ -17,7 +17,7 @@ int RuleEngine::checkPattern(int n)
 	int i=0;
 	double pseudoColor[10][4];
 	int pseudoC=0;
-	int checkSide;
+	int checkSide = 0;
 
 
 	while(rules[n].patt[i].side != -1)
@@ -79,7 +79,10 @@ int RuleEngine::checkPattern(int n)
 					} else return 0;
 
 				}
-			} else return 0; 
+			} else 
+			{
+				return 0; 
+			}
 		}
 		
 		i++;
