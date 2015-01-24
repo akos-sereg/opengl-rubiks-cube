@@ -3,6 +3,8 @@
 #ifndef _CUBETRANSFORM_H_INCLUDED_
 #define _CUBETRANSFORM_H_INCLUDED_
 
+#include <string>
+
 // forward declaration
 class CubeModel; 
 

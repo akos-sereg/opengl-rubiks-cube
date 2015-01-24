@@ -11,8 +11,11 @@ using namespace std;
 #include <list>
 #include <stdlib.h>
 #include <string.h>
+#include <string>
 #include <stdio.h>
 #include <algorithm>
+#include <fstream>
+#include <ostream>
 
 #ifdef MODE_OPENGL
 
@@ -26,6 +29,7 @@ using namespace std;
 
 #endif
 
+#include "TestRunner.h"
 #include "CubeTransformData.h"
 #include "ISolutionPhase.h"
 #include "MovingWhiteCellUpToCenterPhase.h"

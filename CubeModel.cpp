@@ -39,3 +39,26 @@ void CubeModel::DefaultColors()
 CubeModel::~CubeModel(void)
 {
 }
+
+
+string CubeModel::ToString()
+{
+	string strCube;
+
+	int side;
+	int cell;
+
+	for (side = 1; side != 7; side++)
+	{
+		strCube.append("[Side ").append(to_string(side)).append("]").append("\r\n");
+
+		for (cell = 1; cell != 10; cell++)
+		{
+			strCube.append("[").append(cubeColors[side][cell].ToString()).append("]\r\n");
+		}
+
+		strCube.append("\r\n");
+	}
+
+	return strCube;
+}

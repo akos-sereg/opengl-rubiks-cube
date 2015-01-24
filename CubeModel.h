@@ -5,6 +5,8 @@
 
 #include "CubeTransform.h"
 
+using namespace std;
+
 class CubeModel
 {
 	public:
@@ -13,6 +15,12 @@ class CubeModel
 			double Red;
 			double Green;
 			double Blue;
+
+			string ToString() {
+				string cubeColorStr;
+				cubeColorStr.append("R=").append(to_string(Red)).append(" G=").append(to_string(Green)).append(" B=").append(to_string(Blue));
+				return cubeColorStr;
+			}
 		};
 
 		CubeModel(void);
@@ -20,6 +28,7 @@ class CubeModel
 		void SetCellColor(int side, int cellId, const CubeColor color);
 		CubeColor GetCellColor(int side, int cellId);
 		CubeTransform* getTransformEngine(void);
+		string ToString(void);
 		~CubeModel(void);
 
 	private: 
